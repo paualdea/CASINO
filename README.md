@@ -33,6 +33,14 @@ git clone https://github.com/paualdea/CASINO
 
 Descargar directamente:
 
+<img src="img/descarga.png" alt="descarga">
+
+Iremos a la última versión disponible.
+
+<img src="img/paquetes.png" alt="paquetes">
+
+Seleccionas el paquete que prefieras y lo descomprimes.
+
 ## Uso
 
 Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que funcione todo correctamente y puedas ver todos los caracteres.
