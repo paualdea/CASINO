@@ -1517,16 +1517,7 @@ public class CASINO {
         Thread.sleep(4500);
 
         // devolver el resultado de la jugada al metodo principal de apuestas del blackjack
-        switch (resultado) {
-            case 0:
-                return 0;
-            case 1:
-                return 1;
-            case 2:
-                return 2;
-        }
-
-        return 2;
+        return resultado;
     }
 
     /**
