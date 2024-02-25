@@ -1,4 +1,4 @@
-![[Pasted image 20240225155714.png]]
+
 
 <p align="center">
 Casino interactivo en Java para Windows Terminal
