@@ -1,4 +1,6 @@
-
+<p align="center">
+<img src="img/home_screen.png" alt="CASINO HOME">
+</p>
 
 <p align="center">
 Casino interactivo en Java para Windows Terminal
