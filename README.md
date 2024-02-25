@@ -45,3 +45,7 @@ Seleccionas el paquete que prefieras y lo descomprimes.
 
 Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que funcione todo correctamente y puedas ver todos los caracteres.
 
+## Funcionamiento
+
+El fichero `CASINO.java` crea una carpeta y un fichero para guardar los usuarios y puntos que vayamos usando durante la ejecución del juego. Una vez registrado y logueado, podrás acceder al menú de los juegos en dónde podras tantas veces cómo quieras hasta que te quedes sin puntos o decidas salir.
+
