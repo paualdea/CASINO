@@ -1,4 +1,3 @@
-// prueba git2
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +11,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * .:CASINO:. VERSION: 3.0.0
+ * .:CASINO:. VERSION: 3.0.1
  * _________________________________________________________________________________________________________________________________________
  *
  * Este proyecto incorpora un sistema de login para posteriormente acceder a un
