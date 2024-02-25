@@ -1,4 +1,4 @@
-// prueba git
+// prueba git2
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
