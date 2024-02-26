@@ -1716,7 +1716,7 @@ public class CASINO {
             }
             // establecemos la linea que a�adiremos al fichero (usuario, contrase�a, puntos y salto de linea)
             linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\r\n";
-            // a�adimos a la variable string resultadoUsuarios el contenido de la nueva linea
+            // anadimos a la variable string resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
         }
 
