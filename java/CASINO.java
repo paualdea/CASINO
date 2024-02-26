@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * .:CASINO:. VERSION: 3.1.0
+ * .:CASINO:. VERSION: 3.1.1
  * _________________________________________________________________________________________________________________________________________
  *
  * Este proyecto incorpora un sistema de login para posteriormente acceder a un
@@ -27,7 +27,7 @@ import java.util.Scanner;
  */
 public class CASINO {
 
-    // Aqui definimos varias variables y objetos que queremos ir usando en todos los metodos que vayamos usando.
+    // Aqui definimos varias variables y objetos estaticos
     // Escaner que vamos a ir usando a lo largo del programa
     static Scanner sc = new Scanner(System.in);
     // String para almacenar el titulo de CASINO que iremos mostrando
@@ -43,7 +43,7 @@ public class CASINO {
     static boolean ficheroNuevo = false;
 
     /**
-     * Metodo principal, aqui� esta el sistema usuarios, inicio de sesion,
+     * Metodo principal, aqui esta el sistema usuarios, inicio de sesion,
      * registro, etc. Una vez el usuario inicia sesion, se pasa al metodo
      * menujuegos()
      *
@@ -55,7 +55,7 @@ public class CASINO {
         // llamamos a la funcion que crea todo el sistema de ficheros y configura su uso en el programa
         sistemaArchivos();
 
-        // si el fichero se crea de nuevo ejecutamos de nuevo la funcion  de creaci�n del sistema de ficheros para solucionar errores
+        // si el fichero se crea de nuevo ejecutamos de nuevo la funcion  de creacion del sistema de ficheros para solucionar errores
         if (ficheroNuevo) {
             sistemaArchivos();
         }
@@ -74,19 +74,27 @@ public class CASINO {
                 puntos = puntosPendientes.get(0);
             }
 
-            // metodo para borrar la pantalla siempre que se ejecute en el cmd
-            borrarPantalla();
-            System.out.println(titulo);
+            // metodo para mostrar la caberecera prederminada del CASINO
+            pantallaDefault();
 
             System.out.println("\n\t\t\t\t     1. INICIAR SESION");
             System.out.println("\n\t\t\t\t     2. REGISTRARSE");
             System.out.println("\n\t\t\t\t     3. RESTABLECER CASINO");
             System.out.println("\n\t\t\t\t     4. SALIR");
             System.out.print("\n\n\tQUE QUIERE HACER: ");
-            opcion_r = sc.nextInt();
+
+            try {
+                opcion_r = sc.nextInt();
+            } catch (Exception e) {
+                pantallaDefault();
+                sc.next();
+                System.out.println("\n\t\t\t\t  INTRODUCE UNA OPCION DISPONIBLE");
+                Thread.sleep(1750);
+            }
 
             // switch para elegir entre inicio de sesion, registro o salir del programa
             switch (opcion_r) {
+                // INICIAR SESION
                 case 1:
                     // se repetira el inicio de sesion hasta tres veces por si te equivocas de usuario o contraseña
                     for (int i = 0; i < 3; i++) {
@@ -102,6 +110,7 @@ public class CASINO {
                         }
                     }
                     break;
+                // REGISTRARSE
                 case 2:
                     // se repetira el registro hasta tres veces por si te equivocas de usuario o password
                     for (int i = 0; i < 3; i++) {
@@ -120,13 +129,14 @@ public class CASINO {
                     // Delay para poder ver correctamente lo que sale por pantalla
                     Thread.sleep(2000);
                     break;
+                // RESTABLECER CASINO
                 case 3:
                     // creamos un objeto con la clase file que haga referencia al fichero de usuarios que vamos usando a lo largo de todo el programa
                     File usuarios = new File("./casino_files", "usuarios.txt");
                     String opcion;
 
-                    borrarPantalla();
-                    System.out.print(titulo + "\n\n\tESTAS SEGURO DE QUE QUIERES RESTABLECER EL CASINO?\n\tESTO BORRARA TODOS LOS USUARIOS Y PUNTOS\n\n\tBORRAR? (s/n): ");
+                    pantallaDefault();
+                    System.out.print("\n\tESTAS SEGURO DE QUE QUIERES RESTABLECER EL CASINO?\n\tESTO BORRARA TODOS LOS USUARIOS Y PUNTOS\n\n\tBORRAR? (s/n): ");
                     opcion = sc.next();
 
                     // si la entrada de la variable String opcion es s, S, y o Y, se restablece el casino
@@ -134,8 +144,8 @@ public class CASINO {
                         String punto = ".";
                         // bucle for para animar el movimiento de los tres puntos de progreso
                         for (int i = 0; i < 3; i++) {
-                            borrarPantalla();
-                            System.out.println(titulo + "\n\n\tRESTABLECIENDO CASINO" + punto);
+                            pantallaDefault();
+                            System.out.println("\n\n\tRESTABLECIENDO CASINO" + punto);
                             punto += ".";
                             Thread.sleep(1000);
                         }
@@ -145,11 +155,12 @@ public class CASINO {
                         writer.close();
 
                         System.out.println("");
-                        // se para la ejecuci�n del programa
+                        // se para la ejecucion del programa
                         System.exit(0);
                     }
 
                     break;
+                // SALIR
                 case 4:
                     /* 
                         Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuci�n del programa.
@@ -178,8 +189,7 @@ public class CASINO {
         switch (accion) {
             // si recibimos "iniciarSesion" del metodo main se hara lo siguiente
             case "iniciarSesion":
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 System.out.print("\n\n\t\t\t\t   USUARIO: ");
                 user = sc.next();
                 System.out.print("\n\t\t\t\t   CONTRASENA: ");
@@ -188,17 +198,18 @@ public class CASINO {
                 // Se recorre todo el array de usuarios para ver si algun registro coincide con el usuario y contraseña que hemos introducido
                 for (int i = 0; i < usuariosList.length; i++) {
                     if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
-                        System.out.println("\n\t\t\t\t   HAS INICIADO SESION COMO " + user);
+                        pantallaDefault();
+                        System.out.println("\n\t\t\t\tHAS INICIADO SESION COMO " + user);
 
                         // se vacia al arraylist para llevar lo puntos actualizados
                         puntos.clear();
                         /*
-                            Se le a�ade siempre en la primera posicion el valor de puntos usuarios en la iteraci�n en la
-                            que esta el usuario con el que iniciamos sesi�n.
+                            Se le anade siempre en la primera posicion el valor de puntos usuarios en la iteracion en la
+                            que esta el usuario con el que iniciamos sesion.
                          */
                         puntos.add(puntosUsuario.get(i));
 
-                        Thread.sleep(1000);
+                        Thread.sleep(1750);
                         return true;
                     }
                 }
@@ -211,8 +222,7 @@ public class CASINO {
                 boolean usuarioNuevo = false,
                  puntosEstablecidos = false;
 
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 // se piden usuario y password
                 System.out.print("\n\n\t\t\t\tNOMBRE USUARIO: ");
                 user = sc.next();
@@ -225,7 +235,8 @@ public class CASINO {
                 while (!usuarioNuevo) {
                     for (int i = 0; i < usuariosList.length; i++) {
                         if (usuariosList[i][0].equals(user)) {
-                            System.out.println("\n\t\t\t\tUSUARIO YA EXISTENTE");
+                            pantallaDefault();
+                            System.out.println("\n\n\t\t\t\t   USUARIO YA EXISTENTE");
                             Thread.sleep(1500);
                             return false;
                         } else {
@@ -242,8 +253,7 @@ public class CASINO {
                         sea inferior de 3000 
                      */
                     while (!puntosEstablecidos) {
-                        borrarPantalla();
-                        System.out.println(titulo);
+                        pantallaDefault();
                         System.out.print("\n\t\t\t   INGRESO DINERO (MAXIMO 3000): ");
                         ingreso = sc.nextInt();
 
@@ -253,8 +263,7 @@ public class CASINO {
                             puntosEstablecidos = true;
                             break;
                         } else {
-                            borrarPantalla();
-                            System.out.println(titulo);
+                            pantallaDefault();
                             System.out.println("\n\t\t\t     DINERO POR ENCIMA DE LO PERMITIDO");
                             Thread.sleep(2000);
                         }
@@ -303,16 +312,15 @@ public class CASINO {
         // Mientras que la opcion del meno de juegos no sea 5 (salir del programa), se repite infinitamente el codigo contenido dentro
         while (opcionMenu != 6) {
 
+            pantallaDefault();
+
             if (puntos == 0) {
-                borrarPantalla();
-                System.out.println(titulo);
+
                 System.out.println("\n\t\t\t\t   TE HAS QUEDADO SIN PUNTOS");
                 Thread.sleep(3000);
                 System.exit(0);
             }
 
-            borrarPantalla();
-            System.out.println(titulo);
             System.out.println("\n\t PUNTOS: " + puntos);
             System.out.println("\n\t\t\t\t           1. DADOS");
             System.out.println("\n\t\t\t\t           2. BINGO");
@@ -321,7 +329,15 @@ public class CASINO {
             System.out.println("\n\t\t\t\t           5. OTROS");
             System.out.println("\n\t\t\t\t           6. SALIR");
             System.out.print("\n\n\tQUE QUIERE HACER: ");
-            opcionMenu = sc.nextInt();
+
+            try {
+                opcionMenu = sc.nextInt();
+            } catch (Exception e) {
+                sc.next();
+                pantallaDefault();
+                System.out.println("\n\t\t\t\t  INTRODUCE UNA OPCION DISPONIBLE");
+                Thread.sleep(1750);
+            }
 
             // switch para desviar a los métodos de los juegos
             switch (opcionMenu) {
@@ -358,8 +374,7 @@ public class CASINO {
                     // hacemos un while infinito
                     while (true) {
                         // mostramos un menu que permite impirmir todo el contenido de la carpeta de ficheros que usa este programa
-                        borrarPantalla();
-                        System.out.println(titulo);
+                        pantallaDefault();
                         System.out.println("\n\t\t           1. VER FICHEROS CARPETA ./CASINO_FILES");
                         System.out.println("\n\t\t           2. ATRAS");
                         System.out.print("\n\n\tQUE QUIERE HACER: ");
@@ -370,30 +385,28 @@ public class CASINO {
                             String tipo = "";
                             // Creamos un array de File que contenga todos los ficheros que contenga el directorio ./casino_files
                             File[] arrayFicheros = carpeta.listFiles();
-                            
-                            borrarPantalla();
-                            System.out.println(titulo);
+
+                            pantallaDefault();
                             // bucle for que se repita tantas veces como ficheros haya en el directorio
                             for (int i = 0; i < arrayFicheros.length; i++) {
-                                System.out.println("\n\t\t           " + (i+1) + ". " + arrayFicheros[i]);
-                                
+                                System.out.println("\n\t\t           " + (i + 1) + ". " + arrayFicheros[i]);
+
                                 // determinamos el tipo de contenido que hay dentro del directorio
                                 if (arrayFicheros[i].isFile()) {
                                     tipo = "FICHERO";
                                 } else {
                                     tipo = "DIRECTORIO";
                                 }
-                                
+
                                 System.out.println("\n\t\t           ES UN " + tipo + " QUE PESA " + arrayFicheros[i].length() + " BYTES\n");
                             }
                             Thread.sleep(4250);
-                        // en caso que no sea "1" si es "2"...
+                            // en caso que no sea "1" si es "2"...
                         } else if (opcion1.equals("2")) {
                             break;
-                        // si no...
+                            // si no...
                         } else {
-                            borrarPantalla();
-                            System.out.println(titulo);
+                            pantallaDefault();
                             System.out.println("\n\t\t\t           INTRODUCE UN VALOR CORRECTO");
                             Thread.sleep(2000);
                         }
@@ -402,8 +415,7 @@ public class CASINO {
                 // SALIR
                 case 6:
                     actualizarFicheros(puntosPendientes);
-                    borrarPantalla();
-                    System.out.println(titulo);
+                    pantallaDefault();
                     System.out.println("\n\t\t\t\t   HASTA PRONTO, " + user + "\n");
                     Thread.sleep(3000);
                     System.exit(0);
@@ -422,8 +434,7 @@ public class CASINO {
      */
     public static void dados(ArrayList<Integer> puntos) throws IOException, InterruptedException {
         boolean ganar = false;
-        boolean dadoAcertado = false;
-        int n, apuesta = 0;
+        int n = 0, apuesta = 0;
 
         // array con los dibujos de todos los dados del 1 al 6
         String[] caraDado = {
@@ -438,7 +449,6 @@ public class CASINO {
         while (!ganar) {
             // mientras que el numero introducido no sea entre 2 y 12 se repite todo
             do {
-                dadoAcertado = false;
                 borrarPantalla();
 
                 // si te quedas sin puntos sale del while
@@ -446,18 +456,35 @@ public class CASINO {
                     ganar = true;
                 }
 
+                // ponemos el valor de n a cero por si volvemos a jugar que no nos de errores de lectura
+                n = 0;
+
                 System.out.println(titulo);
                 System.out.print(caraDado[4]);
                 System.out.println("\n\n\t\t\t\t\t   .:DADOS:.");
                 System.out.println("\n\tPuntos: " + puntos.get(0));
                 System.out.print("\n\tEscoge un numero (2 - 12) (14 para salir): ");
-                n = sc.nextInt();
-                Thread.sleep(500);
 
+                try {
+                    n = sc.nextInt();
+                } catch (Exception e) {
+                    sc.next();
+                    pantallaDefault();
+                    System.out.println("\n\tESCRIBE UN VALOR CORRECTO");
+                    Thread.sleep(1750);
+                }
                 if (n == 14) {
-                    System.out.println("\n\t_______________________________________________________");
-                    System.out.println("\n\t\t\t\tSALIENDO...\n");
-                    Thread.sleep(2500);
+                    pantallaDefault();
+
+                    // animacion de salida del juego
+                    String punto = ".";
+                    for (int i = 0; i < 3; i++) {
+                        pantallaDefault();
+                        System.out.println("\n\n\t\t\t\t\tSALIENDO" + punto);
+                        punto += ".";
+                        Thread.sleep(450);
+                    }
+
                     ganar = true;
                     break;
 
@@ -473,8 +500,7 @@ public class CASINO {
 
             // bucle while() para obligar al usuario a hacer una apuesta inferior o igual al saldo total disponible
             do {
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 System.out.println("\n\tPuntos: " + puntos.get(0));
                 System.out.print("\n\tApuesta: ");
                 apuesta = sc.nextInt();
@@ -483,7 +509,14 @@ public class CASINO {
 
             puntos.set(0, puntos.get(0) - apuesta);
             // se llama al metodo para obtener una puntuación en relación a la apuesta realizada
-            puntos.set(0, puntos.set(0, tirarDados(caraDado, n, apuesta)));
+            int puntosAdicionales = tirarDados(caraDado, n, apuesta);
+
+            // TEMPORAL
+            System.out.println(puntosAdicionales);
+            Thread.sleep(1200);
+
+            puntos.set(0, puntos.get(0) + puntosAdicionales);
+
             apuesta = 0;
 
             if (puntos.get(0) == 0) {
@@ -509,47 +542,26 @@ public class CASINO {
         int dado2 = rd.nextInt(6) + 1;
         int resultado = dado1 + dado2;
 
-        boolean dadoAcertado = false;
-
         System.out.println("\n\t     DADO 1\n" + caraDado[dado1 - 1] + "\n\n\t     DADO 2\n" + caraDado[dado2 - 1]);
         Thread.sleep(3500);
 
-        // switch para comprobar el resultado en puntos si acertamos la apuesta
+        // ifs para comprobar el resultado de la tirada y su respectiva recompensa
         if (resultado == n) {
-            dadoAcertado = true;
-            switch (n) {
-                case 2:
-                case 12:
-                    apuesta *= 2;
-                    break;
-
-                case 3:
-                case 11:
-                    apuesta *= 1.5;
-                    break;
-
-                case 4:
-                case 10:
-                    apuesta *= 1.4;
-                    break;
-
-                case 5:
-                case 9:
-                    apuesta *= 1.3;
-                    break;
-
-                case 6:
-                case 8:
-                    apuesta *= 1.2;
-                    break;
-
-                case 7:
-                    apuesta *= 1.1;
-                    break;
-                default:
-                    apuesta *= 0;
-                    break;
+            if (n == 2 || n == 12) {
+                apuesta *= 2.5;
+            } else if (n == 3 || n == 11) {
+                apuesta *= 2.3;
+            } else if (n == 4 || n == 10) {
+                apuesta *= 2.2;
+            } else if (n == 5 || n == 9) {
+                apuesta *= 2.1;
+            } else if (n == 6 || n == 8) {
+                apuesta *= 2.0;
+            } else {
+                apuesta *= 1.9;
             }
+        } else {
+            apuesta *= 0;
         }
 
         // devuelve el valor total de la apuesta tras la tirada al metodo principal de los dados
@@ -586,8 +598,7 @@ public class CASINO {
 
         // bucle while para repetir el juego hasta que perdamos o ganemos
         while (!salir) {
-            borrarPantalla();
-            System.out.println(titulo);
+            pantallaDefault();
             System.out.println("\n\t\t\t\t\t.:BINGO:.");
             System.out.println("\t\t\t\t\t_________");
 
@@ -603,14 +614,22 @@ public class CASINO {
 
             // bucle while para obligar al usuario a hacer una apuesta por debajo o igual de su saldo máximo disponible
             while (!puntos_c) {
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 System.out.println("\n\tPuntos: " + puntos.get(0));
                 System.out.println("\n\t\t\t\t\t.:APUESTA PUNTOS:.");
                 System.out.println("\t\t\t\t\t__________________");
 
                 System.out.print("\n\tCuantos puntos quieres apostar: ");
-                apuesta = sc.nextInt();
+                
+                try {
+                    apuesta = sc.nextInt();
+                } catch (Exception e) {
+                    sc.next();
+                    pantallaDefault();
+                    System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
+                    Thread.sleep(1250);
+                }
+                
 
                 if (apuesta <= puntos.get(0) && apuesta > 0) {
                     puntos.set(0, puntos.get(0) - apuesta);
@@ -763,8 +782,7 @@ public class CASINO {
         ArrayList<String> resultado = new ArrayList<>();
 
         while (true) {
-            borrarPantalla();
-            System.out.println(titulo);
+            pantallaDefault();
 
             // imprimir el carton del jugador usando bucles for para recorrer el array bidimensional
             System.out.println("\n\t\t\t\t    TU CARTON");
@@ -892,22 +910,22 @@ public class CASINO {
         if (ganar_cpu && ganar) {
             apuesta *= 0.8;
             puntos.set(0, puntos.get(0) + apuesta);
-            borrarPantalla();
-            System.out.println(titulo);
+
+            pantallaDefault();
             System.out.println("\n\n\t\t\t    EMPATE, AHORA TIENES " + puntos + " PUNTOS");
             Thread.sleep(2500);
             // si gana solo el jugador
         } else if (ganar && !ganar_cpu) {
             apuesta *= 2;
             puntos.set(0, puntos.get(0) + apuesta);
-            borrarPantalla();
-            System.out.println(titulo);
+
+            pantallaDefault();
             System.out.println("\n\n\t\t\t    HAS GANADO, AHORA TIENES " + puntos + " PUNTOS");
             Thread.sleep(2500);
             // en cualquier otro caso el jugador pierda
         } else {
-            borrarPantalla();
-            System.out.println(titulo);
+            pantallaDefault();
+
             System.out.println("\n\n\t\t\t    HAS PERDIDO, TE QUEDAN " + puntos + " PUNTOS");
             Thread.sleep(2500);
         }
@@ -937,16 +955,14 @@ public class CASINO {
             listaApuestas.clear();
 
             if (puntos.get(0) == 0) {
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 System.out.println("\n\n\tTe has quedado sin puntos, adios.\n");
                 Thread.sleep(2500);
                 ganar = true;
             }
 
             if (puntos_aux < puntos.get(0)) {
-                borrarPantalla();
-                System.out.println(titulo);
+                pantallaDefault();
                 System.out.println("\n\t\t\t\t_________________________________");
                 System.out.println("\n\t\t\t\t     HAS GANADO " + (puntos.get(0) - puntos_aux) + " PUNTOS");
                 Thread.sleep(2500);
@@ -1102,15 +1118,13 @@ public class CASINO {
                         }
                         break;
                     case 7:
-                        borrarPantalla();
-                        System.out.println(titulo);
+                        pantallaDefault();
                         System.out.println("\n\tLista de apuestas:\n\t" + listaApuestas);
                         System.out.println("\n\tConfirmando apuesta...");
                         Thread.sleep(1000);
                         break;
                     case 8:
-                        borrarPantalla();
-                        System.out.println(titulo);
+                        pantallaDefault();
                         System.out.println("\n\t\t\tSALIENDO...\n");
                         Thread.sleep(1000);
                         opcion_r = opcion;
@@ -1312,13 +1326,11 @@ public class CASINO {
     public static void apuestaBlackjack(ArrayList<Integer> puntos) throws IOException, InterruptedException {
         boolean puntos_c = false;
         int apuesta = 0;
-        borrarPantalla();
-        System.out.println(titulo);
+        pantallaDefault();
 
         // bucle while para verificar que la apuesta sea menor o igual al saldo total del que disponemos
         while (!puntos_c) {
-            borrarPantalla();
-            System.out.println(titulo);
+            pantallaDefault();
             System.out.println("\n\tPuntos: " + puntos);
             System.out.println("\n\t\t\t\t\t.:APUESTA PUNTOS:.");
             System.out.println("\t\t\t\t\t__________________");
@@ -1350,8 +1362,7 @@ public class CASINO {
         }
 
         // preguntamos si queremos jugar otra partida o no
-        borrarPantalla();
-        System.out.println(titulo);
+        pantallaDefault();
         System.out.println("Puntos: " + puntos);
         System.out.print("\n\tQuieres jugar una mano? (s/n) ");
         String jug_s = sc.next();
@@ -1598,7 +1609,6 @@ public class CASINO {
      */
     public static void pantallaRuleta(String tabla, int lastnum, ArrayList<Integer> numeros, ArrayList<String> listaApuestas, ArrayList<Integer> puntos) throws IOException, InterruptedException {
         borrarPantalla();
-        System.out.println(titulo);
         System.out.println(tabla);
         System.out.println("\n\tUltimo numero: " + lastnum);
         System.out.println("\tNumeros anteriores: " + numeros);
@@ -1646,8 +1656,8 @@ public class CASINO {
         try {
             lectorLineas = new BufferedReader(new FileReader(usuarios));
         } catch (Exception e) {
-            borrarPantalla();
-            System.out.println(titulo + "\n\n\t\t\t\t\t.:ERROR:.\n\n\tRECUERDA ABRIR EL PROGRAMA USANDO EL EJECUTABLE CASINO.BAT QUE SE ENCUENTRA\n\tEN LA RA�Z DE LA CARPETA CASINO\n");
+            pantallaDefault();
+            System.out.println("\n\n\t\t\t\t\t.:ERROR:.\n\n\tRECUERDA ABRIR EL PROGRAMA USANDO EL EJECUTABLE CASINO.BAT QUE SE ENCUENTRA\n\tEN LA RAIZ DE LA CARPETA CASINO\n");
             Thread.sleep(500);
             System.exit(0);
         }
@@ -1675,14 +1685,14 @@ public class CASINO {
                 // el arrayLinea almacena los elementos de la linea usando como criterio las comas
                 arrayLinea = linea.split(",");
 
-                // a�adimos una fila al array (empieza en 0, por lo que daria error)
+                // anadimos una fila al array (empieza en 0, por lo que daria error)
                 usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
                 usuariosList[usuariosList.length - 1] = new String[2];
 
                 // el usuario es lo primero que hay en la linea del documento, la contrase�a lo segundo y los puntos lo tercero
                 usuariosList[i][0] = arrayLinea[0];
                 usuariosList[i][1] = arrayLinea[1];
-                // a�adimos a este arraylist los puntos del usuario de la linea actual
+                // anadimos a este arraylist los puntos del usuario de la linea actual
                 puntosUsuario.add(Integer.parseInt(arrayLinea[2]));
 
                 i++;
@@ -1714,7 +1724,7 @@ public class CASINO {
             if (usuariosList[i][0].equals(user)) {
                 puntosUsuario.set(i, puntosPendientes.get(0));
             }
-            // establecemos la linea que a�adiremos al fichero (usuario, contrase�a, puntos y salto de linea)
+            // establecemos la linea que anadiremos al fichero (usuario, contrase�a, puntos y salto de linea)
             linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\r\n";
             // anadimos a la variable string resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
@@ -1724,7 +1734,28 @@ public class CASINO {
         writer.print(resultadoUsuarios);
         writer.close();
 
-        System.out.println("");
+        // animacion de salida del programa
+        String punto = ".";
+        for (int i = 0; i < 3; i++) {
+            pantallaDefault();
+            System.out.println("\n\n\t\t\t\t\tSALIENDO" + punto);
+            punto += ".";
+            Thread.sleep(450);
+        }
+
+        System.out.println("\n\n");
         System.exit(0);
     }
+
+    /**
+     * Metodo para borrar pantala y mostrar el titulo del CASINO principal
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public static void pantallaDefault() throws IOException, InterruptedException {
+        borrarPantalla();
+        System.out.println(titulo);
+    }
+
 }
