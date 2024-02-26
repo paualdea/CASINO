@@ -1720,7 +1720,7 @@ public class CASINO {
             resultadoUsuarios += linea;
         }
 
-        // a�adimos en el fichero todo lo que hemos generado en el bucle for
+        // anadimos en el fichero todo lo que hemos generado en el bucle for
         writer.print(resultadoUsuarios);
         writer.close();
 
