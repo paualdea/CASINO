@@ -1,3 +1,4 @@
+
 import java.io.FileReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,7 +55,7 @@ public class CASINO {
         // llamamos a la funcion que crea todo el sistema de ficheros y configura su uso en el programa
         sistemaArchivos();
 
-        // si el fichero se crea de nuevo ejecutamos de nuevo la funcion  de creación del sistema de ficheros para solucionar errores
+        // si el fichero se crea de nuevo ejecutamos de nuevo la funcion  de creaciï¿½n del sistema de ficheros para solucionar errores
         if (ficheroNuevo) {
             sistemaArchivos();
         }
@@ -144,16 +145,16 @@ public class CASINO {
                         writer.close();
 
                         System.out.println("");
-                        // se para la ejecución del programa
+                        // se para la ejecuciï¿½n del programa
                         System.exit(0);
                     }
-                    
+
                     break;
                 case 4:
                     /* 
-                        Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecución del programa.
+                        Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuciï¿½n del programa.
                         Se manda como argumento el arrayList que usamos para almacenar los puntos actuales del usuario.
-                    */
+                     */
                     actualizarFicheros(puntosPendientes);
                     break;
             }
@@ -192,9 +193,9 @@ public class CASINO {
                         // se vacia al arraylist para llevar lo puntos actualizados
                         puntos.clear();
                         /*
-                            Se le añade siempre en la primera posicion el valor de puntos usuarios en la iteración en la
-                            que esta el usuario con el que iniciamos sesión.
-                        */
+                            Se le aï¿½ade siempre en la primera posicion el valor de puntos usuarios en la iteraciï¿½n en la
+                            que esta el usuario con el que iniciamos sesiï¿½n.
+                         */
                         puntos.add(puntosUsuario.get(i));
 
                         Thread.sleep(1000);
@@ -272,7 +273,7 @@ public class CASINO {
 
                     return true;
                 }
-                break;       
+                break;
         }
         return false;
     }
@@ -295,12 +296,12 @@ public class CASINO {
             de este array para aprovechar la propiedad que se ha mencionado anteriormente.
          */
         ArrayList<Integer> puntosPendientes = new ArrayList<>();
-        
+
         puntosPendientes.add(puntos);
         int opcionMenu = 0;
 
         // Mientras que la opcion del meno de juegos no sea 5 (salir del programa), se repite infinitamente el codigo contenido dentro
-        while (opcionMenu != 5) {
+        while (opcionMenu != 6) {
 
             if (puntos == 0) {
                 borrarPantalla();
@@ -317,12 +318,14 @@ public class CASINO {
             System.out.println("\n\t\t\t\t           2. BINGO");
             System.out.println("\n\t\t\t\t           3. RULETA");
             System.out.println("\n\t\t\t\t           4. BLACKJACK");
-            System.out.println("\n\t\t\t\t           5. SALIR");
+            System.out.println("\n\t\t\t\t           5. OTROS");
+            System.out.println("\n\t\t\t\t           6. SALIR");
             System.out.print("\n\n\tQUE QUIERE HACER: ");
             opcionMenu = sc.nextInt();
 
             // switch para desviar a los mÃ©todos de los juegos
             switch (opcionMenu) {
+                // DADOS
                 case 1:
                     // primero establecemos la posicion 0 del arraylist con el valor de puntos y luego llamamos a la funciÃ³n de dados() adjuntando dicho arraylist
                     puntosPendientes.set(0, puntos);
@@ -330,22 +333,74 @@ public class CASINO {
                     // una vez cambia el valor de la posiciÃ³n 0 del arraylist, hacemos que la variable puntos valga lo mismo
                     puntos = puntosPendientes.get(0);
                     break;
+                // BINGO
                 case 2:
                     puntosPendientes.set(0, puntos);
                     bingo(puntosPendientes);
                     puntos = puntosPendientes.get(0);
                     break;
+                // RULETA
                 case 3:
                     puntosPendientes.set(0, puntos);
                     ruleta(puntosPendientes);
                     puntos = puntosPendientes.get(0);
                     break;
+                // BLACKJACK
                 case 4:
                     puntosPendientes.set(0, puntos);
                     apuestaBlackjack(puntosPendientes);
                     puntos = puntosPendientes.get(0);
                     break;
+                // OTROS
                 case 5:
+                    String opcion1 = "";
+                    File carpeta = new File("./casino_files");
+                    // hacemos un while infinito
+                    while (true) {
+                        // mostramos un menu que permite impirmir todo el contenido de la carpeta de ficheros que usa este programa
+                        borrarPantalla();
+                        System.out.println(titulo);
+                        System.out.println("\n\t\t           1. VER FICHEROS CARPETA ./CASINO_FILES");
+                        System.out.println("\n\t\t           2. ATRAS");
+                        System.out.print("\n\n\tQUE QUIERE HACER: ");
+                        opcion1 = sc.next();
+
+                        // si el scanner recibe "1"...
+                        if (opcion1.equals("1")) {
+                            String tipo = "";
+                            // Creamos un array de File que contenga todos los ficheros que contenga el directorio ./casino_files
+                            File[] arrayFicheros = carpeta.listFiles();
+                            
+                            borrarPantalla();
+                            System.out.println(titulo);
+                            // bucle for que se repita tantas veces como ficheros haya en el directorio
+                            for (int i = 0; i < arrayFicheros.length; i++) {
+                                System.out.println("\n\t\t           " + (i+1) + ". " + arrayFicheros[i]);
+                                
+                                // determinamos el tipo de contenido que hay dentro del directorio
+                                if (arrayFicheros[i].isFile()) {
+                                    tipo = "FICHERO";
+                                } else {
+                                    tipo = "DIRECTORIO";
+                                }
+                                
+                                System.out.println("\n\t\t           ES UN " + tipo + " QUE PESA " + arrayFicheros[i].length() + " BYTES\n");
+                            }
+                            Thread.sleep(4250);
+                        // en caso que no sea "1" si es "2"...
+                        } else if (opcion1.equals("2")) {
+                            break;
+                        // si no...
+                        } else {
+                            borrarPantalla();
+                            System.out.println(titulo);
+                            System.out.println("\n\t\t\t           INTRODUCE UN VALOR CORRECTO");
+                            Thread.sleep(2000);
+                        }
+                    }
+                    break;
+                // SALIR
+                case 6:
                     actualizarFicheros(puntosPendientes);
                     borrarPantalla();
                     System.out.println(titulo);
@@ -1231,8 +1286,8 @@ public class CASINO {
     }
 
     /**
-     * metodo de comprobaciÃ³n de puntos para verificar que la apuesta es menor
-     * o igual al saldo total que tenemos
+     * metodo de comprobaciÃ³n de puntos para verificar que la apuesta es menor o
+     * igual al saldo total que tenemos
      *
      * @param puntos
      * @param apuesta
@@ -1551,13 +1606,14 @@ public class CASINO {
         System.out.println("\n\tPuntos: " + puntos);
         System.out.println("\t__________________________________");
     }
-    
+
     /**
-     * Este metodo sirve para crear e inicializar todo el sistema de ficheros que hemos implementado en la v3 de este CASINO
-     * para hacer los datos persistentes y recuperables en la siguiente ejecución.
-     * 
+     * Este metodo sirve para crear e inicializar todo el sistema de ficheros
+     * que hemos implementado en la v3 de este CASINO para hacer los datos
+     * persistentes y recuperables en la siguiente ejecuciï¿½n.
+     *
      * @throws IOException
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public static void sistemaArchivos() throws IOException, InterruptedException {
         // determinamos el directorio que contiene el fichero CASINO.java para asegurar que este programa se ejecuta desde CASINO.bat
@@ -1574,7 +1630,7 @@ public class CASINO {
         
             De esta forma nos aseguramos que el usuario ejecuta el programa desde CASINO.bat y no desde el propio fichero CASINO.java, lo que crearia el
             directorio de datos dentro de ./java/
-        */
+         */
         if (!casino_files.exists() && java.exists()) {
             casino_files.mkdir();
         }
@@ -1582,11 +1638,11 @@ public class CASINO {
         if (!usuarios.exists() && java.exists()) {
             usuarios.createNewFile();
         }
-        
+
         /*
             Usamos una estructura de control de errores para comprobar que el programa se ejecuta desde CASINO.bat.
             En caso de que no sea asi, el programa manda un mensaje de error y se cierra directamente
-        */
+         */
         try {
             lectorLineas = new BufferedReader(new FileReader(usuarios));
         } catch (Exception e) {
@@ -1595,14 +1651,14 @@ public class CASINO {
             Thread.sleep(500);
             System.exit(0);
         }
-        
+
         // creamos todo lo necesario para leer las lineas, partes de las lineas y procesarlas posteriormente
         Scanner lector = new Scanner(usuarios);
         String[] arrayLinea;
         String linea;
-        
+
         int i = 0;
-        
+
         // si el fichero esta vacio crea dos usuarios predeterminados (paualdea y mohammadtufail)
         if (usuarios.length() == 0) {
             PrintWriter writer = new PrintWriter(usuarios, "UTF-8");
@@ -1610,39 +1666,41 @@ public class CASINO {
             writer.close();
             // establecemos la variable estatica ficheroNuevo en true para que no haya errores luego a la hora de leer estos nuevos usuarios
             ficheroNuevo = true;
-        // si el fichero de usuarios no esta vacio entonces...
+            // si el fichero de usuarios no esta vacio entonces...
         } else {
-            // mientras el fichero tenga más lineas...
+            // mientras el fichero tenga mï¿½s lineas...
             while (lectorLineas.readLine() != null) {
                 // establece la variable String linea con el contenido de la linea actual del fichero
                 linea = lector.nextLine();
                 // el arrayLinea almacena los elementos de la linea usando como criterio las comas
                 arrayLinea = linea.split(",");
-                
-                // añadimos una fila al array (empieza en 0, por lo que daria error)
+
+                // aï¿½adimos una fila al array (empieza en 0, por lo que daria error)
                 usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
                 usuariosList[usuariosList.length - 1] = new String[2];
-                
-                // el usuario es lo primero que hay en la linea del documento, la contraseña lo segundo y los puntos lo tercero
+
+                // el usuario es lo primero que hay en la linea del documento, la contraseï¿½a lo segundo y los puntos lo tercero
                 usuariosList[i][0] = arrayLinea[0];
                 usuariosList[i][1] = arrayLinea[1];
-                // añadimos a este arraylist los puntos del usuario de la linea actual
+                // aï¿½adimos a este arraylist los puntos del usuario de la linea actual
                 puntosUsuario.add(Integer.parseInt(arrayLinea[2]));
-                
+
                 i++;
             }
         }
     }
-    
+
     /**
-     * Este metodo sirve para actualizar el contenido del fichero para añadir nuevos usuarios, puntos que se pierden o ganan, etc.
-     * 
-     * Recibe como parametro el arraylist que tiene los puntos de la sesion actual de juego
-     * 
+     * Este metodo sirve para actualizar el contenido del fichero para aï¿½adir
+     * nuevos usuarios, puntos que se pierden o ganan, etc.
+     *
+     * Recibe como parametro el arraylist que tiene los puntos de la sesion
+     * actual de juego
+     *
      * @param puntosPendientes
      * @throws FileNotFoundException
      * @throws IOException
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public static void actualizarFicheros(ArrayList<Integer> puntosPendientes) throws FileNotFoundException, IOException, InterruptedException {
         // establecemos un writer para hacer los cambios en el fichero que indicamos
@@ -1656,18 +1714,17 @@ public class CASINO {
             if (usuariosList[i][0].equals(user)) {
                 puntosUsuario.set(i, puntosPendientes.get(0));
             }
-            // establecemos la linea que añadiremos al fichero (usuario, contraseña, puntos y salto de linea)
+            // establecemos la linea que aï¿½adiremos al fichero (usuario, contraseï¿½a, puntos y salto de linea)
             linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\r\n";
-            // añadimos a la variable string resultadoUsuarios el contenido de la nueva linea
+            // aï¿½adimos a la variable string resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
         }
-        
-        // añadimos en el fichero todo lo que hemos generado en el bucle for
+
+        // aï¿½adimos en el fichero todo lo que hemos generado en el bucle for
         writer.print(resultadoUsuarios);
         writer.close();
-        
+
         System.out.println("");
         System.exit(0);
     }
-
 }
