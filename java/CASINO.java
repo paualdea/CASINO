@@ -511,10 +511,6 @@ public class CASINO {
             // se llama al metodo para obtener una puntuación en relación a la apuesta realizada
             int puntosAdicionales = tirarDados(caraDado, n, apuesta);
 
-            // TEMPORAL
-            System.out.println(puntosAdicionales);
-            Thread.sleep(1200);
-
             puntos.set(0, puntos.get(0) + puntosAdicionales);
 
             apuesta = 0;
@@ -621,6 +617,7 @@ public class CASINO {
 
                 System.out.print("\n\tCuantos puntos quieres apostar: ");
                 
+                // estructura de control de errores para evitar que el programa pare por un error en la entrada por scanner
                 try {
                     apuesta = sc.nextInt();
                 } catch (Exception e) {
@@ -630,7 +627,6 @@ public class CASINO {
                     Thread.sleep(1250);
                 }
                 
-
                 if (apuesta <= puntos.get(0) && apuesta > 0) {
                     puntos.set(0, puntos.get(0) - apuesta);
                     puntos_c = true;
