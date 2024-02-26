@@ -83,6 +83,7 @@ public class CASINO {
             System.out.println("\n\t\t\t\t     4. SALIR");
             System.out.print("\n\n\tQUE QUIERE HACER: ");
 
+            // estructura de control de errores para evitar que se cierre el programa si se introduce un dato erroneo en el scanner
             try {
                 opcion_r = sc.nextInt();
             } catch (Exception e) {
@@ -851,6 +852,7 @@ public class CASINO {
             // si coincide un numero que ya ha salido, borrar del arraylist numerosBingoCpu
             for (int i = 0; i < numerosBingoCpu.size(); i++) {
                 for (int j = 0; j < numerosBingoUsados.size(); j++) {
+                    // CORREGIR ESTO (ERROR EN QUE DEBE INICIAR EL BINGO DE NUEVO DESDE EL METODO DE CREACION Y NO DESDE ESTE)
                     if (numerosBingoCpu.get(i) == numerosBingoUsados.get(j)) {
                         numerosBorrar.add(numerosBingoUsados.get(j));
                         numerosBingoCpu.remove(i);
