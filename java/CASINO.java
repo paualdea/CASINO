@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * .:CASINO:. VERSION: 3.0.1
+ * .:CASINO:. VERSION: 3.1.0
  * _________________________________________________________________________________________________________________________________________
  *
  * Este proyecto incorpora un sistema de login para posteriormente acceder a un
