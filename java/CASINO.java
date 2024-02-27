@@ -40,7 +40,7 @@ public class CASINO {
     // ArrayLists para el bingo y sus respectivos metodos
     static ArrayList<Integer> numerosBorrar = new ArrayList<>(), indexCol = new ArrayList<>(), bombo = new ArrayList<>(), numerosBingo = new ArrayList<>(), numerosBingoCpu = new ArrayList<>(), numerosBingoUsados = new ArrayList<>();
     // variable booleana para detectar si el fichero que usamos para los usuarios y puntos es nuevo o no
-    static boolean ficheroNuevo = false;
+    static boolean ficheroNuevo = false, finBingo = false;
 
     /**
      * Metodo principal, aqui esta el sistema usuarios, inicio de sesion,
@@ -595,6 +595,12 @@ public class CASINO {
 
         // bucle while para repetir el juego hasta que perdamos o ganemos
         while (!salir) {
+
+            if (finBingo) {
+                finBingo = false;
+                break;
+            }
+
             pantallaDefault();
             System.out.println("\n\t\t\t\t\t.:BINGO:.");
             System.out.println("\t\t\t\t\t_________");
@@ -617,7 +623,7 @@ public class CASINO {
                 System.out.println("\t\t\t\t\t__________________");
 
                 System.out.print("\n\tCuantos puntos quieres apostar: ");
-                
+
                 // estructura de control de errores para evitar que el programa pare por un error en la entrada por scanner
                 try {
                     apuesta = sc.nextInt();
@@ -627,7 +633,7 @@ public class CASINO {
                     System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
                     Thread.sleep(1250);
                 }
-                
+
                 if (apuesta <= puntos.get(0) && apuesta > 0) {
                     puntos.set(0, puntos.get(0) - apuesta);
                     puntos_c = true;
@@ -659,6 +665,11 @@ public class CASINO {
 
             // jugada bingo
             String[] resultado = jugarBingo(bingo, bingocpu);
+
+            for (int i = 0; i < resultado.length; i++) {
+                System.out.println(" " + resultado[i] + " ");
+            }
+            Thread.sleep(10000);
 
             boolean ganar = false, ganar_cpu = false;
 
@@ -775,10 +786,11 @@ public class CASINO {
     public static String[] jugarBingo(int[][] bingo, int[][] bingocpu) throws IOException, InterruptedException {
         Random rd = new Random();
         int numero = 0;
-        boolean ganar_cpu = false, perdido = false, ganar = false;
+        boolean ganar_cpu = false, perdido = false, ganar = false, romperSiguiente = false, romperSiguiente1 = false;
         ArrayList<String> resultado = new ArrayList<>();
 
         while (true) {
+            romperSiguiente = false;
             pantallaDefault();
 
             // imprimir el carton del jugador usando bucles for para recorrer el array bidimensional
@@ -819,7 +831,8 @@ public class CASINO {
             System.out.println("\n\tUltimo numero: " + numerosBingoUsados.get(numerosBingoUsados.size() - 1));
             System.out.println("\n\tNumeros restantes: " + bombo.size());
 
-            Thread.sleep(1250);
+            // cambiar tiempos
+            Thread.sleep(10);
 
             for (int i = 0; i < numerosBingo.size(); i++) {
                 // si coincide un numero que ya ha salido, borrar del arraylist numerosBingo
@@ -839,6 +852,7 @@ public class CASINO {
                     }
                     if (numerosRestantes == 0) {
                         resultado.add("ganar");
+                        romperSiguiente = true;
                     }
                     // si el numero ha salido borrarlo del carton
                     for (int k = 0; k < numerosBorrar.size(); k++) {
@@ -852,7 +866,6 @@ public class CASINO {
             // si coincide un numero que ya ha salido, borrar del arraylist numerosBingoCpu
             for (int i = 0; i < numerosBingoCpu.size(); i++) {
                 for (int j = 0; j < numerosBingoUsados.size(); j++) {
-                    // CORREGIR ESTO (ERROR EN QUE DEBE INICIAR EL BINGO DE NUEVO DESDE EL METODO DE CREACION Y NO DESDE ESTE)
                     if (numerosBingoCpu.get(i) == numerosBingoUsados.get(j)) {
                         numerosBorrar.add(numerosBingoUsados.get(j));
                         numerosBingoCpu.remove(i);
@@ -860,7 +873,13 @@ public class CASINO {
                 }
 
             }
-
+            
+            // nuevo bucle comprobar que funciona
+            if (romperSiguiente1) {
+                String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
+                return resultadoArray;
+            }
+            
             // bucles para comprobar cuantos casillas restantes quedan en el bingo del ordenador, si es igual a cero devolver al arraylist el valor "ganar"
             for (int i = 0; i < bingocpu[i].length; i++) {
                 for (int j = 0; j < bingocpu.length; j++) {
@@ -869,7 +888,7 @@ public class CASINO {
                     }
                     if (numerosRestantesCpu == 0) {
                         resultado.add("ganarcpu");
-
+                        romperSiguiente1 = true;
                     }
                     for (int k = 0; k < numerosBorrar.size(); k++) {
                         if (numerosBorrar.get(k) == bingocpu[j][i]) {
@@ -877,6 +896,12 @@ public class CASINO {
                         }
                     }
                 }
+            }
+            
+            // nuevo bucle comprobar que funciona
+            if (romperSiguiente) {
+                String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
+                return resultadoArray;
             }
 
             numerosBorrar.clear();
@@ -927,6 +952,7 @@ public class CASINO {
             System.out.println("\n\n\t\t\t    HAS PERDIDO, TE QUEDAN " + puntos + " PUNTOS");
             Thread.sleep(2500);
         }
+        finBingo = true;
     }
 
     /**
