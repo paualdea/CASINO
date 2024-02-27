@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * .:CASINO:. VERSION: 3.1.1
+ * .:CASINO:. VERSION: 3.2.0
  * _________________________________________________________________________________________________________________________________________
  *
  * Este proyecto incorpora un sistema de login para posteriormente acceder a un
@@ -32,6 +32,7 @@ public class CASINO {
     static Scanner sc = new Scanner(System.in);
     // String para almacenar el titulo de CASINO que iremos mostrando
     static String titulo = "\n\t                          _____\n" + "\t        .-------.        |A .  | _____\n" + "\t       /   o   /|        | /.\\ ||A ^  | _____ \n" + "\t      /_______/o|        |(_._)|| / \\ ||A _  | _____           \n" + "\t      | o     | |        |  |  || \\ / || ( ) ||A_ _ |         .-\"\"\"-.\n" + "\t      |   o   |o/        |____V||  .  ||(_'_)||( v )|        /   _   \\\n" + "\t      |     o |/                |____V||  |  || \\ / |        |  (8)  |\n" + "\t      '-------'                        |____V||  .  |        \\   ^   /\n" + "\t                                              |____V|         '-...-'\n\n" + "\t  __________________________________________________________________________\n" + "\t |                                                                          |\n" + "\t|     ::::::::      :::      ::::::::  ::::::::::: ::::    :::  ::::::::     |\n" + "\t|    :+:    :+:   :+: :+:   :+:    :+:     :+:     :+:+:   :+: :+:    :+:    |\n" + "\t|    +:+         +:+   +:+  +:+            +:+     :+:+:+  +:+ +:+    +:+    |\n" + "\t|    +#+        +#++:++#++: +#++:++#++     +#+     +#+ +:+ +#+ +#+    +:+    |\n" + "\t|    +#+        +#+     +#+        +#+     +#+     +#+  +#+#+# +#+    +#+    |\n" + "\t|    #+#    #+# #+#     #+# #+#    #+#     #+#     #+#   #+#+# #+#    #+#    |\n" + "\t|     ########  ###     ###  ########  ########### ###    ####  ########     |\n" + "\t|                                                                            |\n" + "\t |__________________________________________________________________________|\n";
+    static String tituloCorto = "\n\n\t  __________________________________________________________________________\n"+ "\t |                                                                          |\n"+ "\t|     ::::::::      :::      ::::::::  ::::::::::: ::::    :::  ::::::::     |\n"+ "\t|    :+:    :+:   :+: :+:   :+:    :+:     :+:     :+:+:   :+: :+:    :+:    |\n"+ "\t|    +:+         +:+   +:+  +:+            +:+     :+:+:+  +:+ +:+    +:+    |\n"+ "\t|    +#+        +#++:++#++: +#++:++#++     +#+     +#+ +:+ +#+ +#+    +:+    |\n"+ "\t|    +#+        +#+     +#+        +#+     +#+     +#+  +#+#+# +#+    +#+    |\n"+ "\t|    #+#    #+# #+#     #+# #+#    #+#     #+#     #+#   #+#+# #+#    #+#    |\n"+ "\t|     ########  ###     ###  ########  ########### ###    ####  ########     |\n"+ "\t|                                                                            |\n"+ "\t |__________________________________________________________________________|\n\n";
     static String user = "", passwd = "", passwd_aux = "";
     // Array bidimensional para almacenar los usuarios del sistema de juego del casino
     static String[][] usuariosList = new String[0][2];
@@ -195,6 +196,7 @@ public class CASINO {
                 user = sc.next();
                 System.out.print("\n\t\t\t\t   CONTRASENA: ");
                 passwd = sc.next();
+                int nuevosPuntos = 0;
 
                 // Se recorre todo el array de usuarios para ver si algun registro coincide con el usuario y contraseña que hemos introducido
                 for (int i = 0; i < usuariosList.length; i++) {
@@ -204,13 +206,49 @@ public class CASINO {
 
                         // se vacia al arraylist para llevar lo puntos actualizados
                         puntos.clear();
-                        /*
-                            Se le anade siempre en la primera posicion el valor de puntos usuarios en la iteracion en la
-                            que esta el usuario con el que iniciamos sesion.
-                         */
-                        puntos.add(puntosUsuario.get(i));
 
-                        Thread.sleep(1750);
+                        // si el usuario no tiene puntos se le da la posibilidad de anadir mas (max 3000)
+                        if (puntosUsuario.get(i) == 0) {
+                            System.out.print("\n\tTE HAS QUEDADO SIN PUNTOS, QUIERES AGREGAR MAS (S/N): ");
+                            String opcion = sc.next();
+
+                            if (opcion.equals("s") || opcion.equals("S")) {
+                                while (true) {
+                                    pantallaDefault();
+                                    System.out.print("\n\tCUANTOS PUNTOS QUIERES AGREGAR (MAX. 3000): ");
+
+                                    // estructura de control de error para asegurarnos de que la entrada es un Int
+                                    try {
+                                        nuevosPuntos = sc.nextInt();
+
+                                        if (nuevosPuntos > 0 && nuevosPuntos <= 3000) {
+                                            // si se cumplen todas las condiciones requeridas, se le anade la puntuacion que haya indicado el usuario a su cuenta
+                                            puntos.add(nuevosPuntos);
+                                            break;
+                                        } else {
+                                            pantallaDefault();
+                                            System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
+                                            Thread.sleep(1000);
+                                        }
+
+                                    } catch (Exception e) {
+                                        sc.next();
+                                        pantallaDefault();
+                                        System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
+                                        Thread.sleep(1000);
+                                    }
+
+                                }
+                            } else {
+                                // si no anade mas, se le asignan 0, lo que cierra el programa
+                                puntos.add(puntosUsuario.get(i));
+                            }
+                        } else {
+                            // si no anade mas, se le asignan 0, lo que cierra el programa
+                            puntos.add(puntosUsuario.get(i));
+                        }
+
+                        Thread.sleep(1250);
                         return true;
                     }
                 }
@@ -319,7 +357,8 @@ public class CASINO {
 
                 System.out.println("\n\t\t\t\t   TE HAS QUEDADO SIN PUNTOS");
                 Thread.sleep(3000);
-                System.exit(0);
+                // se llama a la funcion actualizarFicheros para guardar que el usuario se ha quedado sin puntos
+                actualizarFicheros(puntosPendientes);
             }
 
             System.out.println("\n\t PUNTOS: " + puntos);
@@ -371,7 +410,7 @@ public class CASINO {
                 // OTROS
                 case 5:
                     String opcion1 = "";
-                    File carpeta = new File("./casino_files");
+                    File carpeta = new File("./");
                     // hacemos un while infinito
                     while (true) {
                         // mostramos un menu que permite impirmir todo el contenido de la carpeta de ficheros que usa este programa
@@ -666,11 +705,6 @@ public class CASINO {
             // jugada bingo
             String[] resultado = jugarBingo(bingo, bingocpu);
 
-            for (int i = 0; i < resultado.length; i++) {
-                System.out.println(" " + resultado[i] + " ");
-            }
-            Thread.sleep(10000);
-
             boolean ganar = false, ganar_cpu = false;
 
             // analizamos el contenido del array resultado obtenido en el metodo jugarBingo() y definimos que ha ocurrido en la jugada en funcion del mismo
@@ -791,7 +825,8 @@ public class CASINO {
 
         while (true) {
             romperSiguiente = false;
-            pantallaDefault();
+            borrarPantalla();
+            System.out.println(tituloCorto);
 
             // imprimir el carton del jugador usando bucles for para recorrer el array bidimensional
             System.out.println("\n\t\t\t\t    TU CARTON");
@@ -823,16 +858,26 @@ public class CASINO {
                 numerosBingoUsados.add(bombo.get(numero));
                 bombo.remove(numero);
             } else {
-                resultado.add("perdido");
                 String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
                 return resultadoArray;
             }
 
-            System.out.println("\n\tUltimo numero: " + numerosBingoUsados.get(numerosBingoUsados.size() - 1));
-            System.out.println("\n\tNumeros restantes: " + bombo.size());
+            /* 
+                Bucle for para mostrar los ultimos 10 numeros.
+                Contiene una estructura de control de errores por si aun no se han generado 10 numeros del bombo
+            */
+            System.out.print("\n\n\tULTIMOS 10 NUMEROS --> ");
+            try {
+                for (int i = 1; i <= 10; i++) {
+                    System.out.print(" " + numerosBingoUsados.get(numerosBingoUsados.size() - i) + " ");
+                }
+            } catch (Exception e) {
+            }
+
+            System.out.println("\n\n\tBOMBO --> " + bombo.size());
 
             // cambiar tiempos
-            Thread.sleep(10);
+            Thread.sleep(750);
 
             for (int i = 0; i < numerosBingo.size(); i++) {
                 // si coincide un numero que ya ha salido, borrar del arraylist numerosBingo
@@ -852,6 +897,7 @@ public class CASINO {
                     }
                     if (numerosRestantes == 0) {
                         resultado.add("ganar");
+                        // si el jugador gana, la CPU tiene un intento mas para empatar, sino empata, solo queda como vencedor el usuario
                         romperSiguiente = true;
                     }
                     // si el numero ha salido borrarlo del carton
@@ -873,13 +919,13 @@ public class CASINO {
                 }
 
             }
-            
-            // nuevo bucle comprobar que funciona
+
+            // esta condicion se cumple cuando la CPU ha ganado y se le ha dado un turno mas al jugador
             if (romperSiguiente1) {
                 String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
                 return resultadoArray;
             }
-            
+
             // bucles para comprobar cuantos casillas restantes quedan en el bingo del ordenador, si es igual a cero devolver al arraylist el valor "ganar"
             for (int i = 0; i < bingocpu[i].length; i++) {
                 for (int j = 0; j < bingocpu.length; j++) {
@@ -888,6 +934,7 @@ public class CASINO {
                     }
                     if (numerosRestantesCpu == 0) {
                         resultado.add("ganarcpu");
+                        // si la CPU gana, el jugador tiene una ronda mas para empatar, sino, solo gana la CPU
                         romperSiguiente1 = true;
                     }
                     for (int k = 0; k < numerosBorrar.size(); k++) {
@@ -897,8 +944,8 @@ public class CASINO {
                     }
                 }
             }
-            
-            // nuevo bucle comprobar que funciona
+
+            // la condicion se da si el jugador ha hecho bingo y la CPU ha tenido un turno mas
             if (romperSiguiente) {
                 String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
                 return resultadoArray;
@@ -1748,7 +1795,7 @@ public class CASINO {
             if (usuariosList[i][0].equals(user)) {
                 puntosUsuario.set(i, puntosPendientes.get(0));
             }
-            // establecemos la linea que anadiremos al fichero (usuario, contrase�a, puntos y salto de linea)
+            // establecemos la linea que anadiremos al fichero (usuario, contrasena, puntos y salto de linea)
             linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\r\n";
             // anadimos a la variable string resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
