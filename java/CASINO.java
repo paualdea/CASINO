@@ -295,9 +295,23 @@ public class CASINO {
                         sea inferior de 3000 
                      */
                     while (!puntosEstablecidos) {
-                        pantallaDefault();
-                        System.out.print("\n\t\t\t   INGRESO DINERO (MAXIMO 3000): ");
-                        ingreso = sc.nextInt();
+                        boolean entradaValida = false;
+
+                        while (!entradaValida) {
+                            // estructura de control para asegurar que no se rompe el codigo por una mala entrada de datos
+                            try {
+                                borrarPantalla();
+                                pantallaDefault();
+                                System.out.print("\n\t\t\t   INGRESO DINERO (MAXIMO 3000): ");
+                                ingreso = sc.nextInt();
+                                entradaValida = true;
+                            } catch (Exception e) {
+                                sc.next();
+                                borrarPantalla();
+                                System.out.println(titulo + "\n\n\tINTRODUCE UN VALOR VALIDO");
+                                Thread.sleep(850);
+                            }
+                        }
 
                         if (ingreso <= 3000) {
                             puntos.clear();
@@ -326,6 +340,7 @@ public class CASINO {
                 }
                 break;
         }
+
         return false;
     }
 
@@ -1048,7 +1063,7 @@ public class CASINO {
 
             opcion = 0;
 
-            // mientras que en el menú no seleccionemos la opción 7 (confirmar apuesta), repetir el bucle infinitamente
+            // mientras que en el menu no seleccionemos la opcion 7 (confirmar apuesta), repetir el bucle infinitamente
             while (opcion != 7) {
 
                 pantallaRuleta(tabla, lastnum, numeros, listaApuestas, puntos);
@@ -1059,7 +1074,15 @@ public class CASINO {
                 } else {
                     System.out.println("\n\t1. Numero especifico\n\t2. Rojo o negro\n\t3. Par o impar\n\t4. Mitad de tablero\n\t5. Docenas\n\t6. Filas\n\t7. Confirmar\n\t8. Salir");
                     System.out.print("\n\tQue tipo de apuesta quieres hacer: ");
-                    opcion = sc.nextInt();
+                    // estructura de control para prevenir errores
+                    try {
+                        opcion = sc.nextInt();
+                    } catch (Exception e) {
+                        sc.next();
+                        pantallaDefault();
+                        System.out.println("\n\n\tINTRODUCE UNA OPCION VALIDA");
+                        Thread.sleep(850);
+                    }
                 }
 
                 apuesta_c = false;
@@ -1072,13 +1095,23 @@ public class CASINO {
                         pantallaRuleta(tabla, lastnum, numeros, listaApuestas, puntos);
                         while (!tipo) {
                             System.out.print("\n\tA que numero quieres apostar (40 para salir): ");
-                            num = sc.nextInt();
+
+                            try {
+                                num = sc.nextInt();
+                            } catch (Exception e) {
+                                sc.next();
+                                System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
+                                Thread.sleep(850);
+                                apuesta_c = true;
+                            }
 
                             if (num >= 0 && num <= 36) {
                                 tipo = true;
                             } else if (num == 40) {
                                 tipo = true;
                                 apuesta_c = true;
+                            } else {
+                                break;
                             }
                         }
                         while (!apuesta_c) {
@@ -1092,11 +1125,12 @@ public class CASINO {
                         while (!tipo) {
                             System.out.println("\n\t1. Rojo\n\t2. Negro\n\t3. Salir");
                             System.out.print("\n\tRojo o negro: ");
-                            ron = sc.nextInt();
+
+                            ron = entradaRuleta();
 
                             if (ron == 1 || ron == 2) {
                                 tipo = true;
-                            } else if (ron == 3) {
+                            } else {
                                 tipo = true;
                                 apuesta_c = true;
                             }
@@ -1113,11 +1147,12 @@ public class CASINO {
                         while (!tipo) {
                             System.out.println("\n\t1. Par\n\t2. Impar\n\t3. Salir");
                             System.out.print("\n\tPar o impar: ");
-                            poi = sc.nextInt();
+
+                            poi = entradaRuleta();
 
                             if (poi == 1 || poi == 2) {
                                 tipo = true;
-                            } else if (poi == 3) {
+                            } else {
                                 tipo = true;
                                 apuesta_c = true;
                             }
@@ -1135,11 +1170,12 @@ public class CASINO {
                         while (!tipo) {
                             System.out.println("\n\t1. 1 - 18\n\t2. 19 - 36\n\t3. Salir");
                             System.out.print("\n\tA que mitad quieres apostar: ");
-                            mit = sc.nextInt();
+
+                            mit = entradaRuleta();
 
                             if (mit == 1 || mit == 2) {
                                 tipo = true;
-                            } else if (mit == 3) {
+                            } else {
                                 tipo = true;
                                 apuesta_c = true;
                             }
@@ -1156,11 +1192,12 @@ public class CASINO {
                         while (!tipo) {
                             System.out.println("\n\t1. 1 - 12\n\t2. 13 - 24\n\t3. 25 - 36\n\t4. Salir");
                             System.out.print("\n\tA que docena quieres apostar: ");
-                            doc = sc.nextInt();
+
+                            doc = entradaRuleta();
 
                             if (doc >= 1 && doc <= 3) {
                                 tipo = true;
-                            } else if (doc == 4) {
+                            } else {
                                 tipo = true;
                                 apuesta_c = true;
                             }
@@ -1177,11 +1214,12 @@ public class CASINO {
                         while (!tipo) {
                             System.out.println("\n\t1. Fila 1\n\t2. Fila 2\n\t3. Fila 3\n\t4. Salir");
                             System.out.print("\n\tA que fila quieres apostar: ");
-                            fila = sc.nextInt();
+
+                            fila = entradaRuleta();
 
                             if (fila >= 1 && fila <= 3) {
                                 tipo = true;
-                            } else if (fila == 4) {
+                            } else {
                                 tipo = true;
                                 apuesta_c = true;
                             }
@@ -1203,6 +1241,10 @@ public class CASINO {
                         Thread.sleep(1000);
                         opcion_r = opcion;
                         opcion = 7;
+                        break;
+                    default:
+                        pantallaDefault();
+                        System.out.println("\n\n\tINTRODUCE UN VALOR DISPONIBLE");
                         break;
                 }
             }
@@ -1374,8 +1416,8 @@ public class CASINO {
     }
 
     /**
-     * metodo de comprobación de puntos para verificar que la apuesta es menor
-     * o igual al saldo total que tenemos
+     * metodo de comprobacion de puntos para verificar que la apuesta es menor o
+     * igual al saldo total que tenemos
      *
      * @param puntos
      * @param apuesta
@@ -1387,6 +1429,30 @@ public class CASINO {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Metodo para comprobar que el dato introducido es un int y no otro valor,
+     * para prevenir errores en la ejecucion del codigo
+     *
+     * Recibe como parametro la variable entera valor, que corresponde con cada
+     * una de las opciones de las apuestas de la ruleta
+     *
+     * @param valor
+     * @return
+     */
+    public static int entradaRuleta() throws InterruptedException {
+        int valor = 0;
+        
+        try {
+            valor = sc.nextInt();
+        } catch (Exception e) {
+            sc.next();
+            System.out.println("\n\tINTRODUCE UN VALOR CORRECTO");
+            Thread.sleep(850);
+        }
+
+        return valor;
     }
 
     /**
@@ -1409,12 +1475,20 @@ public class CASINO {
             System.out.println("\n\t\t\t\t\t.:APUESTA PUNTOS:.");
             System.out.println("\t\t\t\t\t__________________");
 
-            System.out.print("\n\tCuantos puntos quieres apostar: ");
-            apuesta = sc.nextInt();
+            // estructura de control de errores para evitar finalizaciones repentinas del programa
+            try {
+                System.out.print("\n\tCuantos puntos quieres apostar: ");
+                apuesta = sc.nextInt();
 
-            if (apuesta <= puntos.get(0) && apuesta > 0) {
-                puntos.set(0, puntos.get(0) - apuesta);
-                puntos_c = true;
+                if (apuesta <= puntos.get(0) && apuesta > 0) {
+                    puntos.set(0, puntos.get(0) - apuesta);
+                    puntos_c = true;
+                }
+            } catch (Exception e) {
+                sc.next();
+                pantallaDefault();
+                System.out.println("\n\n\tINTRODUCE UN VALOR VALIDO");
+                Thread.sleep(850);
             }
 
         }
@@ -1437,7 +1511,7 @@ public class CASINO {
 
         // preguntamos si queremos jugar otra partida o no
         pantallaDefault();
-        System.out.println("Puntos: " + puntos);
+        System.out.println("\n\tPuntos: " + puntos);
         System.out.print("\n\tQuieres jugar una mano? (s/n) ");
         String jug_s = sc.next();
 
@@ -1455,7 +1529,6 @@ public class CASINO {
      * @throws InterruptedException
      */
     public static int blackjack() throws IOException, InterruptedException {
-        Scanner sc = new Scanner(System.in);
 
         // llamamos al metodo para crear la baraja
         ArrayList<String> baraja = crearBaraja();
@@ -1471,22 +1544,36 @@ public class CASINO {
         repartirCarta(jugadaPlayer, baraja);
         repartirCarta(jugadaDealer, baraja);
 
-        borrarPantalla();
-
-        // mostramos nuestras cartas por pantalla
-        System.out.println("\n\n\t\t\t\t       .:PLAYER:.\n");
-
-        for (int i = 0; i < jugadaPlayer.size(); i++) {
-            System.out.println(jugadaPlayer.get(i));
-        }
-
-        // mostramos las cartas del dealer
-        System.out.println("\n\t\t\t\t       .:DEALER:.\n\n" + jugadaDealer.get(0) + "\t\t\t\t\t.-------.\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t'-------'\n");
-
         // mientras la puntuacion del jugador sea menor de 21, podemos seguir jugando
         while (puntuacionMano(jugadaPlayer) < 21) {
-            System.out.print("\n\tPEDIR CARTA (1) O PLANTARSE (2): ");
-            int accion = sc.nextInt();
+            int accion = 0;
+
+            // mientras no introduzcamos un valor valido no salir del bucle
+            while (true) {
+                borrarPantalla();
+
+                // mostramos nuestras cartas por pantalla
+                System.out.println("\n\n\t\t\t\t       .:PLAYER:.\n");
+
+                for (int i = 0; i < jugadaPlayer.size(); i++) {
+                    System.out.println(jugadaPlayer.get(i));
+                }
+
+                // mostramos las cartas del dealer
+                System.out.println("\n\t\t\t\t       .:DEALER:.\n\n" + jugadaDealer.get(0) + "\t\t\t\t\t.-------.\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t'-------'\n");
+
+                System.out.print("\n\tPEDIR CARTA (1) O PLANTARSE (2): ");
+
+                try {
+                    accion = sc.nextInt();
+                    break;
+                } catch (Exception e) {
+                    sc.next();
+                    pantallaDefault();
+                    System.out.println("\n\n\tINTRODUCE UN VALOR VALIDO");
+                    Thread.sleep(850);
+                }
+            }
 
             // si le damos al 1, pedimos otra carta
             if (accion == 1) {
@@ -1504,7 +1591,7 @@ public class CASINO {
 
                 System.out.println("\n\t\t\t\t       .:DEALER:.\n\n" + jugadaDealer.get(0) + "\t\t\t\t\t.-------.\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t|/|/|/|/|\n\t\t\t\t\t'-------'\n");
                 Thread.sleep(1500);
-            } else {
+            } else if (accion == 2) {
                 break;
             }
         }
@@ -1520,6 +1607,7 @@ public class CASINO {
         for (int i = 0; i < jugadaDealer.size(); i++) {
             System.out.println(jugadaDealer.get(i));
         }
+        Thread.sleep(1500);
 
         // creamos la variable que determina lo que ha ocurrido en la partida tras llamar al metodo determinarGanador()
         int resultado = determinarGanador(jugadaPlayer, jugadaDealer);
@@ -1860,7 +1948,7 @@ public class CASINO {
             System.out.print(horizontal + "\n\n\n\n REDIMENSIONA EN HORIZONTAL. \n\n PULSA 'S' Y LUEGO ENTER CUANDO LAS DOS BARRAS SE VEAN BIEN \n\n");
             opcion = sc.next();
         }
-        
+
         borrarPantalla();
         System.out.print(titulo + "\n\n\t\t    REDIMENSIONA VERTICALMENTE TODO LO QUE PUEDAS, GRACIAS");
         Thread.sleep(4500);
