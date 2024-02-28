@@ -6,7 +6,7 @@
 Casino interactivo en Java para Windows Terminal
 </p>
 <p align="center">
-<a href=""><img src="https://img.shields.io/badge/version-3.1.0-blue"></a>&nbsp;
+<a href=""><img src="https://img.shields.io/badge/version-3.2.0-blue"></a>&nbsp;
 <a href=""><img src="https://img.shields.io/badge/contributors-2-green"></a>
 </p>
 
