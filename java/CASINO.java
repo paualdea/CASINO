@@ -32,7 +32,7 @@ public class CASINO {
     static Scanner sc = new Scanner(System.in);
     // String para almacenar el titulo de CASINO que iremos mostrando
     static String titulo = "\n\t                          _____\n" + "\t        .-------.        |A .  | _____\n" + "\t       /   o   /|        | /.\\ ||A ^  | _____ \n" + "\t      /_______/o|        |(_._)|| / \\ ||A _  | _____           \n" + "\t      | o     | |        |  |  || \\ / || ( ) ||A_ _ |         .-\"\"\"-.\n" + "\t      |   o   |o/        |____V||  .  ||(_'_)||( v )|        /   _   \\\n" + "\t      |     o |/                |____V||  |  || \\ / |        |  (8)  |\n" + "\t      '-------'                        |____V||  .  |        \\   ^   /\n" + "\t                                              |____V|         '-...-'\n\n" + "\t  __________________________________________________________________________\n" + "\t |                                                                          |\n" + "\t|     ::::::::      :::      ::::::::  ::::::::::: ::::    :::  ::::::::     |\n" + "\t|    :+:    :+:   :+: :+:   :+:    :+:     :+:     :+:+:   :+: :+:    :+:    |\n" + "\t|    +:+         +:+   +:+  +:+            +:+     :+:+:+  +:+ +:+    +:+    |\n" + "\t|    +#+        +#++:++#++: +#++:++#++     +#+     +#+ +:+ +#+ +#+    +:+    |\n" + "\t|    +#+        +#+     +#+        +#+     +#+     +#+  +#+#+# +#+    +#+    |\n" + "\t|    #+#    #+# #+#     #+# #+#    #+#     #+#     #+#   #+#+# #+#    #+#    |\n" + "\t|     ########  ###     ###  ########  ########### ###    ####  ########     |\n" + "\t|                                                                            |\n" + "\t |__________________________________________________________________________|\n";
-    static String tituloCorto = "\n\n\t  __________________________________________________________________________\n"+ "\t |                                                                          |\n"+ "\t|     ::::::::      :::      ::::::::  ::::::::::: ::::    :::  ::::::::     |\n"+ "\t|    :+:    :+:   :+: :+:   :+:    :+:     :+:     :+:+:   :+: :+:    :+:    |\n"+ "\t|    +:+         +:+   +:+  +:+            +:+     :+:+:+  +:+ +:+    +:+    |\n"+ "\t|    +#+        +#++:++#++: +#++:++#++     +#+     +#+ +:+ +#+ +#+    +:+    |\n"+ "\t|    +#+        +#+     +#+        +#+     +#+     +#+  +#+#+# +#+    +#+    |\n"+ "\t|    #+#    #+# #+#     #+# #+#    #+#     #+#     #+#   #+#+# #+#    #+#    |\n"+ "\t|     ########  ###     ###  ########  ########### ###    ####  ########     |\n"+ "\t|                                                                            |\n"+ "\t |__________________________________________________________________________|\n\n";
+    static String tituloCorto = "\n\n\t  __________________________________________________________________________\n" + "\t |                                                                          |\n" + "\t|     ::::::::      :::      ::::::::  ::::::::::: ::::    :::  ::::::::     |\n" + "\t|    :+:    :+:   :+: :+:   :+:    :+:     :+:     :+:+:   :+: :+:    :+:    |\n" + "\t|    +:+         +:+   +:+  +:+            +:+     :+:+:+  +:+ +:+    +:+    |\n" + "\t|    +#+        +#++:++#++: +#++:++#++     +#+     +#+ +:+ +#+ +#+    +:+    |\n" + "\t|    +#+        +#+     +#+        +#+     +#+     +#+  +#+#+# +#+    +#+    |\n" + "\t|    #+#    #+# #+#     #+# #+#    #+#     #+#     #+#   #+#+# #+#    #+#    |\n" + "\t|     ########  ###     ###  ########  ########### ###    ####  ########     |\n" + "\t|                                                                            |\n" + "\t |__________________________________________________________________________|\n\n";
     static String user = "", passwd = "", passwd_aux = "";
     // Array bidimensional para almacenar los usuarios del sistema de juego del casino
     static String[][] usuariosList = new String[0][2];
@@ -60,6 +60,9 @@ public class CASINO {
         if (ficheroNuevo) {
             sistemaArchivos();
         }
+        
+        // llamamos a la funcion sistemaPantalla para que el usuario adapte la pantalla y pueda ver todo los elementos del programa correctamente
+        sistemaPantalla();
 
         // creacion variables para el registro y login
         int puntos = 0;
@@ -865,7 +868,7 @@ public class CASINO {
             /* 
                 Bucle for para mostrar los ultimos 10 numeros.
                 Contiene una estructura de control de errores por si aun no se han generado 10 numeros del bombo
-            */
+             */
             System.out.print("\n\n\tULTIMOS 10 NUMEROS --> ");
             try {
                 for (int i = 1; i <= 10; i++) {
@@ -1196,7 +1199,7 @@ public class CASINO {
                         break;
                     case 8:
                         pantallaDefault();
-                        System.out.println("\n\t\t\tSALIENDO...\n");
+                        System.out.println("\n\t\t\t\t\tSALIENDO...\n");
                         Thread.sleep(1000);
                         opcion_r = opcion;
                         opcion = 7;
@@ -1827,6 +1830,48 @@ public class CASINO {
     public static void pantallaDefault() throws IOException, InterruptedException {
         borrarPantalla();
         System.out.println(titulo);
+    }
+
+    /**
+     * Este metodo lanza varios textos para hacer unas comprobaciones y que el usuario adapte la ventana del terminal a las medidas correctas
+     * 
+     * @throws InterruptedException
+     * @throws IOException 
+     */
+    public static void sistemaPantalla() throws InterruptedException, IOException {
+        Thread.sleep(200);
+        String opcion = "", punto = ".";
+
+        // bucle for para mostrar una animacion de que carga un adaptador de pantalla (no tiene utilidad real, solo estetica)
+        for (int i = 0; i < 4; i++) {
+            borrarPantalla();
+            System.out.println(titulo + "\n\n\t\t\t\tCARGANDO ADAPTADOR PANTALLA" + punto);
+            punto += ".";
+            Thread.sleep(750);
+        }
+        
+        // mientras que la opcion no sea ni 's' o 'S' no se sale de este bucle while
+        while (!(opcion.equals("s") || opcion.equals("S"))) {
+            borrarPantalla();
+            System.out.println(tituloCorto);
+            // muestra dos barras con # para que sea facil de ver cuando la ventana esta correctamente redimensionada
+            String horizontal = "\n\n##################################################################################################################\n##################################################################################################################";
+            System.out.print(horizontal + "\n\n\n\n REDIMENSIONA EN HORIZONTAL. \n\n PULSA 'S' Y LUEGO ENTER CUANDO LAS BARRAS SE VEAN EN UNA LINEA \n\n");
+            opcion = sc.next();
+        }
+
+        // vaciamos opcion para que no se salte el siguiente bucle
+        opcion = "";
+
+        // mientras que opcion no sea ni 'S' o 's' no se sale del bucle
+        while (!(opcion.equals("s") || opcion.equals("S"))) {
+            borrarPantalla();
+            // creamos un string que tenga una barra de # encima de todo para que el usuario pueda ver cuando el tamano llega a su ideal
+            String vertical = "##################\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-";
+            System.out.print(vertical + "\nREDIMENSIONA VERTICALMENTE Y DESPLAZA HASTA ARRIBA. PULSA 'S' Y LUEGO ENTER CUANDO VEAS LOS '#'   ");
+            opcion = sc.next();
+        }
+
     }
 
 }
