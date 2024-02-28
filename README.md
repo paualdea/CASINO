@@ -43,7 +43,7 @@ Seleccionas el paquete que prefieras y lo descomprimes.
 
 ## Uso
 
-Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que pueda cargar todo correctamente y puedas ver todo el contenido y la ventana del juego correctamente.
+Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que pueda cargar todo correctamente. Además, se ha añadido una función al inicio del programa que pide un ajuste de ventana manual por parte del usuario y así se asegura la visualización óptima del programa.
 
 ## Funcionamiento
 
