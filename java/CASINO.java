@@ -60,7 +60,7 @@ public class CASINO {
         if (ficheroNuevo) {
             sistemaArchivos();
         }
-        
+
         // llamamos a la funcion sistemaPantalla para que el usuario adapte la pantalla y pueda ver todo los elementos del programa correctamente
         sistemaPantalla();
 
@@ -1374,8 +1374,8 @@ public class CASINO {
     }
 
     /**
-     * metodo de comprobación de puntos para verificar que la apuesta es menor o
-     * igual al saldo total que tenemos
+     * metodo de comprobación de puntos para verificar que la apuesta es menor
+     * o igual al saldo total que tenemos
      *
      * @param puntos
      * @param apuesta
@@ -1833,44 +1833,37 @@ public class CASINO {
     }
 
     /**
-     * Este metodo lanza varios textos para hacer unas comprobaciones y que el usuario adapte la ventana del terminal a las medidas correctas
-     * 
+     * Este metodo lanza varios textos para hacer unas comprobaciones y que el
+     * usuario adapte la ventana del terminal a las medidas correctas
+     *
      * @throws InterruptedException
-     * @throws IOException 
+     * @throws IOException
      */
     public static void sistemaPantalla() throws InterruptedException, IOException {
         Thread.sleep(200);
         String opcion = "", punto = ".";
 
         // bucle for para mostrar una animacion de que carga un adaptador de pantalla (no tiene utilidad real, solo estetica)
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             borrarPantalla();
             System.out.println(titulo + "\n\n\t\t\t\tCARGANDO ADAPTADOR PANTALLA" + punto);
             punto += ".";
-            Thread.sleep(750);
+            Thread.sleep(550);
         }
-        
+
         // mientras que la opcion no sea ni 's' o 'S' no se sale de este bucle while
         while (!(opcion.equals("s") || opcion.equals("S"))) {
             borrarPantalla();
             System.out.println(tituloCorto);
             // muestra dos barras con # para que sea facil de ver cuando la ventana esta correctamente redimensionada
             String horizontal = "\n\n##################################################################################################################\n##################################################################################################################";
-            System.out.print(horizontal + "\n\n\n\n REDIMENSIONA EN HORIZONTAL. \n\n PULSA 'S' Y LUEGO ENTER CUANDO LAS BARRAS SE VEAN EN UNA LINEA \n\n");
+            System.out.print(horizontal + "\n\n\n\n REDIMENSIONA EN HORIZONTAL. \n\n PULSA 'S' Y LUEGO ENTER CUANDO LAS DOS BARRAS SE VEAN BIEN \n\n");
             opcion = sc.next();
         }
-
-        // vaciamos opcion para que no se salte el siguiente bucle
-        opcion = "";
-
-        // mientras que opcion no sea ni 'S' o 's' no se sale del bucle
-        while (!(opcion.equals("s") || opcion.equals("S"))) {
-            borrarPantalla();
-            // creamos un string que tenga una barra de # encima de todo para que el usuario pueda ver cuando el tamano llega a su ideal
-            String vertical = "##################\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-\n" + "-";
-            System.out.print(vertical + "\nREDIMENSIONA VERTICALMENTE Y DESPLAZA HASTA ARRIBA. PULSA 'S' Y LUEGO ENTER CUANDO VEAS LOS '#'   ");
-            opcion = sc.next();
-        }
+        
+        borrarPantalla();
+        System.out.print(titulo + "\n\n\t\t    REDIMENSIONA VERTICALMENTE TODO LO QUE PUEDAS, GRACIAS");
+        Thread.sleep(4500);
 
     }
 
