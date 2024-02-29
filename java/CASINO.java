@@ -1124,7 +1124,7 @@ public class CASINO {
                                 apuesta_c = true;
                             }
                         }
-                        
+
                         // mientras que la apuesta no se confirme repetir infinito este bucle
                         while (!apuesta_c) {
                             // llamamos al metodo booleano apuestaruleta que nos verifica, anade y actualiza todo lo referente a las apuestas del juego
@@ -1270,12 +1270,12 @@ public class CASINO {
                         break;
                 }
             }
-            
+
             // si la opcion es 8 salir
             if (opcion_r == 8) {
                 break;
             }
-            
+
             // actualizacion de variables de apuesta despues de anadir todos los valores en el metodo apuestaRuleta()
             // usamos un for para recorrer todos los espacios del arraylist apuestas a
             for (int i = 0; i < apuestas_a.size(); i++) {
@@ -1340,21 +1340,21 @@ public class CASINO {
             } else {
                 apuesta_poi *= 0;
             }
-            
+
             // si hemos escogido la primera mitad y ha tocado o si hemos escogido la segunda mitad y ha tocado...
             if (((numero >= 1 && numero <= 18) && mit == 1) || ((numero >= 19 && numero <= 36) && mit == 2)) {
                 apuesta_mit *= 2;
             } else {
                 apuesta_mit *= 0;
             }
-            
+
             // si hemos escogido la primera, segunda o tercera docena y ha salido...
             if (((numero >= 1 && numero <= 12) && doc == 1) || ((numero >= 13 && numero <= 24) && doc == 2) || ((numero >= 25 && numero <= 36) && doc == 3)) {
                 apuesta_doc *= 3;
             } else {
                 apuesta_doc *= 0;
             }
-            
+
             // bucle for que se repite tantas veces como fila1 numeros tenga
             for (int i = 0; i < fila1.length; i++) {
                 // si el numero coincide con uno de la fila 3, poner rr_fila a 3, asi con las otras dos filas
@@ -1367,19 +1367,17 @@ public class CASINO {
                 }
 
             }
-            
+
             // si hemos escogido la fila 1, 2 o 3 y ha tocado...
             if ((rr_fila == 1 && fila == 1) || (rr_fila == 2 && fila == 2) || (rr_fila == 3 && fila == 3)) {
                 apuesta_fila *= 3;
             } else {
                 apuesta_fila *= 0;
             }
-            
+
             // asignar a puntos_aux los puntos actuales del usuario antes de sumarle las apuestas y sus resultados
             puntos_aux = puntos.get(0);
 
-            
-            
             // añadir los puntos resultantes al arraylist de puntos
             puntos.set(0, puntos.get(0) + apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila);
             // establecer a 0 las apuestas
@@ -1407,14 +1405,27 @@ public class CASINO {
      * @param fila
      * @return
      */
-    public static boolean apuestaRuleta(String tipoApuesta, ArrayList<Integer> puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) {
+    public static boolean apuestaRuleta(String tipoApuesta, ArrayList<Integer> puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) throws IOException, InterruptedException {
 
         int apuesta = 0;
         String r_ron = "";
         String r_poi = "";
 
-        System.out.print("\n\tCuantos puntos quieres apostar: ");
-        apuesta = sc.nextInt();
+        // estructura de manejo de erorres para asegurar que el programa sigue funcionando corectamente aunque se den excepciones en la ejecucion
+        while (true) {    
+            System.out.print("\n\tCuantos puntos quieres apostar: ");
+            try {
+                apuesta = sc.nextInt();
+                break;
+            } catch (Exception e) {
+                sc.next();
+                pantallaDefault();
+                System.out.println("\n\n\tINTRODUCE UN VALOR CORRECTO\n");
+                Thread.sleep(850);
+                pantallaDefault();
+                System.out.println("\n\tPUNTOS: " + puntos.get(0));
+            }
+        }
 
         // dependiendo del origen de la apuesta, se verifica un tipo de apuesta u otro. Posteriormente, se añade la apuesta confirmada a la lista de apuestas
         switch (tipoApuesta) {
@@ -1520,7 +1531,7 @@ public class CASINO {
      */
     public static int entradaRuleta() throws InterruptedException {
         int valor = 0;
-        
+
         // estrutura de control de error para evitar erorres criticos que interrumpan la ejecucion del programa
         try {
             valor = sc.nextInt();
