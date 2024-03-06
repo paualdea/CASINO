@@ -23,7 +23,7 @@ import java.util.Scanner;
  * Esperemos que disfrutes del juego!
  *
  * @author Pau Aldea Batista
- * @authos Mohammad Tufail Imran
+ * @author Mohammad Tufail Imran
  */
 public class CASINO {
 
@@ -70,7 +70,7 @@ public class CASINO {
         int opcion_r = 0, opcion_ij = 0, numero = 0;
         ArrayList<Integer> puntosPendientes = new ArrayList<>();
 
-        // mientras que no se inicie de sesion con un usuario (administrador o normal) no se va a salir de este bucle while
+        // mientras que no se inicie de sesion con un usuario no se va a salir de este bucle while
         while (!ini_juego) {
 
             // si el arraylist puntosPendientes esta vacio, le asignaremos en la primera posicion el valor de puntos
@@ -136,13 +136,12 @@ public class CASINO {
                     break;
                 // RESTABLECER CASINO
                 case 3:
-                    // creamos un objeto con la clase file que haga referencia al fichero de usuarios que vamos usando a lo largo de todo el programa
+                    // File que hace referencia al fichero de usuarios que vamos usando a lo largo de todo el programa (usuarios.txt)
                     File usuarios = new File("./casino_files", "usuarios.txt");
-                    String opcion;
 
                     pantallaDefault();
                     System.out.print("\n\tESTAS SEGURO DE QUE QUIERES RESTABLECER EL CASINO?\n\tESTO BORRARA TODOS LOS USUARIOS Y PUNTOS\n\n\tBORRAR? (s/n): ");
-                    opcion = sc.next();
+                    String opcion = sc.next();
 
                     // si la entrada de la variable String opcion es s, S, y o Y, se restablece el casino
                     if (opcion.equals("s") || opcion.equals("S") || opcion.equals("y") || opcion.equals("Y")) {
@@ -163,7 +162,6 @@ public class CASINO {
                         // se para la ejecucion del programa
                         System.exit(0);
                     }
-
                     break;
                 // SALIR
                 case 4:
@@ -201,13 +199,14 @@ public class CASINO {
                 passwd = sc.next();
                 int nuevosPuntos = 0;
 
-                // Se recorre todo el array de usuarios para ver si algun registro coincide con el usuario y contrase帽a que hemos introducido
+                // Se recorre todo el array de usuarios para ver si algun registro coincide
                 for (int i = 0; i < usuariosList.length; i++) {
+                    // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
                     if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
                         pantallaDefault();
                         System.out.println("\n\t\t\t\tHAS INICIADO SESION COMO " + user);
 
-                        // se vacia al arraylist para llevar lo puntos actualizados
+                        // se vacia al arraylist para llevar los puntos actualizados
                         puntos.clear();
 
                         // si el usuario no tiene puntos se le da la posibilidad de anadir mas (max 3000)
@@ -247,7 +246,7 @@ public class CASINO {
                                 puntos.add(puntosUsuario.get(i));
                             }
                         } else {
-                            // si no anade mas, se le asignan 0, lo que cierra el programa
+                            // si el usuario tiene puntos se le asignan los que estan en su pertenencia
                             puntos.add(puntosUsuario.get(i));
                         }
 
@@ -287,7 +286,7 @@ public class CASINO {
                     }
                 }
 
-                // si la password y la confirmacion de la password son iguales, se desvia el if para agregar dinero a la cuenta
+                // si la password y la confirmacion de la password son iguales, se desvia al if para agregar dinero a la cuenta
                 if (passwd.equals(passwd_aux)) {
 
                     /* 
@@ -295,16 +294,14 @@ public class CASINO {
                         sea inferior de 3000 
                      */
                     while (!puntosEstablecidos) {
-                        boolean entradaValida = false;
-
-                        while (!entradaValida) {
+                        while (true) {
                             // estructura de control para asegurar que no se rompe el codigo por una mala entrada de datos
                             try {
                                 borrarPantalla();
                                 pantallaDefault();
                                 System.out.print("\n\t\t\t   INGRESO DINERO (MAXIMO 3000): ");
                                 ingreso = sc.nextInt();
-                                entradaValida = true;
+                                break;
                             } catch (Exception e) {
                                 sc.next();
                                 borrarPantalla();
@@ -313,6 +310,7 @@ public class CASINO {
                             }
                         }
 
+                        // Si el ingreso es menor a 3000 entonces proceder
                         if (ingreso <= 3000) {
                             puntos.clear();
                             puntos.add(ingreso);
@@ -329,6 +327,7 @@ public class CASINO {
                     usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
                     usuariosList[usuariosList.length - 1] = new String[2];
 
+                    // Se a馻den a la ultima fila del array el usuario y contrasena que hemos especificado en el registro
                     usuariosList[usuariosList.length - 1][0] = user;
                     usuariosList[usuariosList.length - 1][1] = passwd;
                     puntosUsuario.add(ingreso);
@@ -366,13 +365,12 @@ public class CASINO {
         puntosPendientes.add(puntos);
         int opcionMenu = 0;
 
-        // Mientras que la opcion del meno de juegos no sea 5 (salir del programa), se repite infinitamente el codigo contenido dentro
+        // Mientras que la opcion del meno de juegos no sea 6 (salir del programa), se repite infinitamente el codigo contenido dentro
         while (opcionMenu != 6) {
 
             pantallaDefault();
-
+            
             if (puntos == 0) {
-
                 System.out.println("\n\t\t\t\t   TE HAS QUEDADO SIN PUNTOS");
                 Thread.sleep(3000);
                 // se llama a la funcion actualizarFicheros para guardar que el usuario se ha quedado sin puntos
@@ -388,6 +386,7 @@ public class CASINO {
             System.out.println("\n\t\t\t\t           6. SALIR");
             System.out.print("\n\n\tQUE QUIERE HACER: ");
 
+            // Estructura de control de errores para asegurar que el programa continua con la ejecucion
             try {
                 opcionMenu = sc.nextInt();
             } catch (Exception e) {
@@ -397,14 +396,15 @@ public class CASINO {
                 Thread.sleep(1750);
             }
 
-            // switch para desviar a los m茅todos de los juegos
+            // switch para desviar a los metodos de los juegos
             switch (opcionMenu) {
                 // DADOS
                 case 1:
-                    // primero establecemos la posicion 0 del arraylist con el valor de puntos y luego llamamos a la funci贸n de dados() adjuntando dicho arraylist
+                    // establecemos la posicion 0 del arraylist con los puntos del usuario
                     puntosPendientes.set(0, puntos);
+                    // llamamos a la funcion dados() adjuntando el arraylist de puntos
                     dados(puntosPendientes);
-                    // una vez cambia el valor de la posici贸n 0 del arraylist, hacemos que la variable puntos valga lo mismo
+                    // igualamos la variable puntos a la posicion 0 del arraylist una vez el valor ha podido cambiar
                     puntos = puntosPendientes.get(0);
                     break;
                 // BINGO
@@ -448,14 +448,12 @@ public class CASINO {
                             // bucle for que se repita tantas veces como ficheros haya en el directorio
                             for (int i = 0; i < arrayFicheros.length; i++) {
                                 System.out.println("\n\t\t           " + (i + 1) + ". " + arrayFicheros[i]);
-
                                 // determinamos el tipo de contenido que hay dentro del directorio
                                 if (arrayFicheros[i].isFile()) {
                                     tipo = "FICHERO";
                                 } else {
                                     tipo = "DIRECTORIO";
                                 }
-
                                 System.out.println("\n\t\t           ES UN " + tipo + " QUE PESA " + arrayFicheros[i].length() + " BYTES\n");
                             }
                             Thread.sleep(4250);
@@ -472,10 +470,12 @@ public class CASINO {
                     break;
                 // SALIR
                 case 6:
+                    // llamamos al metodo actualizarFicheros() para asi poder guardar los cambios en el fichero
                     actualizarFicheros(puntosPendientes);
                     pantallaDefault();
                     System.out.println("\n\t\t\t\t   HASTA PRONTO, " + user + "\n");
                     Thread.sleep(3000);
+                    // mandamos un c骴igo de salida del programa
                     System.exit(0);
                     break;
             }
@@ -484,8 +484,9 @@ public class CASINO {
     }
 
     /**
-     * metodo principal del juego de los dados
+     * Metodo principal del juego de los dados
      *
+     * Recibe como parametros el arraylist puntosPendientes
      * @param puntos
      * @throws IOException
      * @throws InterruptedException
@@ -503,18 +504,18 @@ public class CASINO {
             "\t\t\t\t\t _____________\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|  O       O  |\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|      O      |\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|  O       O  |\n" + "\t\t\t\t\t|_____________|",
             "\t\t\t\t\t _____________\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|  O       O  |\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|  O       O  |\n" + "\t\t\t\t\t|             |\n" + "\t\t\t\t\t|  O       O  |\n" + "\t\t\t\t\t|_____________|",};
 
-        // mientras que la variable booleana sea false, todo el c贸digo se repite infinitamente
+        // mientras que la variable booleana sea false, todo el codigo se repite infinitamente
         while (!ganar) {
             // mientras que el numero introducido no sea entre 2 y 12 se repite todo
             do {
                 borrarPantalla();
 
-                // si te quedas sin puntos sale del while
+                // si te quedas sin puntos se sale del while
                 if (puntos.get(0) == 0) {
                     ganar = true;
                 }
 
-                // ponemos el valor de n a cero por si volvemos a jugar que no nos de errores de lectura
+                // ponemos el valor de n a cero por si volvemos a jugar, asi evitando errores de lectura de la variable
                 n = 0;
 
                 System.out.println(titulo);
@@ -523,6 +524,7 @@ public class CASINO {
                 System.out.println("\n\tPuntos: " + puntos.get(0));
                 System.out.print("\n\tEscoge un numero (2 - 12) (14 para salir): ");
 
+                // estructura de control de errores para prevenir finalizaciones en la ejecucion del codigo
                 try {
                     n = sc.nextInt();
                 } catch (Exception e) {
@@ -531,6 +533,8 @@ public class CASINO {
                     System.out.println("\n\tESCRIBE UN VALOR CORRECTO");
                     Thread.sleep(1750);
                 }
+                
+                // si la entrada del escaner es 14 salimos del programa
                 if (n == 14) {
                     pantallaDefault();
 
@@ -556,23 +560,34 @@ public class CASINO {
 
             System.out.println("\n\t_______________________________________________");
 
-            // bucle while() para obligar al usuario a hacer una apuesta inferior o igual al saldo total disponible
+            // bucle do while para obligar al usuario a hacer una apuesta inferior o igual al saldo total disponible
             do {
                 pantallaDefault();
                 System.out.println("\n\tPuntos: " + puntos.get(0));
                 System.out.print("\n\tApuesta: ");
-                apuesta = sc.nextInt();
+                // estructura de control de errores
+                try { 
+                    apuesta = sc.nextInt();
+                } catch (Exception e) { 
+                    sc.nextLine();
+                    pantallaDefault();
+                    System.out.println("\n\n\tINTRODUCE UN VALOR CORRECTO\n");
+                    Thread.sleep(850);
+                }
 
             } while (!(apuesta <= puntos.get(0) && apuesta > 0));
 
+            // restamos a los puntos del usuario la cantidad apostadaa
             puntos.set(0, puntos.get(0) - apuesta);
-            // se llama al metodo para obtener una puntuaci贸n en relaci贸n a la apuesta realizada
+            // se llama al metodo para obtener una puntuacion en relacion a la apuesta realizada
             int puntosAdicionales = tirarDados(caraDado, n, apuesta);
 
+            // sumamos los puntos ganados
             puntos.set(0, puntos.get(0) + puntosAdicionales);
 
             apuesta = 0;
 
+            // si nos quedamos sin puntos salimos del bucle while
             if (puntos.get(0) == 0) {
                 ganar = true;
             }
@@ -596,6 +611,7 @@ public class CASINO {
         int dado2 = rd.nextInt(6) + 1;
         int resultado = dado1 + dado2;
 
+        // imprimimos la imagen del array de caraDado en una posicion menos del valor del dado
         System.out.println("\n\t     DADO 1\n" + caraDado[dado1 - 1] + "\n\n\t     DADO 2\n" + caraDado[dado2 - 1]);
         Thread.sleep(3500);
 
@@ -623,15 +639,14 @@ public class CASINO {
     }
 
     /**
-     * metodo principal para el juego del bingo. S贸lo recibe c贸mo atributo el
-     * arraylist de puntos
+     * metodo principal para el juego del bingo. Solo recibe como atributo el arraylist de puntos
      *
      * @param puntos
      * @throws IOException
      * @throws InterruptedException
      */
     public static void bingo(ArrayList<Integer> puntos) throws IOException, InterruptedException {
-        // vaciamos todos los arraylist estaticos para que no den conflicto si ejecutamos el juego del bingo m谩s de una vez
+        // vaciamos todos los arraylist estaticos para poder jugar al bingo mas de una vez
         numerosBorrar.clear();
         indexCol.clear();
         bombo.clear();
@@ -640,13 +655,12 @@ public class CASINO {
         numerosBingoUsados.clear();
 
         Random rd = new Random();
-        final int CASILLAS = 15;
+
         // creamos y definimos dos arrays bidimensionales que corresponden con el carton del usuario y del ordenador
         int[][] bingo = new int[9][3];
         int[][] bingocpu = new int[9][3];
 
         int apuesta = 0;
-        String jug_s;
 
         boolean puntos_c, salir = false;
 
@@ -663,9 +677,10 @@ public class CASINO {
             System.out.println("\t\t\t\t\t_________");
 
             System.out.print("\n\tQuieres jugar un carton? (s/n) ");
-            jug_s = sc.next();
-
-            if (!jug_s.equals("s")) {
+            String jugar = sc.next();
+            
+            // si no recibimos una 's' o 'S' por el escaner salimos del bingo
+            if (!(jugar.equals("s") || jugar.equals("S"))) {
                 salir = true;
                 break;
             }
@@ -695,7 +710,6 @@ public class CASINO {
                     puntos.set(0, puntos.get(0) - apuesta);
                     puntos_c = true;
                 }
-
             }
 
             // llamamos al metodo creacion carton
@@ -720,41 +734,47 @@ public class CASINO {
                 bombo.add(i);
             }
 
-            // jugada bingo
+            // ejecutamos el metodo para jugar al bingo, en este array se almacenaran todas las respuestas que recibamos
             String[] resultado = jugarBingo(bingo, bingocpu);
 
+            // creamos las variables booleanas para determinar el resultado de la partida
             boolean ganar = false, ganar_cpu = false;
 
             // analizamos el contenido del array resultado obtenido en el metodo jugarBingo() y definimos que ha ocurrido en la jugada en funcion del mismo
             for (int i = 0; i < resultado.length; i++) {
+                // si en el array de resultados esta ganar, ponemos ganar en true
                 if (resultado[i].equals("ganar")) {
                     ganar = true;
-                } else if (resultado[i].equals("ganarcpu")) {
+                } 
+                // si en el array de resultados esta ganarcpu, ponemos ganar_cpu en true
+                else if (resultado[i].equals("ganarcpu")) {
                     ganar_cpu = true;
                 }
             }
 
-            // llamamos a la funci贸n definitiva para hacer el calculo de nuestro resultado
+            // llamamos a la funcion definitiva para hacer el calculo de nuestro resultado
             resultadoBingo(ganar, ganar_cpu, apuesta, puntos);
         }
     }
 
     /**
-     * Funci贸n para devolver un carton de bingo que se genera con un algoritmo
+     * Funcion para devolver un carton de bingo que se genera con un algoritmo
      *
      * @return
      */
     public static int[][] creacionCarton() {
         int[][] bingo = new int[9][3];
         Random rd = new Random();
+        // constante entera para determinar el numero de casillas del carton
         final int CASILLAS = 15;
-        int s1, s2, s3, nN, nU = 0;
+        // variables enteras para crear los numeros del carton
+        int fila1, fila2, fila3, numeroFila, casillasCreadas = 0;
 
-        // establecemos a 0 la variable contador de numeros de casillas usadas
-        nU = 0;
+        // establecemos a 0 la variable contador de numeros de casillas creadas
+        casillasCreadas = 0;
 
         // mientras que no se usen todas las casillas
-        while (nU != CASILLAS) {
+        while (casillasCreadas != CASILLAS) {
 
             // llenamos todas las posiciones del array bidimensional con ceros
             for (int i = 0; i < bingo.length; i++) {
@@ -763,10 +783,11 @@ public class CASINO {
 
             // vaciar arraylist que almacena los numeros que se usan
             numerosBingo.clear();
-            nU = 0;
-            s1 = 0;
-            s2 = 4;
-            s3 = 7;
+            
+            casillasCreadas = 0;
+            fila1 = 0;
+            fila2 = 4;
+            fila3 = 7;
 
             // bucle for para recorrer las filas del carton de bingo
             for (int i = 0; i < bingo.length; i++) {
@@ -776,49 +797,56 @@ public class CASINO {
                 indexCol.add(1);
                 indexCol.add(2);
                 // hacemos una variable aleatorio entre el 0 y el 2
-                nN = rd.nextInt(3);
+                numeroFila = rd.nextInt(3);
 
                 // un bucle for para borrar aleatoriamente entre 0 y 2 valores de la columna
-                for (int k = 0; k <= (1 - nN); k++) {
-
+                for (int k = 0; k <= (1 - numeroFila); k++) {
                     indexCol.remove(rd.nextInt(indexCol.size()));
-
                 }
 
-                // un bucle for que se repite tantas veces c贸mo el index de columnas tama帽o tenga
+                // un bucle for que se repite las mismas veces que el tama駉 del indice
                 for (int j = 0; j < indexCol.size(); j++) {
 
-                    // variable para determinar el valor de la columna en referencia a la iteracion del for actual
+                    // variable para determinar la columna del carton en la que estamos (iteracion for)
                     int posicion = indexCol.get(j);
 
-                    // dependiendo de la posicion se generar谩 un valor en la fila en una de las tres casillas limitado en tres valores por casilla de la fila
+                    // switch para generar un numero en las filas de la columna que se hayan elegido por el programa
                     switch (posicion) {
+                        // fila 1 (numero del i0 al i3)
                         case 0:
-                            if (rd.nextInt(4) + s1 == 0) {
+                            // si sale un 0 en la primera linea, cambiar el 0 por 1
+                            if (rd.nextInt(4) + fila1 == 0) {
                                 bingo[i][0] = 1;
                                 numerosBingo.add(bingo[i][0]);
-                            } else {
-                                bingo[i][0] = rd.nextInt(4) + s1;
+                            } 
+                            // crear un numero del 0 al 3 y sumarle el valor de fila1 (0, 10, 20, etc)
+                            else {
+                                bingo[i][0] = rd.nextInt(4) + fila1;
                                 numerosBingo.add(bingo[i][0]);
                             }
                             break;
+                        // fila 2 (numero del i4 al i6)
                         case 1:
-                            bingo[i][1] = rd.nextInt(3) + s2;
+                            // crear un numero del 0 al 2 y sumarle el valor de fila2 (4, 14, 24, etc)
+                            bingo[i][1] = rd.nextInt(3) + fila2;
                             numerosBingo.add(bingo[i][1]);
                             break;
+                        // fila 3 (numero del i7 al i9)
                         case 2:
-                            bingo[i][2] = rd.nextInt(3) + s3;
+                            // crear un numero del 0 al 2 y sumarle el valor de fila3 (7, 17, 27, etc)
+                            bingo[i][2] = rd.nextInt(3) + fila3;
                             numerosBingo.add(bingo[i][2]);
                             break;
                     }
                 }
-
-                s1 += 10;
-                s2 += 10;
-                s3 += 10;
-                nU += indexCol.size();
+                
+                // Sumar 10 a todas las filas (cambio de columna en el carton)
+                fila1 += 10;
+                fila2 += 10;
+                fila3 += 10;
+                // sumar al contador de casillas creadas las que hemos creado en esta columna
+                casillasCreadas += indexCol.size();
             }
-
         }
 
         // devolver array bingo al metodo principal del bingo
@@ -827,8 +855,11 @@ public class CASINO {
 
     /**
      * Juega con los dos cartones verificando sus valores Gana el primero que
-     * vacie el cart贸n antes de que se termine el bombo
-     *
+     * vacie el carton antes de que se termine el bombo
+     * 
+     * En caso de que los dos ganen al mismo tiempo o que se vacie el bombo se queda en empate
+     * 
+     * Recibe como argumentos los dos arrays (carton bingo y carton bingocpu)
      * @param bingo
      * @param bingocpu
      * @return
@@ -838,11 +869,11 @@ public class CASINO {
     public static String[] jugarBingo(int[][] bingo, int[][] bingocpu) throws IOException, InterruptedException {
         Random rd = new Random();
         int numero = 0;
-        boolean ganar_cpu = false, perdido = false, ganar = false, romperSiguiente = false, romperSiguiente1 = false;
+        boolean ganar_cpu = false, perdido = false, ganar = false, finalBingo = false, finalBingocpu = false;
         ArrayList<String> resultado = new ArrayList<>();
 
         while (true) {
-            romperSiguiente = false;
+            finalBingo = false;
             borrarPantalla();
             System.out.println(tituloCorto);
 
@@ -916,7 +947,7 @@ public class CASINO {
                     if (numerosRestantes == 0) {
                         resultado.add("ganar");
                         // si el jugador gana, la CPU tiene un intento mas para empatar, sino empata, solo queda como vencedor el usuario
-                        romperSiguiente = true;
+                        finalBingo = true;
                     }
                     // si el numero ha salido borrarlo del carton
                     for (int k = 0; k < numerosBorrar.size(); k++) {
@@ -939,7 +970,7 @@ public class CASINO {
             }
 
             // esta condicion se cumple cuando la CPU ha ganado y se le ha dado un turno mas al jugador
-            if (romperSiguiente1) {
+            if (finalBingocpu) {
                 String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
                 return resultadoArray;
             }
@@ -953,7 +984,7 @@ public class CASINO {
                     if (numerosRestantesCpu == 0) {
                         resultado.add("ganarcpu");
                         // si la CPU gana, el jugador tiene una ronda mas para empatar, sino, solo gana la CPU
-                        romperSiguiente1 = true;
+                        finalBingocpu = true;
                     }
                     for (int k = 0; k < numerosBorrar.size(); k++) {
                         if (numerosBorrar.get(k) == bingocpu[j][i]) {
@@ -964,7 +995,7 @@ public class CASINO {
             }
 
             // la condicion se da si el jugador ha hecho bingo y la CPU ha tenido un turno mas
-            if (romperSiguiente) {
+            if (finalBingo) {
                 String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
                 return resultadoArray;
             }
@@ -1381,12 +1412,7 @@ public class CASINO {
             // a帽adir los puntos resultantes al arraylist de puntos
             puntos.set(0, puntos.get(0) + apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila);
             // establecer a 0 las apuestas
-            apuesta_n = 0;
-            apuesta_ron = 0;
-            apuesta_poi = 0;
-            apuesta_mit = 0;
-            apuesta_doc = 0;
-            apuesta_fila = 0;
+            apuesta_n = 0; apuesta_ron = 0; apuesta_poi = 0; apuesta_mit = 0; apuesta_doc = 0; apuesta_fila = 0;
         }
     }
 
@@ -1929,7 +1955,7 @@ public class CASINO {
             ficheroNuevo = true;
             // si el fichero de usuarios no esta vacio entonces...
         } else {
-            // mientras el fichero tenga m锟絪 lineas...
+            // mientras el fichero tenga mas lineas...
             while (lectorLineas.readLine() != null) {
                 // establece la variable String linea con el contenido de la linea actual del fichero
                 linea = lector.nextLine();
