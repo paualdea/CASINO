@@ -101,7 +101,7 @@ public class CASINO {
             switch (opcion_r) {
                 // INICIAR SESION
                 case 1:
-                    // se repetira el inicio de sesion hasta tres veces por si te equivocas de usuario o contraseña
+                    // se repetira el inicio de sesion hasta tres veces por si te equivocas de usuario o contraseÃ±a
                     for (int i = 0; i < 3; i++) {
                         // metodo booleano para pedir usuario y password si sale true se pasa el menu de juegos, si sale false, se vuelve al menu de inicio
                         if (!usuarios("iniciarSesion", puntosPendientes)) {
@@ -166,7 +166,7 @@ public class CASINO {
                 // SALIR
                 case 4:
                     /* 
-                        Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuci�n del programa.
+                        Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuciï¿½n del programa.
                         Se manda como argumento el arrayList que usamos para almacenar los puntos actuales del usuario.
                      */
                     actualizarFicheros(puntosPendientes);
@@ -327,7 +327,7 @@ public class CASINO {
                     usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
                     usuariosList[usuariosList.length - 1] = new String[2];
 
-                    // Se a�aden a la ultima fila del array el usuario y contrasena que hemos especificado en el registro
+                    // Se añaden a la ultima fila del array el usuario y contrasena que hemos especificado en el registro
                     usuariosList[usuariosList.length - 1][0] = user;
                     usuariosList[usuariosList.length - 1][1] = passwd;
                     puntosUsuario.add(ingreso);
@@ -356,7 +356,7 @@ public class CASINO {
         /*
             Este ArrayList es muy importante. Se trata de un arraylist que vamos usando en cada uno de los juegos que hacemos y para no tener
             problemas con la actualizacion de los puntos en el metodo menujuegos().
-            Se usa un arraylist porque se puede actualizar sin usar return ni declararlo como estático en cualquier metodo. Por ello, se podra ver varias 
+            Se usa un arraylist porque se puede actualizar sin usar return ni declararlo como estÃ¡tico en cualquier metodo. Por ello, se podra ver varias 
             veces el uso de sentencias como puntos.get(0) o puntos.set(0, puntos.get(0) - variable) porque jugaremos unicamente con la primera posicion
             de este array para aprovechar la propiedad que se ha mencionado anteriormente.
          */
@@ -475,7 +475,7 @@ public class CASINO {
                     pantallaDefault();
                     System.out.println("\n\t\t\t\t   HASTA PRONTO, " + user + "\n");
                     Thread.sleep(3000);
-                    // mandamos un c�digo de salida del programa
+                    // mandamos un código de salida del programa
                     System.exit(0);
                     break;
             }
@@ -597,7 +597,7 @@ public class CASINO {
     /**
      * Este metodo sirve para generar la tirada de los dados que da un valor
      * resultante de entre 2 y 12 Recibe el array caraDado para mostrar el valor
-     * de los dados gráficamente, la cantidad apostada
+     * de los dados grÃ¡ficamente, la cantidad apostada
      *
      * @param caraDado
      * @param n
@@ -687,7 +687,7 @@ public class CASINO {
 
             puntos_c = false;
 
-            // bucle while para obligar al usuario a hacer una apuesta por debajo o igual de su saldo máximo disponible
+            // bucle while para obligar al usuario a hacer una apuesta por debajo o igual de su saldo mÃ¡ximo disponible
             while (!puntos_c) {
                 pantallaDefault();
                 System.out.println("\n\tPuntos: " + puntos.get(0));
@@ -791,7 +791,7 @@ public class CASINO {
 
             // bucle for para recorrer las filas del carton de bingo
             for (int i = 0; i < bingo.length; i++) {
-                // vaciar el indice de columnas y le añadimos el valor 0, 1 y 2
+                // vaciar el indice de columnas y le aÃ±adimos el valor 0, 1 y 2
                 indexCol.clear();
                 indexCol.add(0);
                 indexCol.add(1);
@@ -804,7 +804,7 @@ public class CASINO {
                     indexCol.remove(rd.nextInt(indexCol.size()));
                 }
 
-                // un bucle for que se repite las mismas veces que el tama�o del indice
+                // un bucle for que se repite las mismas veces que el tamaño del indice
                 for (int j = 0; j < indexCol.size(); j++) {
 
                     // variable para determinar la columna del carton en la que estamos (iteracion for)
@@ -1052,7 +1052,7 @@ public class CASINO {
     }
 
     /**
-     * metodo principal del juego de la ruleta, recibe como único atributo el
+     * metodo principal del juego de la ruleta, recibe como Ãºnico atributo el
      * arraylist de puntos
      *
      * @param puntos
@@ -1409,7 +1409,7 @@ public class CASINO {
             // asignar a puntos_aux los puntos actuales del usuario antes de sumarle las apuestas y sus resultados
             puntos_aux = puntos.get(0);
 
-            // añadir los puntos resultantes al arraylist de puntos
+            // aÃ±adir los puntos resultantes al arraylist de puntos
             puntos.set(0, puntos.get(0) + apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila);
             // establecer a 0 las apuestas
             apuesta_n = 0; apuesta_ron = 0; apuesta_poi = 0; apuesta_mit = 0; apuesta_doc = 0; apuesta_fila = 0;
@@ -1453,7 +1453,7 @@ public class CASINO {
             }
         }
 
-        // dependiendo del origen de la apuesta, se verifica un tipo de apuesta u otro. Posteriormente, se añade la apuesta confirmada a la lista de apuestas
+        // dependiendo del origen de la apuesta, se verifica un tipo de apuesta u otro. Posteriormente, se aÃ±ade la apuesta confirmada a la lista de apuestas
         switch (tipoApuesta) {
             case "numero":
                 // si puntos cumple la condicion del metodo comprobacionpuntos, entonces anadir el valor a los arraylist que guardan las apuestas
@@ -1711,7 +1711,7 @@ public class CASINO {
             }
         }
 
-        // una vez finalizemos nuestra jugada, le toca al dealer sacar cartas hasta que llegue a una puntuación mínima de 17
+        // una vez finalizemos nuestra jugada, le toca al dealer sacar cartas hasta que llegue a una puntuaciÃ³n mÃ­nima de 17
         while (puntuacionMano(jugadaDealer) < 17) {
             repartirCarta(jugadaDealer, baraja);
         }
@@ -1766,7 +1766,7 @@ public class CASINO {
 
     /**
      * metodo para repartir una carta, que recibe el jugador que ha pedido dicha
-     * accion. Em este caso se añade a la mano la carta que se quita de la
+     * accion. Em este caso se aÃ±ade a la mano la carta que se quita de la
      * baraja
      *
      * @param mano
@@ -1949,7 +1949,7 @@ public class CASINO {
         // si el fichero esta vacio crea dos usuarios predeterminados (paualdea y mohammadtufail)
         if (usuarios.length() == 0) {
             PrintWriter writer = new PrintWriter(usuarios, "UTF-8");
-            writer.print("paualdea,aldea2,12000\r\nmohammadtufail,tufail2,12000");
+            writer.print("paualdea,aldea2,12000\nmohammadtufail,tufail2,12000");
             writer.close();
             // establecemos la variable estatica ficheroNuevo en true para que no haya errores luego a la hora de leer estos nuevos usuarios
             ficheroNuevo = true;
@@ -1966,7 +1966,7 @@ public class CASINO {
                 usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
                 usuariosList[usuariosList.length - 1] = new String[2];
 
-                // el usuario es lo primero que hay en la linea del documento, la contrase�a lo segundo y los puntos lo tercero
+                // el usuario es lo primero que hay en la linea del documento, la contraseï¿½a lo segundo y los puntos lo tercero
                 usuariosList[i][0] = arrayLinea[0];
                 usuariosList[i][1] = arrayLinea[1];
                 // anadimos a este arraylist los puntos del usuario de la linea actual
@@ -1978,7 +1978,7 @@ public class CASINO {
     }
 
     /**
-     * Este metodo sirve para actualizar el contenido del fichero para a�adir
+     * Este metodo sirve para actualizar el contenido del fichero para aï¿½adir
      * nuevos usuarios, puntos que se pierden o ganan, etc.
      *
      * Recibe como parametro el arraylist que tiene los puntos de la sesion
@@ -2002,7 +2002,7 @@ public class CASINO {
                 puntosUsuario.set(i, puntosPendientes.get(0));
             }
             // establecemos la linea que anadiremos al fichero (usuario, contrasena, puntos y salto de linea)
-            linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\r\n";
+            linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\n";
             // anadimos a la variable string resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
         }
