@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-Casino interactivo en Java para Windows Terminal
+Casino interactivo en Java
 </p>
 <p align="center">
  <a href=""><img src="https://img.shields.io/badge/version-3.2.2-blue"></a>&nbsp;
