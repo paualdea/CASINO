@@ -44,7 +44,7 @@ Escogemos el paquete que queramos (_zip_ o _tar.gz_) y los descomprimimos en nue
 
 ### Windows
 
-Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que pueda cargar todo correctamente. Además, se ha añadido una función al inicio del programa que pide un ajuste de ventana manual por parte del usuario y así se asegura la visualización óptima del programa.
+Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que pueda cargar todo correctamente. No solo sirve para permitir la visualización de los palos de las cartas, sino que también para poder hacer funcionar el sistema de ficheros que hemos implementado a partir de la versión 3.0.0.
 
 ### Linux
 
