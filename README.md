@@ -22,17 +22,15 @@ Actualmente el proyecto dispone de los siguientes juegos:
  - Bingo (vs CPU)
  - Blackjack
 
-## Instalación
+## Descarga
 
-### Descarga
-
-Descargar con `git`:
+### Descargar con `git`:
 
 ```term
-git clone https://github.com/paualdea/CASINO
+git clone https://github.com/paualdea/CASINO.git
 ```
 
-Descargar directamente:
+### Descargar directamente:
 
 <img src="img/descarga.png" alt="descarga">
 
@@ -44,7 +42,21 @@ Seleccionas el paquete que prefieras y lo descomprimes.
 
 ## Uso
 
+### Windows
+
 Es muy importante que para usar este programa ejecutes el fichero `CASINO.bat` para que pueda cargar todo correctamente. Además, se ha añadido una función al inicio del programa que pide un ajuste de ventana manual por parte del usuario y así se asegura la visualización óptima del programa.
+
+### Linux
+
+En el caso de Linux, una vez tenemos el fichero _.zip_ descomprimido, le daremos permisos de ejecución al launcher del casino.
+
+<img src="img/casino_linux.png" alt="casino linux">
+
+Una vez tengamos permisos de ejecución, podemos ejecutarlo con el siguiente comando:
+
+```term
+./CASINO.sh
+```
 
 ## Funcionamiento
 
