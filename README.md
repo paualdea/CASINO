@@ -13,7 +13,7 @@ Casino interactivo en Java
 
 ## Casino
 
-Este juego simula un casino con varios juegos. Todo esta programado en Java y se usa mediante terminal de Windows.
+Este juego simula un casino con varios juegos. Todo esta programado en Java y se usa mediante terminal (Windows, Linux y Mac). 
 
 Actualmente el proyecto dispone de los siguientes juegos:
 
