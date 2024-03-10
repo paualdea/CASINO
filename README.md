@@ -34,11 +34,11 @@ git clone https://github.com/paualdea/CASINO.git
 
 <img src="img/descarga.png" alt="descarga">
 
-Iremos a la última versión disponible.
+Seleccionaremos la versión que queramos descargar (apartado _Releases_).
 
 <img src="img/paquetes.png" alt="paquetes">
 
-Seleccionas el paquete que prefieras y lo descomprimes.
+Escogemos el paquete que queramos (_zip_ o _tar.gz_) y los descomprimimos en nuestro sistema.
 
 ## Uso
 
