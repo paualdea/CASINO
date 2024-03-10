@@ -12,7 +12,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * .:CASINO:. VERSION: 3.2.0
+ * .:CASINO:. VERSION: 3.2.2
  * _________________________________________________________________________________________________________________________________________
  *
  * Este proyecto incorpora un sistema de login para posteriormente acceder a un
@@ -1869,7 +1869,14 @@ public class CASINO {
      * @throws InterruptedException
      */
     public static void borrarPantalla() throws IOException, InterruptedException {
-        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("win")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("mac")) {
+                new ProcessBuilder("bash", "-c", "clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {}
     }
 
     /**
