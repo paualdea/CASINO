@@ -185,7 +185,7 @@ public class CASINO {
                         Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuciï¿½n del programa.
                         Se manda como argumento el arrayList que usamos para almacenar los puntos actuales del usuario.
                      */
-                    datos.actualizarFicheros(puntosPendientes);
+                    datos.actualizarFicheros(puntosPendientes, usuariosList);
                     break;
             }
         }
@@ -229,7 +229,7 @@ public class CASINO {
                 Thread.sleep(3000);
                 
                 // se llama a la funcion actualizarFicheros para guardar que el usuario se ha quedado sin puntos
-                datos.actualizarFicheros(puntosPendientes);
+                datos.actualizarFicheros(puntosPendientes, usuariosList);
             }
 
             System.out.println("\n\t PUNTOS: " + puntosPendientes.get(0));
@@ -293,7 +293,7 @@ public class CASINO {
                 // SALIR
                 case 5:
                     // llamamos al metodo actualizarFicheros() para asi poder guardar los cambios en el fichero
-                    datos.actualizarFicheros(puntosPendientes);
+                    datos.actualizarFicheros(puntosPendientes, usuariosList);
                     
                     // enviamos un mensaje final por pantalla
                     pantallaDefault();

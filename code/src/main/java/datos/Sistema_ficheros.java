@@ -25,7 +25,6 @@ import java.util.Scanner;
  */
 public class Sistema_ficheros {
     // Importamos variables de la clase CASINO
-    static String[][] usuariosList = casino.CASINO.usuariosList;
     static boolean ficheroNuevo = casino.CASINO.ficheroNuevo;
     static ArrayList<Integer> puntosUsuario = casino.CASINO.puntosUsuario;
     
@@ -39,6 +38,9 @@ public class Sistema_ficheros {
      * @throws InterruptedException
      */
     public Sistema_ficheros() throws InterruptedException, IOException {
+        // importamos el array bidimensional arrayList
+        String[][] usuariosList = casino.CASINO.usuariosList;
+        
         // uso de la clase File para determinar el directorio que contiene los ficheros que va a usar el programa para manejar usuarios y puntos
         File casino_files = new File("./data");
         // File para determinar el fichero que contiene los datos
@@ -124,7 +126,7 @@ public class Sistema_ficheros {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void actualizarFicheros(ArrayList<Integer> puntos) throws FileNotFoundException, IOException, InterruptedException {
+    public static void actualizarFicheros(ArrayList<Integer> puntos, String[][] usuariosList) throws FileNotFoundException, IOException, InterruptedException {
         // establecemos un writer para hacer los cambios en el fichero que indicamos
         PrintWriter writer = new PrintWriter("./data/usuarios.txt", "UTF-8");
         String resultadoUsuarios = "";
