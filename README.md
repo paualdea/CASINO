@@ -34,7 +34,7 @@ Seleccionamos la version para nuestro sistema operativo y la descomprimimos.
 
 <img src="img/paquete.png" alt="paquete">
 
-Una vez descomprimido, ejecutaremos el _launcher_ para poder empezar a jugar.
+Una vez descomprimido, ejecutamos el _launcher_ para jugar.
 
 ### Descargar _source code_:
 
