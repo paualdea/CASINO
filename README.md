@@ -15,7 +15,7 @@ CASINO programado en Java
 
 Casino programado en Java. Se ejecuta mediante terminal (Windows, Linux y Mac). 
 
-Actualmente el proyecto dispone de los siguientes juegos:
+Actualmente, el proyecto dispone de los siguientes juegos:
 
  - Dados
  - Ruleta
@@ -70,4 +70,4 @@ El Casino está programado usando una estructura de paquetes y clases que hacen 
 
 Luego, compilamos todo este código para convertir el proyecto en un fichero _.jar_.
 
-Por último, en los paquetes descargables, implementamos un script (que varia dependiendo del SO) en el que adaptamos la ventana del terminal y ejecutamos el juego para que su visualización sea óptima.
+Por último, en los paquetes descargables, implementamos un script (que varía dependiendo del SO) en el que adaptamos la ventana del terminal y ejecutamos el juego para que su visualización sea óptima.
