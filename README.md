@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-Casino interactivo en Java para terminal
+CASINO programado en Java
 </p>
 <p align="center">
  <a href=""><img src="https://img.shields.io/badge/version-4.0.1-blue"></a>&nbsp;
@@ -13,9 +13,9 @@ Casino interactivo en Java para terminal
 
 ## Casino
 
-Este juego simula un casino con varios juegos. Todo esta programado en Java y se usa mediante terminal (Windows, Linux y Mac). 
+Casino programado en Java. Se ejecuta mediante terminal (Windows, Linux y Mac). 
 
-Actualmente el proyecto dispone de los siguientes juegos:
+Actualmente, el proyecto dispone de los siguientes juegos:
 
  - Dados
  - Ruleta
@@ -56,14 +56,18 @@ Escogemos el paquete que queramos (_zip_ o _tar.gz_) y los descomprimimos en nue
 
 <img src="img/paquete.png" alt="paquete">
 
-Una vez descomprimido el paquete descargable, basta con ejecutar el _launcher_ _.bat_ que tenemos en la raíz de la carpeta.
+Una vez descomprimido el paquete descargable, debemos ejecutar el _script_ _.bat_ que hay en la raíz de la carpeta.
 
 ### Linux
 
+<img src="img/linux.jpg" alt="paquete linux">
 
+En Linux, una vez descomprimido el paquete descargable, debemos darle permisos al _script_ que actua cómo _launcher_ y posteriormente ejecutarlo `./CASINO.sh`.
 
 ## Funcionamiento
 
-En cada paquete descargable, hay un script que ejecuta un fichero _.jar_ que hemos creado en base al proyecto programado aquí. Este contiene varios paquetes y classes que permiten la ejecución de todos los juegos.
+El Casino está programado usando una estructura de paquetes y clases que hacen del código algo más intuitivo y legible. Para los juegos, hemos creado el paquete _juegos_ en dónde tenemos las 4 clases de los juegos que tenemos.
 
-Además, implementa un sistema de ficheros con el que almacenamos los usuarios creados y sus respectivos puntos.
+Luego, compilamos todo este código para convertir el proyecto en un fichero _.jar_.
+
+Por último, en los paquetes descargables, implementamos un script (que varía dependiendo del SO) en el que adaptamos la ventana del terminal y ejecutamos el juego para que su visualización sea óptima.
