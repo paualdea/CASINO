@@ -1,6 +1,5 @@
 package gui;
 
-import java.io.File;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +15,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        File file = new File("img/favicon.png");
         
-        Image favicon = new Image(file.toURI().toString());
-        primaryStage.getIcons().add(favicon);
+        primaryStage.getIcons().add(new Image("/img/favicon.png"));
         
         primaryStage.setTitle("CASINO");
         primaryStage.setScene(new Scene(root));
