@@ -56,7 +56,7 @@ public class CASINO {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void casino (String[] args) throws IOException, InterruptedException {
 
         // creamos una instancia de la clase sistema_ficheros
         Sistema_ficheros datos = new Sistema_ficheros();
