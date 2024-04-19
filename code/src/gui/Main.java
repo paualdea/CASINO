@@ -14,7 +14,7 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
         
         primaryStage.getIcons().add(new Image("/img/favicon.png"));
         
