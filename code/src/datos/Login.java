@@ -15,7 +15,7 @@ import java.util.Scanner;
  * 
  * @author Pau Aldea Batista
  */
-public class Login {   
+public class Login {
     /**
      * Metodo para administrar usuarios (registro, inicio de sesion, etc.).
      * Recibe como parametros un string que contiene la accion que queremos hacer y
