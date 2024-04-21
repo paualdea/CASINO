@@ -6,7 +6,7 @@
 CASINO programado en Java
 </p>
 <p align="center">
- <a href=""><img src="https://img.shields.io/badge/version-4.0.1-blue"></a>&nbsp;
+ <a href=""><img src="https://img.shields.io/badge/version-5.0.0-blue"></a>&nbsp;
  <a href=""><img src="https://img.shields.io/badge/license-GPL 3.0-orange"></a>&nbsp;
  <a href=""><img src="https://img.shields.io/badge/contributors-2-green"></a>
 </p>
