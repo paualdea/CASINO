@@ -6,12 +6,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url('/src/img/tapete.png'); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PaginaInicioController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PaginaInicioController">
    <children>
       <AmbientLight color="CHARTREUSE" layoutX="246.0" layoutY="103.0" lightOn="true" />
       <Button layoutX="204.0" layoutY="443.0" mnemonicParsing="false" text="Iniciar sesión" />
       <Button layoutX="496.0" layoutY="443.0" mnemonicParsing="false" text="Registrarse" />
-      <Button layoutX="774.0" layoutY="443.0" mnemonicParsing="false" text="Restablecer datos" />
+      <Button id="completa" layoutX="774.0" layoutY="443.0" mnemonicParsing="false" onAction="#pantallaCompleta" text="Pantalla completa" />
       <ImageView fitHeight="219.0" fitWidth="522.0" layoutX="273.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/cartel.gif" />

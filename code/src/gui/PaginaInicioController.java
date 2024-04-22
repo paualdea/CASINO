@@ -1,21 +1,44 @@
 package gui;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
-public class PaginaInicioController implements Initializable {
+public class PaginaInicioController {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    @FXML
+    private Button iniciarSesion;
+
+    @FXML
+    private Button registrarse;
+
+    @FXML
+    private Button completa;
+
+    @FXML
+    private ImageView cartel;
+
+    @FXML
+    public void initialize() {
+        // Aquí puedes inicializar tus componentes si es necesario
     }
 
     @FXML
-    void BotonLogin(ActionEvent event) {
-        
+    private void iniciarSesion() {
+        // Aquí puedes manejar la acción del botón "Iniciar sesión"
     }
 
+    @FXML
+    private void registrarse() {
+        // Aquí puedes manejar la acción del botón "Registrarse"
+    }
+
+    @FXML
+    private void pantallaCompleta() {
+        Stage stage = (Stage) completa.getScene().getWindow();
+
+        // Cambia el estado de la ventana entre pantalla completa y modo normal
+        stage.setFullScreen(!stage.isFullScreen());
+    }
 }
