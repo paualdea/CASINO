@@ -1,13 +1,12 @@
 package datos;
 
 import casino.CASINO;
-import static casino.CASINO.pantallaDefault;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -34,10 +33,8 @@ public class Sistema_ficheros {
      * persistentes y recuperables en la siguiente ejecucion.
      * Una vez creamos una instancia de esta clase, se crea todo el sistema de ficheros automaticamente
      *
-     * @throws IOException
-     * @throws InterruptedException
      */
-    public Sistema_ficheros() throws InterruptedException, IOException {
+    public Sistema_ficheros() {
         // importamos el array bidimensional arrayList
         String[][] usuariosList = casino.CASINO.usuariosList;
         
@@ -55,16 +52,6 @@ public class Sistema_ficheros {
         // si el fichero no existe, se crea el fichero dentro del directorio ./data
         if (!usuarios.exists()) {
             usuarios.createNewFile();
-        }
-
-        // estructura de control de errores para notificar y cerrar el programa si no se ha podido crear el sistema de ficheros
-        try {
-            lectorLineas = new BufferedReader(new FileReader(usuarios));
-        } catch (Exception e) {
-            pantallaDefault();
-            System.out.println("\n\n\t\t\t\t\t.:ERROR:.\n\n\tERROR INESPERADO A LA HORA DE CREAR EL SISTEMA DE FICHEROS\n");
-            Thread.sleep(1250);
-            System.exit(0);
         }
 
         // creamos todo lo necesario para leer las lineas, partes de las lineas y procesarlas posteriormente
@@ -150,18 +137,7 @@ public class Sistema_ficheros {
         writer.print(resultadoUsuarios);
         // cerramos el writer
         writer.close();
-
-        // animacion de salida del programa
-        String punto = ".";
-        for (int i = 0; i < 3; i++) {
-            pantallaDefault();
-            System.out.println("\n\n\t\t\t\t\tSALIENDO" + punto);
-            punto += ".";
-            Thread.sleep(450);
-        }
-
-        System.out.println("\n\n");
-        // paramos la ejecucion del programa
+        
         System.exit(0);
     }
 }

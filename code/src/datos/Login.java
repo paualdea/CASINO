@@ -27,7 +27,7 @@ public class Login {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static boolean usuarios(String accion, ArrayList<Integer> puntos) throws IOException, InterruptedException {
+    public static boolean usuarios(ArrayList<Integer> puntos) throws IOException, InterruptedException {
         Scanner sc = new Scanner(System.in);
         String user, passwd, passwd_aux;
         

@@ -11,9 +11,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
    <children>
-      <Button fx:id="atras" layoutX="20.0" layoutY="24.0" mnemonicParsing="false" onAction="#volverAtras" text="Main menu" />
-      <Button layoutX="809.0" layoutY="367.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="829.0" layoutY="517.0" mnemonicParsing="false" text="Button" />
+      <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@boton.css" text="Main menu" />
+      <Button fx:id="login" layoutX="791.0" layoutY="378.0" mnemonicParsing="false" onAction="#comprobacionLogin" style="-fx-font-size: 20px;" stylesheets="@boton.css" text="Log in" />
+      <Button layoutX="809.0" layoutY="518.0" mnemonicParsing="false" text="Button" />
       <TextField fx:id="username" layoutX="740.0" layoutY="192.0" prefHeight="27.0" prefWidth="190.0" />
       <Text layoutX="740.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="158.341796875">
          <font>

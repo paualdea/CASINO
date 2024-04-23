@@ -10,16 +10,25 @@
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.PaginaInicioController">
    <children>
       <AmbientLight color="CHARTREUSE" layoutX="246.0" layoutY="103.0" lightOn="true" />
-      <Button fx:id="iniciarSesion" layoutX="204.0" layoutY="420.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="56.0" prefWidth="124.0" stylesheets="@boton.css" text="LOGIN">
+      <Button fx:id="login" layoutX="204.0" layoutY="420.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="56.0" prefWidth="124.0" style="-fx-font-size: 20px;" stylesheets="@boton.css" text="LOGIN">
          <font>
-            <Font size="36.0" />
+            <Font size="25.0" />
          </font></Button>
-      <Button layoutX="496.0" layoutY="443.0" mnemonicParsing="false" text="Registrarse" />
-      <Button fx:id="completa" layoutX="774.0" layoutY="443.0" mnemonicParsing="false" onAction="#pantallaCompleta" text="Pantalla completa" />
       <ImageView fitHeight="219.0" fitWidth="522.0" layoutX="273.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/cartel.gif" />
          </image>
       </ImageView>
+      <Button fx:id="signup" layoutX="471.0" layoutY="422.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="56.0" prefWidth="124.0" style="-fx-font-size: 20px;" stylesheets="@boton.css" text="SIGN UP">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="menu" layoutX="741.0" layoutY="422.0" mnemonicParsing="false" onAction="#entrarMenu" prefHeight="56.0" prefWidth="124.0" style="-fx-font-size: 20px;" stylesheets="@boton.css" text="OPTIONS">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" stylesheets="@boton.css" text="X" fx:id="x" />
    </children>
 </AnchorPane>

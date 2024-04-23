@@ -2,6 +2,8 @@ package gui;
 
 import datos.Sistema_ficheros;
 import java.io.IOException;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,16 +15,26 @@ import javafx.stage.Stage;
 public class PaginaInicioController {
 
     @FXML
-    private Button iniciarSesion;
+    private Button login;
 
     @FXML
-    private Button registrarse;
+    private Button menu;
 
     @FXML
-    private Button completa;
+    private Button signup;
 
     @FXML
-    private ImageView cartel;
+    private Button x;
+
+    @FXML
+    void close(ActionEvent event) {
+        Platform.exit();
+    }
+
+    @FXML
+    void entrarMenu(ActionEvent event) {
+
+    }
 
     @FXML
     public void initialize() throws InterruptedException, IOException {
@@ -35,7 +47,7 @@ public class PaginaInicioController {
         Stage stage;
         Parent root;
 
-        stage = (Stage) iniciarSesion.getScene().getWindow();
+        stage = (Stage) login.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 
         Scene scene = new Scene(root);
@@ -44,22 +56,7 @@ public class PaginaInicioController {
     }
 
     @FXML
-    private void registrarse() {
-        // Aquí puedes manejar la acción del botón "Registrarse"
-    }
+    void registrarse(ActionEvent event) {
 
-    @FXML
-    private void pantallaCompleta() {
-        Stage stage = (Stage) completa.getScene().getWindow();
-
-        // Cambia el estado de la ventana entre pantalla completa y modo normal
-        stage.setFullScreen(!stage.isFullScreen());
-
-        if (stage.isFullScreen()) {
-            completa.setText("Modo ventana");
-        } else {
-            completa.setText("Pantalla completa");
-
-        }
     }
 }
