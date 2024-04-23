@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -34,7 +33,7 @@ public class Sistema_ficheros {
      * Una vez creamos una instancia de esta clase, se crea todo el sistema de ficheros automaticamente
      *
      */
-    public Sistema_ficheros() {
+    public Sistema_ficheros() throws IOException {
         // importamos el array bidimensional arrayList
         String[][] usuariosList = casino.CASINO.usuariosList;
         

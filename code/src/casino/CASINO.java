@@ -1,6 +1,7 @@
 package casino;
 
 import datos.Sistema_ficheros;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -8,8 +9,6 @@ import java.util.ArrayList;
  * _________________________________________________________________________________________________________________________________________
  *
  * PENDIENTE
- *
- * ¡Esperemos que disfrutes del juego!
  *
  * @author Pau Aldea Batista
  * @author Mohammad Tufail Imran
@@ -27,9 +26,11 @@ public class CASINO {
     
     // Variables de datos de usuario
     public static String user;
+    
+    private ArrayList<Integer> puntos = new ArrayList<>();
 
     // Metodo constructor
-    public CASINO() {
+    public CASINO() throws IOException {
         Sistema_ficheros datos = new Sistema_ficheros();
 
         if (ficheroNuevo) {
@@ -57,5 +58,21 @@ public class CASINO {
 
     public static void setUser(String user) {
         CASINO.user = user;
+    }
+
+    public static String[][] getUsuariosList() {
+        return usuariosList;
+    }
+
+    public static ArrayList<Integer> getPuntosUsuario() {
+        return puntosUsuario;
+    }
+
+    public static boolean isFicheroNuevo() {
+        return ficheroNuevo;
+    }
+
+    public void setPuntos(ArrayList<Integer> puntos) {
+        this.puntos = puntos;
     }
 }

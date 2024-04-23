@@ -1,6 +1,8 @@
 package gui;
 
 import casino.CASINO;
+import datos.Sistema_ficheros;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +12,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     
-    public static CASINO casino = new CASINO();
+    public static CASINO casino;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        casino = new CASINO();
         launch(args);
     }
 
@@ -25,5 +28,9 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+    }
+    
+    public static CASINO getCasino() {
+        return casino;
     }
 }
