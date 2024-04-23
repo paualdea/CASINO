@@ -58,15 +58,12 @@ public class CASINO {
      */
     public static void casino (String[] args) throws IOException, InterruptedException {
 
-        // creamos una instancia de la clase sistema_ficheros
-        Sistema_ficheros datos = new Sistema_ficheros();
-
         // si el sistema de ficheros es nuevo, recargamos la instancia de la clase Sistema_ficheros
         if (ficheroNuevo) {
             // borramos los datos de la instancia
-            datos = null;
+            //datos = null;
             // recargamos la instancia
-            datos = new Sistema_ficheros();
+            //datos = new Sistema_ficheros();
         }
         
         // creacion variables para el registro y login
@@ -185,13 +182,13 @@ public class CASINO {
                         Se llama al metodo actualizarFicheros para actualizar todos los valores en el fichero antes de finalizar la ejecuciï¿½n del programa.
                         Se manda como argumento el arrayList que usamos para almacenar los puntos actuales del usuario.
                      */
-                    datos.actualizarFicheros(puntosPendientes, usuariosList);
+                    //datos.actualizarFicheros(puntosPendientes, usuariosList);
                     break;
             }
         }
 
         // acceso al metodo menujuegos() para seleccionar el juego al que queremos jugar
-        menujuegos(puntos, datos);
+        //menujuegos(puntos, datos);
     }
 
     /**

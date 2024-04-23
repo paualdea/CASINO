@@ -17,10 +17,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
-        
         primaryStage.getIcons().add(new Image("/img/favicon.png"));
         
         primaryStage.setTitle("CASINO");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
