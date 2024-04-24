@@ -39,11 +39,11 @@ public class Sistema_ficheros {
         
         // uso de la clase File para determinar el directorio que contiene los ficheros que va a usar el programa para manejar usuarios y puntos
         File casino_files = new File("./data");
-        // File para determinar el fichero que contiene los datos
+        // file para determinar el fichero que contiene los datos
         File usuarios = new File(casino_files, "usuarios.txt");
         // creamos una instancia de la clase BufferedReader para tener un lector que lee el fichero usuarios
         BufferedReader lectorLineas = null;
-
+        
         // si la carpeta de ficheros no existe se crea el directorio.
         if (!casino_files.exists()) {
             casino_files.mkdir();
