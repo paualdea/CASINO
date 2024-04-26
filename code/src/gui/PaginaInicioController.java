@@ -56,7 +56,15 @@ public class PaginaInicioController {
     }
 
     @FXML
-    void registrarse(ActionEvent event) {
+    void registrarse(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
 
+        stage = (Stage) signup.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

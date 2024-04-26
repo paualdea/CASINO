@@ -14,10 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
+    @FXML
+    private Text mensaje;
+    
     @FXML
     private Button atras;
 
@@ -29,6 +33,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField username;
+    
+    @FXML
+    private Button register;
 
     private ArrayList<Integer> puntos = new ArrayList<>();
 
@@ -39,9 +46,11 @@ public class LoginController implements Initializable {
         ArrayList<Integer> puntosUsuario = casino.getPuntosUsuario();
         String user = username.getText();
         String passwd = password.getText();
-
+        boolean usuarioCorrecto = false;
+        
         // Se recorre todo el array de usuarios para ver si algun registro coincide
         for (int i = 0; i < usuariosList.length; i++) {
+            usuarioCorrecto = false;
             // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
             if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
 
@@ -50,6 +59,7 @@ public class LoginController implements Initializable {
                 casino.setUser(casino.user);
                 puntos.add(puntosUsuario.get(i));
                 casino.setPuntos(puntos);
+                usuarioCorrecto = true;
 
                 Stage stage;
                 Parent root;
@@ -60,7 +70,8 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-
+                
+                // hacer en menu juegos
                 // si el usuario no tiene puntos se le da la posibilidad de anadir mas (max 3000)
 //                if (puntosUsuario.get(i) == 0) {
 //                    // HACER ESTO
@@ -103,6 +114,30 @@ public class LoginController implements Initializable {
 //                }  
             }
         }
+            
+        if (!usuarioCorrecto) {
+            register.setVisible(true);
+            mensaje.setVisible(true);
+//            login.getStyleClass().add("borde-rojo");
+//            Thread.sleep(3000);
+//            login.getStyleClass().remove("borde-rojo");
+        }
+        
+    }
+    
+    @FXML
+    void registrarse(ActionEvent event) throws IOException {
+        System.out.println("1");
+        Stage stage;
+        Parent root;
+        System.out.println("2");
+        stage = (Stage) register.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
+        System.out.println("3");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        System.out.println("4");
     }
 
     @FXML
@@ -122,6 +157,27 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         username.setPromptText("Ex: user01");
         password.setPromptText("Ex: 12345678");
+        
+        login.setDisable(true);
+        register.setVisible(false);
+        mensaje.setVisible(false);
+        
+
+        password.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
+                login.setDisable(true);
+            } else {
+                login.setDisable(false);
+            }
+        });
+        
+        username.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (username.getText().isEmpty() || password.getText().isEmpty()) {
+                login.setDisable(true);
+            } else {
+                login.setDisable(false);
+            }
+        });
     }
 
     public ArrayList<Integer> getPuntos() {

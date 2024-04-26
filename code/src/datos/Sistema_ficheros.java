@@ -4,6 +4,7 @@ import casino.CASINO;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Sistema_ficheros {
         // file para determinar el fichero que contiene los datos
         File usuarios = new File(casino_files, "usuarios.txt");
         // creamos una instancia de la clase BufferedReader para tener un lector que lee el fichero usuarios
-        BufferedReader lectorLineas = null;
+        BufferedReader lectorLineas = new BufferedReader(new FileReader(usuarios));
         
         // si la carpeta de ficheros no existe se crea el directorio.
         if (!casino_files.exists()) {
