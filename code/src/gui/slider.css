@@ -1,0 +1,8 @@
+.custom-slider .track {
+    -fx-background-color: white;
+}
+
+.custom-slider .thumb {
+    -fx-background-color: white;
+    -fx-shape: "M 0,0 L 40,0 L 40,40 L 0,40 Z";
+}

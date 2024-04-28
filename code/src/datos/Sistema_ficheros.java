@@ -84,11 +84,12 @@ public class Sistema_ficheros {
 
                 // anadimos una fila al array
                 usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
-                usuariosList[usuariosList.length - 1] = new String[2];
+                usuariosList[usuariosList.length - 1] = new String[3];
 
                 // el usuario es lo primero que hay en la linea del documento, la password lo segundo y los puntos lo tercero
                 usuariosList[i][0] = arrayLinea[0];
                 usuariosList[i][1] = arrayLinea[1];
+                usuariosList[i][2] = arrayLinea[2];
                 // anadimos a este arraylist los puntos del usuario de la linea actual
                 puntosUsuario.add(Integer.parseInt(arrayLinea[2]));
 

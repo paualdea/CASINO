@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
 
                 puntos.clear();
 
-                casino.setUser(casino.user);
+                casino.setUser(user.toString());
                 puntos.add(puntosUsuario.get(i));
                 casino.setPuntos(puntos);
                 usuarioCorrecto = true;

@@ -67,17 +67,19 @@ public class RegistroController implements Initializable {
 
         // si la password y la confirmacion de la password son iguales, se desvia al if para agregar dinero a la cuenta
         if (passwd.equals(passwd_aux) && usuarioNuevo) {
-
+            
+            casino.setUser(username.getText().toString());
+            
             ingreso = 3000;
 
             // se redimensiona el array de usuarios para agregar un registro nuevo
             usuariosList = Arrays.copyOf(usuariosList, usuariosList.length + 1);
-            usuariosList[usuariosList.length - 1] = new String[2];
+            usuariosList[usuariosList.length - 1] = new String[3];
 
             // Se añaden a la ultima fila del array el usuario y contrasena que hemos especificado en el registro
             usuariosList[usuariosList.length - 1][0] = user;
             usuariosList[usuariosList.length - 1][1] = passwd;
-            puntosUsuario.add(ingreso);
+            usuariosList[usuariosList.length - 1][2] = Integer.toString(ingreso);
 
             // se vacia la variable user para evitar errores posteriores
             user = "";

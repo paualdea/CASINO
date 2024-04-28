@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CASINO {
 
     // Array bidimensional para almacenar los usuarios del sistema de juego del casino
-    public static String[][] usuariosList = new String[0][2];
+    public static String[][] usuariosList = new String[0][3];
 
     // ArrayList para almacenar todos los puntos de los usuarios creados en el fichero de juego
     public static ArrayList<Integer> puntosUsuario = new ArrayList<>();
@@ -74,5 +74,15 @@ public class CASINO {
 
     public void setPuntos(ArrayList<Integer> puntos) {
         this.puntos = puntos;
+    }
+    
+    public int getPuntos(String user){
+        for (int i = 0; i < usuariosList.length; i++) {
+            if (user == usuariosList[i][0]) {
+                int puntos = Integer.parseInt(usuariosList[i][2]);
+                return puntos;
+            }
+        }
+        return 0;
     }
 }
