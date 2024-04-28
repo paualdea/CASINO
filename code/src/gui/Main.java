@@ -1,7 +1,6 @@
 package gui;
 
 import casino.CASINO;
-import datos.Sistema_ficheros;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

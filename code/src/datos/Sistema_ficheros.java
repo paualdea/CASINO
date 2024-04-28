@@ -95,6 +95,7 @@ public class Sistema_ficheros {
                 i++;
             }
         }
+        
         // actualizamos los valores de estas variables en la clase principal CASINO
         CASINO.setUsuariosList(usuariosList);
         CASINO.setFicheroNuevo(ficheroNuevo);

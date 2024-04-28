@@ -38,8 +38,6 @@ public class PaginaInicioController {
 
     @FXML
     public void initialize() throws InterruptedException, IOException {
-        // creamos una instancia de la clase sistema_ficheros
-        Sistema_ficheros datos = new Sistema_ficheros();
     }
 
     @FXML

@@ -127,17 +127,13 @@ public class LoginController implements Initializable {
     
     @FXML
     void registrarse(ActionEvent event) throws IOException {
-        System.out.println("1");
         Stage stage;
         Parent root;
-        System.out.println("2");
         stage = (Stage) register.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
-        System.out.println("3");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        System.out.println("4");
     }
 
     @FXML
