@@ -38,6 +38,10 @@ public class LoginController implements Initializable {
     private Button register;
 
     private ArrayList<Integer> puntos = new ArrayList<>();
+    
+    private static CASINO casino;
+    private static String[][] usuariosList;
+    private static ArrayList<Integer> puntosUsuario;
 
     @FXML
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException {
@@ -151,6 +155,10 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        casino = Main.getCasino();
+        usuariosList = casino.getUsuariosList();
+        puntosUsuario = casino.getPuntosUsuario();
+        
         username.setPromptText("Ex: user01");
         password.setPromptText("Ex: 12345678");
         

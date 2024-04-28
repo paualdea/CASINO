@@ -13,11 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,16 +37,17 @@ public class RegistroController implements Initializable {
 
     @FXML
     private TextField username;
+    
+    private static CASINO casino;
+    private static String[][] usuariosList;
+    private static ArrayList<Integer> puntosUsuario;
 
     @FXML
     void registrarse(ActionEvent event) throws InterruptedException, IOException {
+        casino = Main.getCasino();
         error.setVisible(false);
         int ingreso = 0;
         boolean usuarioNuevo = false, puntosEstablecidos = false;
-
-        CASINO casino = Main.getCasino();
-        String[][] usuariosList = casino.getUsuariosList();
-        ArrayList<Integer> puntosUsuario = casino.getPuntosUsuario();
 
         String user = username.getText();
         String passwd = password.getText();
@@ -60,6 +58,7 @@ public class RegistroController implements Initializable {
         for (int i = 0; i < usuariosList.length; i++) {
             if (usuariosList[i][0].equals(user)) {
                 error.setVisible(true);
+                usuarioNuevo = false;
                 break;
             } else {
                 usuarioNuevo = true;
@@ -82,7 +81,9 @@ public class RegistroController implements Initializable {
 
             // se vacia la variable user para evitar errores posteriores
             user = "";
-
+            
+            casino.setUsuariosList(usuariosList);
+            
             Stage stage;
             Parent root;
 
@@ -111,6 +112,9 @@ public class RegistroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        usuariosList = casino.getUsuariosList();
+        puntosUsuario = casino.getPuntosUsuario();
+        
         register.setDisable(true);
         error.setVisible(false);
 
