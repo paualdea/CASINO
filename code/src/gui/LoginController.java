@@ -37,7 +37,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button register;
 
-    private ArrayList<Integer> puntos = new ArrayList<>();
+    private int puntos;
     
     private static CASINO casino;
     private static String[][] usuariosList;
@@ -58,10 +58,10 @@ public class LoginController implements Initializable {
             // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
             if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
 
-                puntos.clear();
+                puntos = 0;
 
                 casino.setUser(user.toString());
-                puntos.add(puntosUsuario.get(i));
+                puntos = puntosUsuario.get(i);
                 casino.setPuntos(puntos);
                 usuarioCorrecto = true;
 
@@ -184,7 +184,7 @@ public class LoginController implements Initializable {
         });
     }
 
-    public ArrayList<Integer> getPuntos() {
+    public int getPuntos() {
         return puntos;
     }
 }

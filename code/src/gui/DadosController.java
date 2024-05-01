@@ -1,5 +1,7 @@
 package gui;
 
+import casino.Apuesta;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,16 +23,16 @@ public class DadosController implements Initializable {
     private Slider sliderNumero;
 
     @FXML
-    void confirmar(ActionEvent event) {
+    void confirmar(ActionEvent event) throws IOException {
         int valorFinal = (int) sliderNumero.getValue();
         
-        System.out.println(valorFinal);  
+        Apuesta apuesta = new Apuesta();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sliderNumero.setMajorTickUnit(1);
-        numeroTexto.setText("");
+        numeroTexto.setText("2");
         
         sliderNumero.valueProperty().addListener((observable, oldValue, newValue) -> {
             int valorEntero = newValue.intValue();

@@ -27,7 +27,7 @@ public class CASINO {
     // Variables de datos de usuario
     public static String user;
     
-    private ArrayList<Integer> puntos = new ArrayList<>();
+    private int puntos;
 
     // Metodo constructor
     public CASINO() throws IOException {
@@ -72,7 +72,7 @@ public class CASINO {
         return ficheroNuevo;
     }
 
-    public void setPuntos(ArrayList<Integer> puntos) {
+    public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
     
