@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuJuegosController">
    <children>
-      <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@boton.css" text="Main menu" />
+      <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@css/boton.css" text="Main menu" />
       <Line endX="99.99993896484375" endY="-41.59999084472656" layoutX="433.0" layoutY="82.0" startX="99.99993896484375" startY="476.800048828125" stroke="#1fa346" strokeWidth="10.0" />
       <Line endX="575.15966796875" endY="-3.0517578125E-5" layoutX="420.0" layoutY="300.0" startX="-349.1999816894531" stroke="#1fa346" strokeWidth="10.0" />
       <ImageView fitHeight="112.0" fitWidth="217.0" layoutX="193.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
@@ -32,7 +32,7 @@
             <Image url="@../img/bingo.png" />
          </image>
       </ImageView>
-      <Button fx:id="dados" layoutX="221.0" layoutY="224.0" mnemonicParsing="false" onAction="#juegoDados" style="-fx-font-size: 18px;" stylesheets="@boton.css" text="DADOS">
+      <Button fx:id="dados" layoutX="221.0" layoutY="224.0" mnemonicParsing="false" onAction="#juegoDados" style="-fx-font-size: 18px;" stylesheets="@css/boton.css" text="DADOS">
          <font>
             <Font size="18.0" />
          </font>

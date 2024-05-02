@@ -13,12 +13,12 @@
             <Font name="Pixellari" size="82.0" />
          </font>
       </Text>
-      <Slider fx:id="sliderNumero" blockIncrement="1.0" layoutX="202.0" layoutY="331.0" max="12.0" min="2.0" prefHeight="94.0" prefWidth="659.0" styleClass="custom-slider" stylesheets="@slider.css" />
+      <Slider fx:id="sliderNumero" blockIncrement="1.0" layoutX="202.0" layoutY="331.0" max="12.0" min="2.0" prefHeight="94.0" prefWidth="659.0" styleClass="custom-slider" stylesheets="@css/slider.css" />
       <Text fx:id="numeroTexto" fill="WHITE" layoutX="488.0" layoutY="311.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
          <font>
             <Font name="Pixellari" size="44.0" />
          </font>
       </Text>
-      <Button fx:id="ok" layoutX="466.0" layoutY="468.0" mnemonicParsing="false" onAction="#confirmar" style="-fx-font-size: 24px;" stylesheets="@../gui/boton.css" text="ACEPTAR" />
+      <Button fx:id="ok" layoutX="466.0" layoutY="468.0" mnemonicParsing="false" onAction="#confirmar" style="-fx-font-size: 24px;" stylesheets="@css/boton.css" text="ACEPTAR" />
    </children>
 </AnchorPane>
