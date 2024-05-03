@@ -11,7 +11,7 @@
       <Button fx:id="chip10" layoutX="253.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar10" prefHeight="62.0" prefWidth="65.0" style="-fx-background-color: transparent;" stylesheets="@css/chip10.css" />
       <Button fx:id="chip50" layoutX="343.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar50" prefHeight="62.0" prefWidth="65.0" style="-fx-background-color: transparent;" stylesheets="@css/chip50.css" />
       <Button fx:id="chip100" layoutX="433.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar100" prefHeight="62.0" prefWidth="65.0" text="100" />
-      <Button fx:id="chip1" layoutX="73.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar1" prefHeight="62.0" prefWidth="65.0" style="-fx-background-color: transparent;" stylesheets="@css/chip1.css" />
+      <Button fx:id="chip1" layoutX="73.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar1" prefHeight="62.0" prefWidth="65.0" text="1" />
       <Button fx:id="chip500" layoutX="523.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar500" prefHeight="62.0" prefWidth="65.0" text="500" />
       <Button fx:id="chip1000" layoutX="613.0" layoutY="241.0" mnemonicParsing="false" onAction="#sumar1000" prefHeight="62.0" prefWidth="65.0" text="1000" />
       <Button fx:id="reset" layoutX="227.0" layoutY="348.0" mnemonicParsing="false" onAction="#resetPuntos" stylesheets="@css/boton.css" text="RESET" />
@@ -21,7 +21,7 @@
             <Font name="Pixellari" size="56.0" />
          </font>
       </Text>
-      <Text fx:id="pantallaPuntos" fill="WHITE" layoutX="362.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+      <Text fx:id="pantallaPuntos" fill="WHITE" layoutX="350.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
          <font>
             <Font name="Pixellari" size="43.0" />
          </font>

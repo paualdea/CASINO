@@ -1,6 +1,7 @@
 package casino;
 
 import datos.Sistema_ficheros;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -31,10 +32,11 @@ public class CASINO {
     private int apuesta;
     private int valorDados = 0;
     private boolean ganado = false;
+    private Sistema_ficheros datos;
 
     // Metodo constructor
     public CASINO() throws IOException {
-        Sistema_ficheros datos = new Sistema_ficheros();
+        datos = new Sistema_ficheros();
 
         if (ficheroNuevo) {
             datos = null;
@@ -115,5 +117,9 @@ public class CASINO {
 
     public void setGanado(boolean ganado) {
         this.ganado = ganado;
+    }
+    
+    public void actualizarFicheros() throws IOException, FileNotFoundException, InterruptedException {
+        datos.actualizarFicheros();
     }
 }

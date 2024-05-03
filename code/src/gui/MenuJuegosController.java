@@ -20,7 +20,7 @@ public class MenuJuegosController implements Initializable {
     private String user = casino.getUser();
     private String[][] usuariosList = casino.getUsuariosList();
     private int puntos;
-        
+
     @FXML
     private Button atras;
 
@@ -29,15 +29,28 @@ public class MenuJuegosController implements Initializable {
 
     @FXML
     void juegoDados(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
 
-        stage = (Stage) atras.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("Dados.fxml"));
+        if (puntos == 0) {
+            Stage stage;
+            Parent root;
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            stage = (Stage) atras.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            Stage stage;
+            Parent root;
+
+            stage = (Stage) atras.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("Dados.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     @FXML
@@ -55,14 +68,12 @@ public class MenuJuegosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         for (int i = 0; i < usuariosList.length; i++) {
-            if (usuariosList[i][0].equals(user)){
+            if (usuariosList[i][0].equals(user)) {
                 puntos = Integer.parseInt(usuariosList[i][2]);
                 casino.setPuntos(puntos, user);
             }
         }
-          
     }
-
 }

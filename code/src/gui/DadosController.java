@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 public class DadosController implements Initializable {
 
     @FXML
+    private Button atras;
+    
+    @FXML
     private Text numeroTexto;
 
     @FXML
@@ -25,7 +28,20 @@ public class DadosController implements Initializable {
 
     @FXML
     private Slider sliderNumero;
+    
+    @FXML
+    void volverAtras(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
 
+        stage = (Stage) atras.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("Menujuegos.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     @FXML
     void confirmar(ActionEvent event) throws IOException {
         int valorFinal = (int) sliderNumero.getValue();

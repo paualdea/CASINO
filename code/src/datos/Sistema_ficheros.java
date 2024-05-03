@@ -1,6 +1,7 @@
 package datos;
 
 import casino.CASINO;
+import gui.Main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,8 +25,9 @@ import java.util.Scanner;
  */
 public class Sistema_ficheros {
     // Importamos variables de la clase CASINO
-    static boolean ficheroNuevo = casino.CASINO.ficheroNuevo;
-    static ArrayList<Integer> puntosUsuario = casino.CASINO.puntosUsuario;
+    private CASINO casino = Main.getCasino();
+    private boolean ficheroNuevo = casino.ficheroNuevo;
+    private ArrayList<Integer> puntosUsuario = casino.puntosUsuario;
     
     /**
      * Este metodo constructor sirve para crear e inicializar todo el sistema de ficheros
@@ -36,15 +38,18 @@ public class Sistema_ficheros {
      */
     public Sistema_ficheros() throws IOException {
         // importamos el array bidimensional arrayList
-        String[][] usuariosList = casino.CASINO.usuariosList;
+        String[][] usuariosList = casino.usuariosList;
         
         // uso de la clase File para determinar el directorio que contiene los ficheros que va a usar el programa para manejar usuarios y puntos
         File casino_files = new File("./data");
         // file para determinar el fichero que contiene los datos
         File usuarios = new File(casino_files, "usuarios.txt");
         // creamos una instancia de la clase BufferedReader para tener un lector que lee el fichero usuarios
-        BufferedReader lectorLineas = new BufferedReader(new FileReader(usuarios));
+        BufferedReader lectorLineas = null;
         
+        try {
+        lectorLineas = new BufferedReader(new FileReader(usuarios));
+        } catch (Exception e){}
         // si la carpeta de ficheros no existe se crea el directorio.
         if (!casino_files.exists()) {
             casino_files.mkdir();
@@ -115,22 +120,26 @@ public class Sistema_ficheros {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void actualizarFicheros(ArrayList<Integer> puntos, String[][] usuariosList) throws FileNotFoundException, IOException, InterruptedException {
+    public void actualizarFicheros() throws FileNotFoundException, IOException, InterruptedException {
         // establecemos un writer para hacer los cambios en el fichero que indicamos
         PrintWriter writer = new PrintWriter("./data/usuarios.txt", "UTF-8");
         String resultadoUsuarios = "";
         String linea = "";
         // llamamos al getter de la clase CASINO que nos da el usuario de la sesion actual de juego
-        String user = casino.CASINO.getUser();
+        String user = casino.getUser();
+        String[][] usuariosList = casino.getUsuariosList();
+        int puntos = 0;
+        
+        for (int i = 0; i < usuariosList.length; i++) {
+            if (user.equals(usuariosList[i][0])) {
+                puntos = Integer.parseInt(usuariosList[i][2]);
+            }
+        }
         
         // se repite este bucle for por las filas que tenga el array de usuarios de nuestro casino
         for (int i = 0; i < usuariosList.length; i++) {
-            // buscamos la fila en la que se encuentra el usuario que estamos usando para poner la nueva puntuacion que tiene en el fichero
-            if (usuariosList[i][0].equals(user)) {
-                puntosUsuario.set(i, puntos.get(0));
-            }
             // establecemos la linea que anadiremos al fichero (usuario, contrasena, puntos y salto de linea)
-            linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + puntosUsuario.get(i) + "\n";
+            linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + usuariosList[i][2] + "\n";
             // agregamos a la variable resultadoUsuarios el contenido de la nueva linea
             resultadoUsuarios += linea;
         }

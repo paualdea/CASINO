@@ -1,6 +1,8 @@
 package gui;
 
+import casino.CASINO;
 import datos.Sistema_ficheros;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,10 +27,12 @@ public class PaginaInicioController {
 
     @FXML
     private Button x;
+    
+    private CASINO casino = Main.getCasino();
 
     @FXML
-    void close(ActionEvent event) {
-        Platform.exit();
+    void close(ActionEvent event) throws IOException, FileNotFoundException, InterruptedException {
+        casino.actualizarFicheros();
     }
 
     @FXML

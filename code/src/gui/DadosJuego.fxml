@@ -5,20 +5,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="gui.DadosJuegoController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.DadosJuegoController">
    <children>
       <Text fx:id="resultado" fill="WHITE" layoutX="515.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2">
          <font>
             <Font name="Pixellari" size="72.0" />
          </font>
       </Text>
-      <Button layoutX="343.0" layoutY="467.0" mnemonicParsing="false" text="VOLVER A JUGAR" />
-      <Text fx:id="resultadoTexto" fill="WHITE" layoutX="527.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text=".">
+      <Button fx:id="retry" layoutX="343.0" layoutY="467.0" mnemonicParsing="false" onAction="#volverJugar" stylesheets="@css/boton.css" text="VOLVER A JUGAR" />
+      <Text fx:id="resultadoTexto" fill="WHITE" layoutX="146.0" layoutY="354.0" strokeType="OUTSIDE" strokeWidth="0.0" text=".">
          <font>
             <Font name="Pixellari" size="48.0" />
          </font>
       </Text>
-      <Button layoutX="612.0" layoutY="467.0" mnemonicParsing="false" text="MENU PRINCIPAL" />
+      <Button fx:id="menu" layoutX="612.0" layoutY="467.0" mnemonicParsing="false" onAction="#menuPrincipal" stylesheets="@css/boton.css" text="MENU PRINCIPAL" />
    </children>
 </AnchorPane>

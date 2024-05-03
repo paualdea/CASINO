@@ -38,12 +38,20 @@ public class RegistroController implements Initializable {
     @FXML
     private TextField username;
     
+    @FXML
+    private Text errorPasswd;
+    
     private static CASINO casino;
     private static String[][] usuariosList;
     private static ArrayList<Integer> puntosUsuario;
 
     @FXML
     void registrarse(ActionEvent event) throws InterruptedException, IOException {
+        errorPasswd.setVisible(false);
+        username.setStyle("-fx-border-color: null;");
+        password.setStyle("-fx-border-color: null;");
+        password1.setStyle("-fx-border-color: null;");
+        
         casino = Main.getCasino();
         error.setVisible(false);
         int ingreso = 0;
@@ -58,6 +66,7 @@ public class RegistroController implements Initializable {
         for (int i = 0; i < usuariosList.length; i++) {
             if (usuariosList[i][0].equals(user)) {
                 error.setVisible(true);
+                username.setStyle("-fx-border-color: red;");
                 usuarioNuevo = false;
                 break;
             } else {
@@ -97,8 +106,11 @@ public class RegistroController implements Initializable {
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } else if (!passwd.equals(passwd_aux)) {
+            password.setStyle("-fx-border-color: red;");
+            password1.setStyle("-fx-border-color: red;");
+            errorPasswd.setVisible(true);
         }
-
     }
 
     @FXML
@@ -116,10 +128,16 @@ public class RegistroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        password.setStyle("-fx-border-color: null;");
+        password1.setStyle("-fx-border-color: null;");
+        username.setStyle("-fx-border-color: null;");
         usuariosList = casino.getUsuariosList();
+        
         puntosUsuario = casino.getPuntosUsuario();
         
         register.setDisable(true);
+        errorPasswd.setVisible(false);
         error.setVisible(false);
 
         password.textProperty().addListener((observable, oldValue, newValue) -> {

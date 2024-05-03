@@ -46,5 +46,10 @@
             <Font name="Pixellari" size="18.0" />
          </font>
       </Text>
+      <Text fx:id="errorPasswd" fill="#b60000" layoutX="740.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña incorrecta">
+         <font>
+            <Font name="Pixellari" size="13.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

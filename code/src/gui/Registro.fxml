@@ -17,7 +17,7 @@
             <Image url="@../img/ruleta.png" />
          </image>
       </ImageView>
-      <TextField fx:id="username" layoutX="707.0" layoutY="193.0" prefHeight="27.0" prefWidth="190.0" />
+      <TextField fx:id="username" layoutX="707.0" layoutY="193.0" prefHeight="27.0" prefWidth="190.0" style="-fx-border-color: null;" />
       <Text layoutX="707.0" layoutY="175.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="158.341796875">
          <font>
             <Font name="Pixellari" size="22.0" />
@@ -37,6 +37,11 @@
       <PasswordField fx:id="password1" layoutX="707.0" layoutY="414.0" prefHeight="27.0" prefWidth="190.0" />
       <Button fx:id="register" layoutX="752.0" layoutY="486.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="31.0" prefWidth="101.0" style="-fx-font-size: 17;" stylesheets="@css/boton.css" text="Sign up" />
       <Text fx:id="error" fill="RED" layoutX="707.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario ya existente">
+         <font>
+            <Font name="Pixellari" size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorPasswd" fill="RED" layoutX="707.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Las contraseñas no coinciden">
          <font>
             <Font name="Pixellari" size="16.0" />
          </font>
