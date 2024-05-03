@@ -1,6 +1,5 @@
 package gui;
 
-import casino.Apuesta;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,14 +25,23 @@ public class DadosController implements Initializable {
     @FXML
     private Slider sliderNumero;
 
-    private Apuesta apuesta;
+  
     private int valorApuesta;
 
     @FXML
     void confirmar(ActionEvent event) throws IOException {
         int valorFinal = (int) sliderNumero.getValue();
+        
+        Stage stage;
+        Parent root;
 
-        apuesta = new Apuesta(1);
+        stage = (Stage) ok.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("Apuesta.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        
     }
 
     @Override
@@ -45,10 +53,6 @@ public class DadosController implements Initializable {
             int valorEntero = newValue.intValue();
             numeroTexto.setText(Integer.toString(valorEntero));
         });
-    }
-
-    public Apuesta getApuesta() {
-        return apuesta;
     }
 
     public int getValorApuesta() {

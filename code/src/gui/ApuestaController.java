@@ -1,6 +1,5 @@
 package gui;
 
-import casino.Apuesta;
 import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
@@ -53,14 +52,13 @@ public class ApuestaController implements Initializable {
     void confirmarApuesta(ActionEvent event) throws IOException {
         puntos -= apuesta;
         casino.setPuntos(puntos);
-        
-        Dados2Controller dadosJuego = new Dados2Controller(apuesta);
+        casino.setApuesta(apuesta);
         
         Stage stage;
         Parent root;
 
         stage = (Stage) confirmar.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("Dados2.fxml"));
+        root = FXMLLoader.load(getClass().getResource("DadosJuego.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -123,6 +121,5 @@ public class ApuestaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         pantallaPuntos.setText("0");            
         puntos = casino.getPuntos(user);
-    }    
-    
+    }
 }

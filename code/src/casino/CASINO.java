@@ -28,6 +28,7 @@ public class CASINO {
     public static String user;
     
     private int puntos;
+    private int apuesta;
 
     // Metodo constructor
     public CASINO() throws IOException {
@@ -85,4 +86,12 @@ public class CASINO {
         }
         return 0;
     }
+
+    public int getApuesta() {
+        return apuesta;
+    }
+
+    public void setApuesta(int apuesta) {
+        this.apuesta = apuesta;
+    }   
 }
