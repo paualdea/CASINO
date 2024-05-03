@@ -29,6 +29,8 @@ public class CASINO {
     
     private int puntos;
     private int apuesta;
+    private int valorDados = 0;
+    private boolean ganado = false;
 
     // Metodo constructor
     public CASINO() throws IOException {
@@ -73,13 +75,17 @@ public class CASINO {
         return ficheroNuevo;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void setPuntos(int puntos, String user) {
+        for (int i = 0; i < usuariosList.length; i++) {
+            if (user.equals(usuariosList[i][0])){
+                usuariosList[i][2] = Integer.toString(puntos);
+            }
+        }
     }
     
     public int getPuntos(String user){
         for (int i = 0; i < usuariosList.length; i++) {
-            if (user == usuariosList[i][0]) {
+            if (user.equals(usuariosList[i][0])) {
                 int puntos = Integer.parseInt(usuariosList[i][2]);
                 return puntos;
             }
@@ -94,4 +100,20 @@ public class CASINO {
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
     }   
+
+    public int getValorDados() {
+        return valorDados;
+    }
+
+    public void setValorDados(int valorDados) {
+        this.valorDados = valorDados;
+    }
+
+    public boolean isGanado() {
+        return ganado;
+    }
+
+    public void setGanado(boolean ganado) {
+        this.ganado = ganado;
+    }
 }

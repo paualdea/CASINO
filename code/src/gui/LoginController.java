@@ -45,7 +45,7 @@ public class LoginController implements Initializable {
 
     @FXML
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException {
-        CASINO casino = Main.getCasino();
+        casino = Main.getCasino();
         String[][] usuariosList = casino.getUsuariosList();
         ArrayList<Integer> puntosUsuario = casino.getPuntosUsuario();
         String user = username.getText();
@@ -60,9 +60,9 @@ public class LoginController implements Initializable {
 
                 puntos = 0;
 
-                casino.setUser(user.toString());
-                puntos = puntosUsuario.get(i);
-                casino.setPuntos(puntos);
+                casino.setUser(user);
+                
+                casino.setPuntos(puntos, user);
                 usuarioCorrecto = true;
 
                 Stage stage;

@@ -81,6 +81,8 @@ public class RegistroController implements Initializable {
             usuariosList[usuariosList.length - 1][1] = passwd;
             usuariosList[usuariosList.length - 1][2] = Integer.toString(ingreso);
 
+            casino.setPuntos(ingreso, user);
+
             // se vacia la variable user para evitar errores posteriores
             user = "";
             

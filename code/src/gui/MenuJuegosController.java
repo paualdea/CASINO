@@ -59,7 +59,7 @@ public class MenuJuegosController implements Initializable {
         for (int i = 0; i < usuariosList.length; i++) {
             if (usuariosList[i][0].equals(user)){
                 puntos = Integer.parseInt(usuariosList[i][2]);
-                casino.setPuntos(puntos);
+                casino.setPuntos(puntos, user);
             }
         }
           

@@ -51,8 +51,10 @@ public class ApuestaController implements Initializable {
     @FXML
     void confirmarApuesta(ActionEvent event) throws IOException {
         puntos -= apuesta;
-        casino.setPuntos(puntos);
+        casino.setPuntos(puntos, user);
         casino.setApuesta(apuesta);
+        
+        System.out.println(casino.getPuntos(user));
         
         Stage stage;
         Parent root;

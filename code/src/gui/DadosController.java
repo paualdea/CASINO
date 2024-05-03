@@ -1,5 +1,6 @@
 package gui;
 
+import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -25,12 +26,13 @@ public class DadosController implements Initializable {
     @FXML
     private Slider sliderNumero;
 
-  
-    private int valorApuesta;
-
     @FXML
     void confirmar(ActionEvent event) throws IOException {
         int valorFinal = (int) sliderNumero.getValue();
+        
+        CASINO casino = Main.getCasino();
+        
+        casino.setValorDados(valorFinal);
         
         Stage stage;
         Parent root;
@@ -53,9 +55,5 @@ public class DadosController implements Initializable {
             int valorEntero = newValue.intValue();
             numeroTexto.setText(Integer.toString(valorEntero));
         });
-    }
-
-    public int getValorApuesta() {
-        return valorApuesta;
     }
 }
