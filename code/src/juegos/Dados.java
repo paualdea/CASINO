@@ -3,9 +3,7 @@ package juegos;
 import casino.CASINO;
 import gui.Main;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Clase que contiene todos los metodos para ejecutar el juego de los dados
@@ -16,6 +14,7 @@ public class Dados {
 
     private static int n, apuesta, resultado;
     private static boolean ganado = false;
+    private int dado1, dado2;
     
     private static CASINO casino = Main.getCasino();
 
@@ -30,7 +29,7 @@ public class Dados {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void dados() {
+    public void dados() {
         // objetos y variables necesarias para la ejecucion del juego
         ganado = false;
         casino.setGanado(ganado);
@@ -53,11 +52,11 @@ public class Dados {
      * @return
      * @throws InterruptedException
      */
-    public static int tirarDados(int n, int apuesta) {
+    public int tirarDados(int n, int apuesta) {
         // generamos el valor de los 2 dados y lo sumamos
         Random rd = new Random();
-        int dado1 = rd.nextInt(6) + 1;
-        int dado2 = rd.nextInt(6) + 1;
+        dado1 = rd.nextInt(6) + 1;
+        dado2 = rd.nextInt(6) + 1;
         resultado = dado1 + dado2;
         System.out.println();
 
@@ -91,5 +90,13 @@ public class Dados {
 
     public static int getResultado() {
         return resultado;
+    }
+
+    public int getDado1() {
+        return dado1;
+    }
+
+    public int getDado2() {
+        return dado2;
     }
 }

@@ -51,6 +51,9 @@ public class ApuestaController implements Initializable {
     @FXML
     private Button atras;
 
+    @FXML
+    private Text puntosRestantes;
+
     private int apuesta = 0;
     private int puntos;
     private CASINO casino = Main.getCasino();
@@ -70,7 +73,7 @@ public class ApuestaController implements Initializable {
     }
 
     @FXML
-    void confirmarApuesta(ActionEvent event) throws IOException {
+    void confirmarApuesta(ActionEvent event) throws IOException, InterruptedException {
         puntos -= apuesta;
         casino.setPuntos(puntos, user);
         casino.setApuesta(apuesta);
@@ -137,11 +140,18 @@ public class ApuestaController implements Initializable {
     }
 
     public void actualizarPuntos() {
+
+        if (!(apuesta <= puntos)) {
+            apuesta = 0;
+        }
+
         pantallaPuntos.setText(Integer.toString(apuesta));
+        puntosRestantes.setText("Restantes " + Integer.toString(puntos - apuesta));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        puntosRestantes.setText("Restantes " + Integer.toString(puntos - apuesta));
         pantallaPuntos.setText("0");
         puntos = casino.getPuntos(user);
         actualizarPuntos();

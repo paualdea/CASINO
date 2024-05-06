@@ -14,6 +14,10 @@ public class Main extends Application {
     public static CASINO casino;
     
     public static void main(String[] args) throws IOException {
+        System.setProperty("prism.order", "d3d,sw");
+        System.setProperty("prism.forceGPU", "true");
+
+        
         casino = new CASINO();
         launch(args);
     }

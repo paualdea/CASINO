@@ -48,24 +48,28 @@ public class LoginController implements Initializable {
 
     @FXML
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException {
+        usuariosList = casino.getUsuariosList();
+
+        boolean usuarioCorrecto = false, contrasenaCorrecto = false;
         errorPasswd.setVisible(false);
+        register.setVisible(false);
+        mensaje.setVisible(false);
         password.setStyle("-fx-border-color: null;");
 
-        for (int i = 0; i < usuariosList.length; i++) {
-            System.out.println(usuariosList[i][0]);
-            System.out.println(usuariosList[i][1]);
-        }
-
-        ArrayList<Integer> puntosUsuario = casino.getPuntosUsuario();
         String user = username.getText();
         String passwd = password.getText();
+        
+        usuarioCorrecto = false;
+        contrasenaCorrecto = false;
 
         // Se recorre todo el array de usuarios para ver si algun registro coincide
         for (int i = 0; i < usuariosList.length; i++) {
             // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
             if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
+                usuarioCorrecto = true;
+                contrasenaCorrecto = true;
                 puntos = casino.getPuntos(user);
-                
+
                 casino.setUser(user);
 
                 casino.setPuntos(puntos, user);
@@ -79,12 +83,25 @@ public class LoginController implements Initializable {
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
-            } else if (user.equals(usuariosList[i][0]) && !(passwd.equals(usuariosList[i][1]))) {
-                errorPasswd.setVisible(true);
-                password.setStyle("-fx-border-color: red;");
                 break;
+            } else if (user.equals(usuariosList[i][0]) && !(passwd.equals(usuariosList[i][1]))) {
+                contrasenaCorrecto = false;
+                usuarioCorrecto = true;
+                break;
+            } else if (!user.equals(usuariosList[i][0]) && !passwd.equals(usuariosList[i][1])) {
+                usuarioCorrecto = false;
+                contrasenaCorrecto = false;
             }
         }
+
+        if (usuarioCorrecto && !contrasenaCorrecto) {
+            errorPasswd.setVisible(true);
+            password.setStyle("-fx-border-color: red;");
+        } else if (!usuarioCorrecto && !contrasenaCorrecto) {
+            register.setVisible(true);
+            mensaje.setVisible(true);
+        }
+
     }
 
     @FXML
