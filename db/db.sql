@@ -1,11 +1,7 @@
-CREATE DATABASE IF NOT EXISTS CASINO;
-USE CASINO;
-
 CREATE TABLE IF NOT EXISTS usuarios (
-	id INT AUTO_INCREMENT,
+	id INT PRIMARY KEY,
     username varchar(50),
-    password varchar(50),
-    PRIMARY KEY (id)
+    password varchar(50)
 );
 
 CREATE TABLE IF NOT EXISTS puntos (
@@ -23,8 +19,8 @@ CREATE TABLE IF NOT EXISTS registro (
     PRIMARY KEY (id)
 );
 
-INSERT INTO usuarios (username, password) VALUES ('paualdea', 'aldea2');
-INSERT INTO usuarios (username, password) VALUES ('mohammadtufail', 'tufail2');
+INSERT INTO usuarios VALUES (1, 'paualdea', 'aldea2');
+INSERT INTO usuarios VALUES (2, 'mohammadtufail', 'tufail2');
 
 INSERT INTO puntos VALUES (1, 12000);
 INSERT INTO puntos VALUES (2, 12000);
