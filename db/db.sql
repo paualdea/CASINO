@@ -1,18 +1,18 @@
 CREATE TABLE IF NOT EXISTS usuarios (
-	id INT PRIMARY KEY,
+    id INT PRIMARY KEY,
     username varchar(50),
     password varchar(50)
 );
 
 CREATE TABLE IF NOT EXISTS puntos (
-	id_usuario int,
+    id_usuario int,
     puntos int,
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS registro (
-	id int auto_increment,
+    id int auto_increment,
     id_juego varchar(20),
     apuesta int,
     resultado int,

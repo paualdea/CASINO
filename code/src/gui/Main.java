@@ -2,6 +2,7 @@ package gui;
 
 import casino.CASINO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ public class Main extends Application {
     
     public static CASINO casino;
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         System.setProperty("prism.order", "d3d,sw");
         System.setProperty("prism.forceGPU", "true");
 

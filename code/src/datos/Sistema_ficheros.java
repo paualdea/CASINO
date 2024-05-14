@@ -8,48 +8,71 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
- * Clase que contiene todo el sistema de ficheros que implementamos a partir de la version 3.0.0
- * en nuestro programa.
- * 
- * Contiene un constructor que se encarga de crear todo el sistema de ficheros una vez instanciamos
- * la clase. 
- * Tambien tiene un metodo que sirve para actualizar los valores de todos los usuarios del
- * programa en el fichero que tenemos creado.
- * 
+ * Clase que contiene todo el sistema de ficheros que implementamos a partir de
+ * la version 3.0.0 en nuestro programa.
+ *
+ * Contiene un constructor que se encarga de crear todo el sistema de ficheros
+ * una vez instanciamos la clase. Tambien tiene un metodo que sirve para
+ * actualizar los valores de todos los usuarios del programa en el fichero que
+ * tenemos creado.
+ *
  * @author Pau Aldea Batista
  */
 public class Sistema_ficheros {
+
     // Importamos variables de la clase CASINO
     private CASINO casino = Main.getCasino();
     private boolean ficheroNuevo = casino.ficheroNuevo;
     private ArrayList<Integer> puntosUsuario = casino.puntosUsuario;
-    
+    private Connection conexion;
+
     /**
-     * Este metodo constructor sirve para crear e inicializar todo el sistema de ficheros
-     * que hemos implementado en la v3.0.0 de este CASINO para hacer los datos
-     * persistentes y recuperables en la siguiente ejecucion.
-     * Una vez creamos una instancia de esta clase, se crea todo el sistema de ficheros automaticamente
+     * Este metodo constructor sirve para crear e inicializar todo el sistema de
+     * ficheros que hemos implementado en la v3.0.0 de este CASINO para hacer
+     * los datos persistentes y recuperables en la siguiente ejecucion. Una vez
+     * creamos una instancia de esta clase, se crea todo el sistema de ficheros
+     * automaticamente
      *
      */
-    public Sistema_ficheros() throws IOException {
+    public Sistema_ficheros() throws IOException, SQLException {
         // importamos el array bidimensional arrayList
         String[][] usuariosList = casino.usuariosList;
-        
+
+        try {
+            // Ruta de la base de datos
+            String url = "casino.db";
+
+            // Establecer la conexión con la base de datos
+            conexion = DriverManager.getConnection("jdbc:sqlite:" + url);
+
+            // Mensaje de éxito
+            System.out.println("Conexión exitosa a la base de datos.");
+
+            // Puedes realizar operaciones con la base de datos aquí
+        } catch (SQLException e) {
+            // Error al conectar
+            System.out.println(e.getMessage());
+        }
+
         // uso de la clase File para determinar el directorio que contiene los ficheros que va a usar el programa para manejar usuarios y puntos
         File casino_files = new File("./data");
         // file para determinar el fichero que contiene los datos
         File usuarios = new File(casino_files, "usuarios.txt");
         // creamos una instancia de la clase BufferedReader para tener un lector que lee el fichero usuarios
         BufferedReader lectorLineas = null;
-        
+
         try {
-        lectorLineas = new BufferedReader(new FileReader(usuarios));
-        } catch (Exception e){}
+            lectorLineas = new BufferedReader(new FileReader(usuarios));
+        } catch (Exception e) {
+        }
         // si la carpeta de ficheros no existe se crea el directorio.
         if (!casino_files.exists()) {
             casino_files.mkdir();
@@ -77,8 +100,7 @@ public class Sistema_ficheros {
             writer.close();
             // establecemos la variable estatica ficheroNuevo en true para que no haya errores luego a la hora de leer estos nuevos usuarios
             ficheroNuevo = true;
-        } 
-        // si el fichero de usuarios no esta vacio entonces...
+        } // si el fichero de usuarios no esta vacio entonces...
         else {
             // mientras el fichero tenga mas lineas...
             while (lectorLineas.readLine() != null) {
@@ -101,7 +123,7 @@ public class Sistema_ficheros {
                 i++;
             }
         }
-        
+
         // actualizamos los valores de estas variables en la clase principal CASINO
         CASINO.setUsuariosList(usuariosList);
         CASINO.setFicheroNuevo(ficheroNuevo);
@@ -121,34 +143,38 @@ public class Sistema_ficheros {
      * @throws InterruptedException
      */
     public void actualizarFicheros() throws FileNotFoundException, IOException, InterruptedException {
-        // establecemos un writer para hacer los cambios en el fichero que indicamos
-        PrintWriter writer = new PrintWriter("./data/usuarios.txt", "UTF-8");
-        String resultadoUsuarios = "";
-        String linea = "";
-        // llamamos al getter de la clase CASINO que nos da el usuario de la sesion actual de juego
-        String user = casino.getUser();
-        String[][] usuariosList = casino.getUsuariosList();
-        int puntos = 0;
-        
-        for (int i = 0; i < usuariosList.length; i++) {
-            if (user.equals(usuariosList[i][0])) {
-                puntos = Integer.parseInt(usuariosList[i][2]);
+        try {
+            // establecemos un writer para hacer los cambios en el fichero que indicamos
+            PrintWriter writer = new PrintWriter("./data/usuarios.txt", "UTF-8");
+            String resultadoUsuarios = "";
+            String linea = "";
+            // llamamos al getter de la clase CASINO que nos da el usuario de la sesion actual de juego
+            String user = casino.getUser();
+            String[][] usuariosList = casino.getUsuariosList();
+            int puntos = 0;
+
+            for (int i = 0; i < usuariosList.length; i++) {
+                if (user.equals(usuariosList[i][0])) {
+                    puntos = Integer.parseInt(usuariosList[i][2]);
+                }
             }
-        }
-        
-        // se repite este bucle for por las filas que tenga el array de usuarios de nuestro casino
-        for (int i = 0; i < usuariosList.length; i++) {
-            // establecemos la linea que anadiremos al fichero (usuario, contrasena, puntos y salto de linea)
-            linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + usuariosList[i][2] + "\n";
-            // agregamos a la variable resultadoUsuarios el contenido de la nueva linea
-            resultadoUsuarios += linea;
+
+            // se repite este bucle for por las filas que tenga el array de usuarios de nuestro casino
+            for (int i = 0; i < usuariosList.length; i++) {
+                // establecemos la linea que anadiremos al fichero (usuario, contrasena, puntos y salto de linea)
+                linea = usuariosList[i][0] + "," + usuariosList[i][1] + "," + usuariosList[i][2] + "\n";
+                // agregamos a la variable resultadoUsuarios el contenido de la nueva linea
+                resultadoUsuarios += linea;
+            }
+
+            // anadimos en el fichero todo lo que hemos generado en el bucle for
+            writer.print(resultadoUsuarios);
+            // cerramos el writer
+            writer.close();
+        } catch(Exception e){
+            
         }
 
-        // anadimos en el fichero todo lo que hemos generado en el bucle for
-        writer.print(resultadoUsuarios);
-        // cerramos el writer
-        writer.close();
-        
         System.exit(0);
     }
 }

@@ -3,6 +3,7 @@ package casino;
 import datos.Sistema_ficheros;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -35,7 +36,7 @@ public class CASINO {
     private Sistema_ficheros datos;
 
     // Metodo constructor
-    public CASINO() throws IOException {
+    public CASINO() throws IOException, SQLException {
         datos = new Sistema_ficheros();
 
         if (ficheroNuevo) {
