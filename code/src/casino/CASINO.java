@@ -1,13 +1,13 @@
 package casino;
 
 import datos.Sistema_ficheros;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.sql.Statement;
 
 /**
- * CASINO - v5.0.0
+ * CASINO - v6.0.0
  * _________________________________________________________________________________________________________________________________________
  *
  * PENDIENTE
@@ -16,16 +16,6 @@ import java.util.ArrayList;
  * @author Mohammad Tufail Imran
  */
 public class CASINO {
-
-    // Array bidimensional para almacenar los usuarios del sistema de juego del casino
-    public static String[][] usuariosList = new String[0][3];
-
-    // ArrayList para almacenar todos los puntos de los usuarios creados en el fichero de juego
-    public static ArrayList<Integer> puntosUsuario = new ArrayList<>();
-
-    // Variable booleana para saber si el sistema de ficheros es nuevo o no
-    public static boolean ficheroNuevo = false;
-    
     // Variables de datos de usuario
     public static String user;
     
@@ -34,28 +24,12 @@ public class CASINO {
     private int valorDados = 0;
     private boolean ganado = false;
     private Sistema_ficheros datos;
+    static Connection connection = null;
+    static Statement statement = null;
 
     // Metodo constructor
     public CASINO() throws IOException, SQLException {
         datos = new Sistema_ficheros();
-
-        if (ficheroNuevo) {
-            datos = null;
-            datos = new Sistema_ficheros();
-        }
-    }
-
-    // Getters y Setters
-    public static void setFicheroNuevo(boolean ficheroNuevo) {
-        CASINO.ficheroNuevo = ficheroNuevo;
-    }
-
-    public static void setUsuariosList(String[][] usuariosList) {
-        CASINO.usuariosList = usuariosList;
-    }
-
-    public static void setPuntosUsuario(ArrayList<Integer> puntosUsuario) {
-        CASINO.puntosUsuario = puntosUsuario;
     }
 
     public static String getUser() {
@@ -66,33 +40,12 @@ public class CASINO {
         CASINO.user = user;
     }
 
-    public static String[][] getUsuariosList() {
-        return usuariosList;
-    }
-
-    public static ArrayList<Integer> getPuntosUsuario() {
-        return puntosUsuario;
-    }
-
-    public static boolean isFicheroNuevo() {
-        return ficheroNuevo;
-    }
-
     public void setPuntos(int puntos, String user) {
-        for (int i = 0; i < usuariosList.length; i++) {
-            if (user.equals(usuariosList[i][0])){
-                usuariosList[i][2] = Integer.toString(puntos);
-            }
-        }
+        // COMPLETAR ESTO
     }
     
     public int getPuntos(String user){
-        for (int i = 0; i < usuariosList.length; i++) {
-            if (user.equals(usuariosList[i][0])) {
-                int puntos = Integer.parseInt(usuariosList[i][2]);
-                return puntos;
-            }
-        }
+        // COMPLETAR ESTO
         return 0;
     }
 
@@ -119,8 +72,22 @@ public class CASINO {
     public void setGanado(boolean ganado) {
         this.ganado = ganado;
     }
-    
-    public void actualizarFicheros() throws IOException, FileNotFoundException, InterruptedException {
-        datos.actualizarFicheros();
+
+    public static Connection getConnection() {
+        return connection;
     }
+
+    public static void setConnection(Connection connection) {
+        CASINO.connection = connection;
+    }
+
+    public static Statement getStatement() {
+        return statement;
+    }
+
+    public static void setStatement(Statement statement) {
+        CASINO.statement = statement;
+    }
+    
+    
 }

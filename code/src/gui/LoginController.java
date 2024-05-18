@@ -3,6 +3,8 @@ package gui;
 import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,6 +18,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LoginController implements Initializable {
 
@@ -45,12 +49,15 @@ public class LoginController implements Initializable {
     private static CASINO casino;
     private static String[][] usuariosList;
     private static ArrayList<Integer> puntosUsuario;
+    private Connection connection = casino.getConnection();
+    private Statement statement = casino.getStatement();
+    private ResultSet resultSet = null;
 
     @FXML
-    void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException {
-        usuariosList = casino.getUsuariosList();
-
+    void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException, SQLException {
         boolean usuarioCorrecto = false, contrasenaCorrecto = false;
+        int numeroUsuarios = 0;
+        String sentencia = "";
         errorPasswd.setVisible(false);
         register.setVisible(false);
         mensaje.setVisible(false);
@@ -62,10 +69,35 @@ public class LoginController implements Initializable {
         usuarioCorrecto = false;
         contrasenaCorrecto = false;
 
+        try {
+            statement = connection.createStatement();
+            
+            sentencia = "SELECT COUNT(*) FROM usuarios;";
+            resultSet = statement.executeQuery(sentencia);
+            
+            numeroUsuarios = resultSet.getInt(1);
+            
+            System.out.println(numeroUsuarios);
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String usuarioBD = "", passwdBD = "";
+
         // Se recorre todo el array de usuarios para ver si algun registro coincide
-        for (int i = 0; i < usuariosList.length; i++) {
+        for (int i = 0; i < numeroUsuarios; i++) {
+            
+            sentencia = "SELECT username, passwd from usuarios where id = " + i;
+            resultSet = statement.executeQuery(sentencia);
+            
+             if (resultSet.next()) {
+                usuarioBD = resultSet.getString("username");
+                passwdBD = resultSet.getString("passwd");
+            }
+             
             // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
-            if (user.equals(usuariosList[i][0]) && passwd.equals(usuariosList[i][1])) {
+            if (user.equals(usuarioBD) && passwd.equals(passwdBD)) {
                 usuarioCorrecto = true;
                 contrasenaCorrecto = true;
                 puntos = casino.getPuntos(user);
@@ -84,11 +116,11 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
                 break;
-            } else if (user.equals(usuariosList[i][0]) && !(passwd.equals(usuariosList[i][1]))) {
+            } else if (user.equals(usuarioBD) && !(passwd.equals(passwdBD))) {
                 contrasenaCorrecto = false;
                 usuarioCorrecto = true;
                 break;
-            } else if (!user.equals(usuariosList[i][0]) && !passwd.equals(usuariosList[i][1])) {
+            } else if (!user.equals(usuarioBD) && !passwd.equals(passwdBD)) {
                 usuarioCorrecto = false;
                 contrasenaCorrecto = false;
             }
@@ -134,8 +166,6 @@ public class LoginController implements Initializable {
         errorPasswd.setVisible(false);
 
         casino = Main.getCasino();
-        usuariosList = casino.getUsuariosList();
-        puntosUsuario = casino.getPuntosUsuario();
 
         username.setPromptText("Ex: user01");
         password.setPromptText("Ex: 12345678");
