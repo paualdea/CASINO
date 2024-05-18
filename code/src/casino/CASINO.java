@@ -71,23 +71,5 @@ public class CASINO {
 
     public void setGanado(boolean ganado) {
         this.ganado = ganado;
-    }
-
-    public static Connection getConnection() {
-        return connection;
-    }
-
-    public static void setConnection(Connection connection) {
-        CASINO.connection = connection;
-    }
-
-    public static Statement getStatement() {
-        return statement;
-    }
-
-    public static void setStatement(Statement statement) {
-        CASINO.statement = statement;
-    }
-    
-    
+    }  
 }

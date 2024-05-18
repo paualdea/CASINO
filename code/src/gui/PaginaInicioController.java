@@ -1,17 +1,14 @@
 package gui;
 
 import casino.CASINO;
-import datos.Sistema_ficheros;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class PaginaInicioController {
@@ -32,7 +29,7 @@ public class PaginaInicioController {
 
     @FXML
     void close(ActionEvent event) throws IOException, FileNotFoundException, InterruptedException {
-        casino.actualizarFicheros();
+        System.exit(0);
     }
 
     @FXML

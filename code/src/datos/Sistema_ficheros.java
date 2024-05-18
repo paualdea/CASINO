@@ -85,10 +85,6 @@ public class Sistema_ficheros {
 
             url = "jdbc:mysql://localhost:3306/casino";
             connection = DriverManager.getConnection(url, user_db, "");
-            
-            // Mandamos la conexion y el statement a la instancia casino
-            casino.setConnection(connection);
-            casino.setStatement(statement);
 
         } catch (SQLException ex) {
             Logger.getLogger(Sistema_ficheros.class.getName()).log(Level.SEVERE, null, ex);

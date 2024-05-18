@@ -3,8 +3,14 @@ package gui;
 import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +24,14 @@ public class MenuJuegosController implements Initializable {
 
     private CASINO casino = Main.getCasino();
     private String user = casino.getUser();
-    private String[][] usuariosList = casino.getUsuariosList();
     private int puntos;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+    private String sentencia = "";
+    private final String urlBD = "jdbc:mysql://localhost:3306/casino";
+    private final String userBD = "root";
+    private final String passwdBD = "";
 
     @FXML
     private Button atras;
@@ -68,12 +80,56 @@ public class MenuJuegosController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        try {
+            connection = DriverManager.getConnection(urlBD, userBD, passwdBD);
+            statement = connection.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int numeroUsuarios = 0;
+        String usuarioBD = "";
+        int puntosBD = 0;
 
-        for (int i = 0; i < usuariosList.length; i++) {
-            if (usuariosList[i][0].equals(user)) {
-                puntos = Integer.parseInt(usuariosList[i][2]);
-                casino.setPuntos(puntos, user);
+        try {
+            statement = connection.createStatement();
+
+            sentencia = "SELECT COUNT(*) FROM usuarios;";
+            resultSet = statement.executeQuery(sentencia);
+
+            if (resultSet.next()) {
+                numeroUsuarios = resultSet.getInt(1);
             }
+            
+            System.out.println(numeroUsuarios);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < numeroUsuarios; i++) {
+
+            try {
+                sentencia = "SELECT username, puntos from usuarios u inner join puntos p on p.id_usuario = u.id where id = " + i;
+                resultSet = statement.executeQuery(sentencia);
+
+                if (resultSet.next()) {
+                    usuarioBD = resultSet.getString("username");
+                    puntosBD = resultSet.getInt("puntos");
+                }
+
+                if (usuarioBD.equals(user)) {
+                    puntos = puntosBD;
+                    casino.setPuntos(puntos, user);
+                }
+            } catch (Exception e) {}
+        }
+        
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuJuegosController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

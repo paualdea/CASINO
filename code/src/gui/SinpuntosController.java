@@ -58,7 +58,7 @@ public class SinpuntosController implements Initializable {
 
     @FXML
     void exit(ActionEvent event) throws IOException, FileNotFoundException, InterruptedException {
-        casino.actualizarFicheros();
+        System.exit(0);
     }
 
     @Override

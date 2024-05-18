@@ -49,8 +49,8 @@ public class LoginController implements Initializable {
     private static CASINO casino;
     private static String[][] usuariosList;
     private static ArrayList<Integer> puntosUsuario;
-    private Connection connection = casino.getConnection();
-    private Statement statement = casino.getStatement();
+    private Connection connection = null;
+    private Statement statement = null;
     private ResultSet resultSet = null;
 
     @FXML
