@@ -4,6 +4,7 @@ import casino.CASINO;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class SinpuntosController implements Initializable {
     private CASINO casino = Main.getCasino();
 
     @FXML
-    void anadirPuntos(ActionEvent event) throws IOException {
+    void anadirPuntos(ActionEvent event) throws IOException, SQLException {
         error.setVisible(false);
 
         int puntos = Integer.parseInt(nuevosPuntos.getText());

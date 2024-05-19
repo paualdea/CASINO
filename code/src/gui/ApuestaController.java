@@ -3,12 +3,14 @@ package gui;
 import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,6 +60,13 @@ public class ApuestaController implements Initializable {
     private int puntos;
     private CASINO casino = Main.getCasino();
     private String user = casino.getUser();
+    
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet resultSet = null;
+    private final String url = "jdbc:mysql://localhost:3306/casino";
+    private final String userBD = "root";
+    private final String passwdBD = "";
 
     @FXML
     void volverAtras(ActionEvent event) throws IOException {
@@ -73,8 +82,21 @@ public class ApuestaController implements Initializable {
     }
 
     @FXML
-    void confirmarApuesta(ActionEvent event) throws IOException, InterruptedException {
+    void confirmarApuesta(ActionEvent event) throws IOException, InterruptedException, SQLException {
+        String sentencia = "";
+        
         puntos -= apuesta;
+        
+        try {
+            connection = DriverManager.getConnection(url, userBD, passwdBD);
+            statement = connection.createStatement();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id_usuario = (SELECT id FROM usuarios WHERE username = '" + user + "');";
+        statement.executeUpdate(sentencia);
+        
         casino.setPuntos(puntos, user);
         casino.setApuesta(apuesta);
 
@@ -153,7 +175,11 @@ public class ApuestaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         puntosRestantes.setText("Restantes " + Integer.toString(puntos - apuesta));
         pantallaPuntos.setText("0");
-        puntos = casino.getPuntos(user);
+        try {
+            puntos = casino.getPuntos(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(ApuestaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         actualizarPuntos();
     }
 }

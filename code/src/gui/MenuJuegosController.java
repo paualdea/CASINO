@@ -38,6 +38,35 @@ public class MenuJuegosController implements Initializable {
 
     @FXML
     private Button dados;
+    
+    @FXML
+    private Button borrar;
+    
+    @FXML
+    void borrarCuenta(ActionEvent event) throws IOException, SQLException {
+        try {
+            connection = DriverManager.getConnection(urlBD, userBD, passwdBD);
+            statement = connection.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        String sentencia = "DELETE FROM puntos WHERE id_usuario = (SELECT id FROM usuarios WHERE username = '" + user + "')";
+        statement.executeUpdate(sentencia);
+        
+        sentencia = "DELETE FROM usuarios WHERE username = '" + user + "'";
+        statement.executeUpdate(sentencia);
+        
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) atras.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     void juegoDados(ActionEvent event) throws IOException {
@@ -108,7 +137,7 @@ public class MenuJuegosController implements Initializable {
             e.printStackTrace();
         }
 
-        for (int i = 0; i < numeroUsuarios; i++) {
+        for (int i = 1; i <= numeroUsuarios; i++) {
 
             try {
                 sentencia = "SELECT username, puntos from usuarios u inner join puntos p on p.id_usuario = u.id where id = " + i;

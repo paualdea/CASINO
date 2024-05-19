@@ -4,6 +4,7 @@ import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -52,6 +53,9 @@ public class LoginController implements Initializable {
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet resultSet = null;
+    private final String url = "jdbc:mysql://localhost:3306/casino";
+    private final String userBD = "root";
+    private final String passwdBD = "";
 
     @FXML
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException, SQLException {
@@ -65,37 +69,43 @@ public class LoginController implements Initializable {
 
         String user = username.getText();
         String passwd = password.getText();
-        
+
         usuarioCorrecto = false;
         contrasenaCorrecto = false;
 
         try {
+            connection = DriverManager.getConnection(url, userBD, passwdBD);
             statement = connection.createStatement();
-            
+
             sentencia = "SELECT COUNT(*) FROM usuarios;";
             resultSet = statement.executeQuery(sentencia);
-            
-            numeroUsuarios = resultSet.getInt(1);
-            
+
+            if (resultSet.next()) {
+                numeroUsuarios = resultSet.getInt(1);
+            }
+
             System.out.println(numeroUsuarios);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         String usuarioBD = "", passwdBD = "";
 
+        connection = DriverManager.getConnection(url, userBD, passwdBD);
+        statement = connection.createStatement();
+
         // Se recorre todo el array de usuarios para ver si algun registro coincide
-        for (int i = 0; i < numeroUsuarios; i++) {
-            
+        for (int i = 1; i <= numeroUsuarios; i++) {
+
             sentencia = "SELECT username, passwd from usuarios where id = " + i;
             resultSet = statement.executeQuery(sentencia);
-            
-             if (resultSet.next()) {
+
+            if (resultSet.next()) {
                 usuarioBD = resultSet.getString("username");
                 passwdBD = resultSet.getString("passwd");
             }
-             
+
             // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
             if (user.equals(usuarioBD) && passwd.equals(passwdBD)) {
                 usuarioCorrecto = true;

@@ -3,7 +3,10 @@ package gui;
 import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +45,11 @@ public class DadosJuegoController implements Initializable {
     private int valorDados = casino.getValorDados();
     private int apuesta = casino.getApuesta();
     private String user = casino.getUser();
-    private int puntos = casino.getPuntos(user);
+    private int puntos;
+
+    public DadosJuegoController() throws SQLException {
+        this.puntos = casino.getPuntos(user);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -52,7 +59,11 @@ public class DadosJuegoController implements Initializable {
         int dado1 = dados.getDado1();
         int dado2 = dados.getDado2();
         puntos += dados.getApuesta();
-        casino.setPuntos(puntos, user);
+        try {
+            casino.setPuntos(puntos, user);
+        } catch (SQLException ex) {
+            Logger.getLogger(DadosJuegoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         casino.setApuesta(0);
         resultado.setText(Integer.toString(resultadoDados));
 
@@ -108,9 +119,17 @@ public class DadosJuegoController implements Initializable {
         resultadoTexto.setTextAlignment(TextAlignment.CENTER);
 
         if (casino.isGanado()) {
-            resultadoTexto.setText("Has ganado\nTienes " + casino.getPuntos(user) + " puntos");
+            try {
+                resultadoTexto.setText("Has ganado\nTienes " + casino.getPuntos(user) + " puntos");
+            } catch (SQLException ex) {
+                Logger.getLogger(DadosJuegoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            resultadoTexto.setText("Has perdido\nTienes " + casino.getPuntos(user) + " puntos");
+            try {
+                resultadoTexto.setText("Has perdido\nTienes " + casino.getPuntos(user) + " puntos");
+            } catch (SQLException ex) {
+                Logger.getLogger(DadosJuegoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

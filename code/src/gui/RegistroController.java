@@ -8,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.PreparedStatement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,7 +98,7 @@ public class RegistroController implements Initializable {
         
         // el programa se mantiene en este bucle while siempre que el usuario no este registrado
         // si el usuario ya esta registrado, te saca del bucle y retorna un false
-        for (int i = 0; i < numeroUsuarios; i++) {
+        for (int i = 1; i <= numeroUsuarios; i++) {
             
             sentencia = "SELECT username, passwd from usuarios where id = " + i;
             resultSet = statement.executeQuery(sentencia);
@@ -124,14 +123,16 @@ public class RegistroController implements Initializable {
             
             statement = connection.createStatement();
             
-            casino.setUser(username.getText().toString());
+            user = username.getText().toString();
+            
+            casino.setUser(user);
             
             ingreso = 3000;
 
-            sentencia = "INSERT INTO usuarios (username, passwd) VALUES ('" + username + "', '" + passwd + "');";
+            sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ", '" + user + "', '" + passwd + "');";
             statement.executeUpdate(sentencia);
             
-            sentencia = "INSERT INTO puntos VALUES ('" + numeroUsuarios + "', '" + ingreso + "');";
+            sentencia = "INSERT INTO puntos VALUES (" + (numeroUsuarios + 1) + ", '" + ingreso + "');";
             statement.executeUpdate(sentencia);
             
             casino.setPuntos(ingreso, user);
