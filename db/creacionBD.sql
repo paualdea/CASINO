@@ -1,0 +1,12 @@
+CREATE DATABASE CASINO;
+USE CASINO;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+    id INT PRIMARY KEY,
+    usuario varchar(100),
+    passwd varchar(100)
+);
+
+CREATE TABLE IF NOT EXISTS PUNTOS (
+
+);
