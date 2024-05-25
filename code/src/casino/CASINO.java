@@ -59,14 +59,6 @@ public class CASINO {
 
         // creamos una instancia de la clase sistema_ficheros
         Sistema_ficheros datos = new Sistema_ficheros();
-
-        // si el sistema de ficheros es nuevo, recargamos la instancia de la clase Sistema_ficheros
-        if (ficheroNuevo) {
-            // borramos los datos de la instancia
-            datos = null;
-            // recargamos la instancia
-            datos = new Sistema_ficheros();
-        }
         
         // creacion variables para el registro y login
         boolean iniciado = false, ini_juego = false, registrado = false;
