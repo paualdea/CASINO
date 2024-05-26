@@ -70,3 +70,5 @@ El Casino está programado usando una estructura de paquetes y clases que hacen 
 Luego, compilamos todo este código para convertir el proyecto en un fichero _.jar_.
 
 Por último, en los paquetes descargables, implementamos un script (que varía dependiendo del SO) en el que adaptamos la ventana del terminal y ejecutamos el juego para que su visualización sea óptima.
+
+Además, a partir de la versión 5.0.0, administramos los datos usando el SGBD SQLite, que permite almacenar los datos usando una base de datos en lugar de usar simples ficheros de texto almacenados.
