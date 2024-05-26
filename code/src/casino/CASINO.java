@@ -1,8 +1,6 @@
 package casino;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import datos.Sistema_ficheros;
@@ -33,7 +31,7 @@ public class CASINO {
     
     private static String user = "";
     private int puntos = 0;
-    private boolean logueado = false;
+    private static boolean logueado = false;
     private Scanner sc = new Scanner(System.in);
 
     /**
@@ -43,18 +41,15 @@ public class CASINO {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void main(String[] args) throws IOException, InterruptedException, SQLException {
+    public static void main(String[] args) throws IOException, InterruptedException, SQLException {
 
         // creamos una instancia de la clase sistema_ficheros
         Sistema_ficheros datos = new Sistema_ficheros();
         
         // bucle while que crea una instancia de la clase Login para iniciar sesion en nuestro programa
-        while (!logueado){
+        while (true){
             Login login = new Login();
         }
-        
-        // acceso al metodo menujuegos() para seleccionar el juego al que queremos jugar
-        MenuJuegos menujuegos = new MenuJuegos();
     }
 
     /**
@@ -217,9 +212,5 @@ public class CASINO {
     public void setPuntos(int puntos) {
         // ACABAR ESTO
         this.puntos = puntos;
-    }
-
-    public void setLogueado(boolean logueado) {
-        this.logueado = logueado;
     }
 }

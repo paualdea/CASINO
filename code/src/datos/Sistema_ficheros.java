@@ -1,5 +1,6 @@
 package datos;
 
+import casino.CASINO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -20,11 +21,13 @@ import java.sql.SQLException;
  * @author Pau Aldea Batista
  */
 public class Sistema_ficheros {
-    private String url = "jdbc:sqlite:../db/casino.db";
+
+    private String url = null;
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;
-
+    private CASINO casino = new CASINO();
+            
     /**
      * Metodo constructor de este clase. Sirve para crear o/y inicializar el
      * sistema de base de datos que se ha implementado a partir de la version
@@ -33,45 +36,60 @@ public class Sistema_ficheros {
      * @throws java.sql.SQLException
      */
     public Sistema_ficheros() throws SQLException, IOException, InterruptedException {
-        File db = new File("../db/casino.db");
-        ResultSet rSet1 = null;
+        String db_route = "../db/casino.db";
+        File db = new File(db_route);
+        url = "jdbc:sqlite:" + db_route;
+        
+        // cargamos el driver SQLite JDBC
+        try {
+            Class.forName("org.sqlite.JDBC");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        // condificional que nos asegura que el fichero casino.db esta creado
+        if (!db.exists()){
+            db.createNewFile();
+        }
+        
+        // iniciamos la conexion con la base de datos
+        try {
+            connection = DriverManager.getConnection(url);
+            statement = connection.createStatement();
+        } catch (SQLException e) {
+            casino.pantallaDefault();
+            System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
+            Thread.sleep(2500);
+        }
+        
+        // ejecutamos el script de creacion de la base de datos
+        try {
+            // Creamos un array con las sentencias SQL para crear la base de datos 'casino'
+            String[] sentencias = {
+                "CREATE TABLE IF NOT EXISTS usuarios (id INT PRIMARY KEY, usuario VARCHAR(100), passwd VARCHAR(100));",
+                "CREATE TABLE IF NOT EXISTS puntos (id INT PRIMARY KEY, puntos INT, FOREIGN KEY (id) REFERENCES usuarios(id));",
+                "INSERT OR IGNORE INTO usuarios (id, usuario, passwd) VALUES (1, 'paualdea', 'aldea2');",
+                "INSERT OR IGNORE INTO puntos (id, puntos) VALUES (1, 12000);"
+            };
 
-        if (db.exists()) {
-            try {
-                connection = DriverManager.getConnection(url);
-                statement = connection.createStatement();
-                rSet = statement.executeQuery("SELECT * FROM usuarios");
-            } catch (Exception e) {
-                casino.CASINO.pantallaDefault();
-                System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
-                Thread.sleep(2500);
+            // Bucle for para iterar sobre todas las sentencias y ejecutarlas
+            for (int i = 0; i < sentencias.length; i++) {
+                statement.execute(sentencias[i]);
             }
-
-            if (!rSet.next()) {
-                statement.executeUpdate("INSERT INTO usuarios VALUES (1, 'paualdea', 'aldea2')");
-                statement.executeUpdate("INSERT INTO puntos VALUES (1, 12000)");
-            }
-        } else {
-            try {
-                // Creamos un array con las sentencias SQL para crear la base de datos 'casino'
-                String[] sentencias = {
-                    "CREATE DATABASE CASINO;",
-                    "USE CASINO;",
-                    "CREATE TABLE IF NOT EXISTS usuarios (id INT PRIMARY KEY, username varchar(50), passwd varchar(50));",
-                    "CREATE TABLE IF NOT EXISTS puntos (id_usuario int, puntos int, PRIMARY KEY (id_usuario), FOREIGN KEY (id_usuario) REFERENCES usuarios(id));",
-                    "INSERT INTO usuarios (username, passwd) VALUES ('paualdea', 'aldea2');",
-                    "INSERT INTO puntos VALUES (1, 12000);"
-                };
-
-                // Bucle for para iterar sobre todas las sentencias y ejecutarlas
-                for (int i = 0; i < sentencias.length; i++) {
-                    statement.execute(sentencias[i]);
-                }
-            } catch (Exception e) {
-                casino.CASINO.pantallaDefault();
-                System.out.println("ERROR EN LA CREACIÓN DE LA BASE DE DATOS");
-                Thread.sleep(2500);
-            }
+        } catch (Exception e) {
+            casino.pantallaDefault();
+            System.out.println("ERROR EN LA EJECUCION DE LA BASE DE DATOS");
+            Thread.sleep(2500);
         }
     }
+    
+    // Setter y getter
+    public CASINO getCasino() {
+        return casino;
+    }
+
+    public void setCasino(CASINO casino) {
+        this.casino = casino;
+    }
+    
 }

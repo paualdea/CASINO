@@ -1,15 +1,14 @@
 package datos;
 
-import static casino.CASINO.borrarPantalla;
 import static casino.CASINO.pantallaDefault;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import juegos.MenuJuegos;
 
 /**
  * Clase Login. Contiene todo el codigo para manejar el inicio y registro de
@@ -25,10 +24,10 @@ public class Login {
      * @throws java.io.IOException
      * @throws java.lang.InterruptedException
      */
-    public Login() throws IOException, InterruptedException {
+    public Login() throws IOException, InterruptedException, SQLException {
         Scanner sc = new Scanner(System.in);
         int opcion = 0;
-        String user = "", passwd = "", passwd_aux = "";
+        String user = "", passwd = "", passwd_aux = "", sentencia = "", uBD = "root", pBD = "";
 
         // bucle while para seleccionar opciones de inicio en el programa
         while (true) {
@@ -75,6 +74,25 @@ public class Login {
 
         switch (opcion) {
             case 1:
+                int numeroUsuarios = 0;
+                String usuarioSQL = "",
+                 passwdSQL = "";
+
+                // creamos una estructura de control que intenta seleccionar el numero de usuarios que tenemos
+                try {
+                    connection = DriverManager.getConnection(url, uBD, pBD);
+                    statement = connection.createStatement();
+
+                    sentencia = "SELECT COUNT(*) FROM usuarios;";
+                    rSet = statement.executeQuery(sentencia);
+
+                    if (rSet.next()) {
+                        numeroUsuarios = rSet.getInt(1);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 for (int i = 0; i < 2; i++) {
                     // pedimos usuario y password
                     pantallaDefault();
@@ -82,8 +100,25 @@ public class Login {
                     user = sc.next();
                     System.out.print("\n\t\t\t\t   CONTRASENA: ");
                     passwd = sc.next();
-                    
-                                        
+
+                    // bucle for que empieza desde el 1 y comprueba si el usuario y contrasena introducida son validos
+                    for (int j = 1; j <= numeroUsuarios; j++) {
+                        sentencia = "SELECT usuario, passwd from usuarios where id = " + i;
+                        rSet = statement.executeQuery(sentencia);
+
+                        if (rSet.next()) {
+                            usuarioSQL = rSet.getString("usuario");
+                            passwdSQL = rSet.getString("passwd");
+                        }
+
+                        // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
+                        if (user.equals(usuarioSQL) && passwd.equals(passwdSQL)) {
+                            casino.CASINO.setUser(user);
+                            
+                            // acceso al metodo menujuegos() para seleccionar el juego al que queremos jugar
+                            MenuJuegos menujuegos = new MenuJuegos();
+                        }
+                    }
                 }
                 break;
 
@@ -94,7 +129,13 @@ public class Login {
 
                 break;
             case 4:
+                // enviamos un mensaje final por pantalla
+                pantallaDefault();
+                System.out.println("\n\t\t\t\t\tHASTA PRONTO\n");
+                Thread.sleep(3000);
 
+                // mandamos un codigo de salida del programa
+                System.exit(0);
                 break;
         }
     }
