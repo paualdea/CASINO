@@ -17,13 +17,13 @@ import juegos.MenuJuegos;
  * @author Pau Aldea Batista
  */
 public class Login {
-    
+
     private static String user = "", passwd = "", passwd_aux = "", sentencia = "";
     private static Scanner sc = new Scanner(System.in);
     private static ResultSet rSet = null;
     private static Connection connection = null;
     private static Statement statement = null;
-    
+
     /**
      * Metodo constructor de la clase Login
      *
@@ -53,7 +53,7 @@ public class Login {
                 iniciarSesion();
                 break;
             case "2":
-
+                registro();
                 break;
             case "3":
 
@@ -89,6 +89,15 @@ public class Login {
         }
     }
 
+    /**
+     * Funcion para iniciar sesion en el juego del casino. Se comunica con la
+     * base de datos para comprobar que el usuario y contrasenas introducidas
+     * sean validas.
+     *
+     * @throws IOException
+     * @throws InterruptedException
+     * @throws SQLException
+     */
     public static void iniciarSesion() throws IOException, InterruptedException, SQLException {
         boolean usuarioCorrecto = false;
         int numeroUsuarios = 0;
@@ -111,7 +120,7 @@ public class Login {
             System.out.print("\n\t\t\t\t   CONTRASENA: ");
             passwd = sc.next();
 
-            // bucle for que empieza desde el 1 y comprueba si el usuario y contrasena introducida son validos
+            // bucle for que comprueba si el usuario y contrasena introducida son validos
             for (int j = 1; j <= numeroUsuarios; j++) {
                 sentencia = "SELECT usuario, passwd from usuarios where id = " + j;
                 rSet = statement.executeQuery(sentencia);
@@ -129,6 +138,53 @@ public class Login {
                     MenuJuegos menujuegos = new MenuJuegos();
                     usuarioCorrecto = true;
                 }
+            }
+        }
+    }
+
+    /**
+     * Funcion para registrar a un usuario en la base de datos
+     *
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     */
+    public static void registro() throws IOException, InterruptedException, SQLException {
+        boolean usuarioCorrecto = false;
+        int numeroUsuarios = casino.CASINO.numeroUsuarios();
+        
+        conexion();
+        
+        for (int i = 0; i < 3; i++) {
+            if (usuarioCorrecto) {
+                break;
+            }
+            
+            usuarioCorrecto = false;
+            
+            // pedimos usuario, password y confirmacion de password
+            pantallaDefault();
+            System.out.print("\n\n\t\t\t\t   USUARIO: ");
+            user = sc.next();
+            System.out.print("\n\t\t\t\t   CONTRASENA: ");
+            passwd = sc.next();
+            System.out.print("\n\t\t\t\t   CONTRASENA: ");
+            passwd_aux = sc.next();
+
+            sentencia = "SELECT usuario from usuarios where usuario = '" + user + "';";
+            rSet = statement.executeQuery(sentencia);
+            
+            if(!rSet.next() && (passwd.equals(passwd_aux))) {
+                sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ",'" + user + "','" + passwd + "');";
+                statement.executeUpdate(sentencia);
+                System.out.println("\n\t\t\tUSUARIO REGISTRADO\n");
+                Thread.sleep(1500);
+                usuarioCorrecto = true;
+            } else if (rSet.next()) {
+                System.out.println("\n\t\t\tEL USUARIO YA EXISTE\n");
+                Thread.sleep(1500);
+            } else {
+                System.out.println("\n\t\t\tLA PASSWD ES INCORRECTA\n");
+                Thread.sleep(1500);
             }
         }
     }
