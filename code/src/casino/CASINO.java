@@ -1,12 +1,14 @@
 package casino;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 import datos.Sistema_ficheros;
 import datos.Login;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import juegos.*;
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 
 /**
  * .:CASINO:. VERSION: 5.0.0
@@ -53,115 +55,6 @@ public class CASINO {
     }
 
     /**
-     * Metodo con un menu para seleccionar el juego al que queramos jugar Este,
-     * recibe la variable de puntos para poder administrarlo en cada uno de los
-     * juegos posteriormente
-     *
-     * @param puntos
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public void menujuegos(int puntos, Sistema_ficheros datos) throws IOException, InterruptedException {
-        /*
-            Este ArrayList es muy importante. Se trata de un arraylist que vamos usando en cada uno de los juegos que hacemos y para no tener
-            problemas con la actualizacion de los puntos en el metodo menujuegos().
-            Se usa un arraylist porque se puede actualizar sin usar return ni declararlo como estatico en cualquier metodo. Por ello, se podra ver varias 
-            veces el uso de sentencias como puntos.get(0) o puntos.set(0, puntos.get(0) - variable) porque jugaremos unicamente con la primera posicion
-            de este array para aprovechar la propiedad que se ha mencionado anteriormente.
-        
-            Esta propiedad es vigente incluso entre clases.
-         */
-        ArrayList<Integer> puntosPendientes = new ArrayList<>();
-
-        // Añadimos en primera posicion el valor de puntos que hemos recibido del menu de inicio
-        puntosPendientes.add(puntos);
-        int opcionMenu = 0;
-
-        // Mientras que la opcion del meno de juegos no sea 5 (salir del programa), se repite infinitamente el codigo contenido dentro
-        while (opcionMenu != 5) {
-            pantallaDefault();
-            
-            // si nos quedamos con 0 puntos, entonces...
-            if (puntosPendientes.get(0) == 0) {
-                System.out.println("\n\t\t\t\t   TE HAS QUEDADO SIN PUNTOS");
-                Thread.sleep(3000);
-                
-                
-            }
-
-            System.out.println("\n\t PUNTOS: " + puntosPendientes.get(0));
-            System.out.println("\n\t\t\t\t           1. DADOS");
-            System.out.println("\n\t\t\t\t           2. BINGO");
-            System.out.println("\n\t\t\t\t           3. RULETA");
-            System.out.println("\n\t\t\t\t           4. BLACKJACK");
-            System.out.println("\n\t\t\t\t           5. SALIR");
-            System.out.print("\n\n\tQUE QUIERE HACER: ");
-
-            // Estructura de control de errores para asegurar que el programa continua con la ejecucion
-            try {
-                opcionMenu = sc.nextInt();
-            } catch (Exception e) {
-                sc.next();
-                pantallaDefault();
-                System.out.println("\n\t\t\t\t  INTRODUCE UNA OPCION DISPONIBLE");
-                Thread.sleep(1750);
-            }
-
-            // switch para desviar a los metodos de los juegos
-            switch (opcionMenu) {
-                // DADOS
-                case 1:
-                    // creamos una instancia de la clase Dados para poder jugar a los dados
-                    // mandamos el arraylist de los puntos para poder llevar un conteo jugando al juego
-                    Dados dados = new Dados(puntosPendientes);
-                    
-                    // llamamos a la funcion dados() que ejecuta el juego
-                    dados.dados();
-                    break;
-
-                // BINGO
-                case 2:
-                    // creamos una instancia de la clase Bingo (mandamos los puntos a la instancia)
-                    Bingo bingo = new Bingo(puntosPendientes);
-                    
-                    // llamamos a la clase que ejecuta el juego del bingo
-                    bingo.bingo();
-                    break;
-
-                // RULETA
-                case 3:
-                    // creamos una instancia de la clase Ruleta
-                    // mandamos el arraylist de puntosPendientes como argumento para el constructor de la clase
-                    Ruleta ruleta = new Ruleta(puntosPendientes);
-                    
-                    // llamamos a la funcion que ejecuta el juego de la ruleta
-                    ruleta.ruleta();
-                    break;
-                
-                // BLACKJACK
-                case 4:
-                    // creamos una instancia de la clase Blackjack mandando el array de puntos
-                    Blackjack bj = new Blackjack(puntosPendientes);
-                    
-                    // llamamos al metodo de la clase que ejecuta todo el juego
-                    bj.apuestaBlackjack();
-                    break;
-                
-                // SALIR
-                case 5: 
-                    // enviamos un mensaje final por pantalla
-                    pantallaDefault();
-                    System.out.println("\n\t\t\t\t   HASTA PRONTO, " + user + "\n");
-                    Thread.sleep(3000);
-                    
-                    // mandamos un codigo de salida del programa
-                    System.exit(0);
-                    break;
-            }
-        }
-    }
-
-    /**
      * metodo para borrar pantalla tanto en Windows como en Linux y MacOS
      *
      * @throws IOException
@@ -192,6 +85,27 @@ public class CASINO {
     public static void pantallaDefault() throws IOException, InterruptedException {
         borrarPantalla();
         System.out.println(titulo);
+    }
+    
+    public static int numeroUsuarios() {
+        String url = "jdbc:sqlite:../db/casino.db";
+        int numeroUsuarios = 0;
+        
+        try {
+            Connection connection = DriverManager.getConnection(url);
+            Statement statement = connection.createStatement();
+
+            String sentencia = "SELECT COUNT(*) FROM usuarios;";
+            ResultSet rSet = statement.executeQuery(sentencia);
+
+            if (rSet.next()) {
+                numeroUsuarios = rSet.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return numeroUsuarios;
     }
 
     // Getters y Setters
