@@ -20,9 +20,6 @@ public class Login {
 
     private static String user = "", passwd = "", passwd_aux = "", sentencia = "";
     private static Scanner sc = new Scanner(System.in);
-    private static ResultSet rSet = null;
-    private static Connection connection = null;
-    private static Statement statement = null;
 
     /**
      * Metodo constructor de la clase Login
@@ -32,7 +29,9 @@ public class Login {
      */
     public Login() throws IOException, InterruptedException, SQLException {
         String uBD = "root", pBD = "", opcion = "";
-
+        Connection connection = null;
+        Statement statement = null;
+        
         // metodo para mostrar la caberecera prederminada del CASINO
         pantallaDefault();
 
@@ -45,7 +44,7 @@ public class Login {
         opcion = sc.next();
 
         // funcion para realizar la conexion con la base de datos SQLite
-        conexion();
+        conexion(connection, statement);
 
         switch (opcion) {
             case "1":
@@ -75,9 +74,9 @@ public class Login {
         }
     }
 
-    public static void conexion() throws InterruptedException, IOException {
+    public static synchronized void conexion(Connection connection, Statement statement) throws InterruptedException, IOException {
         String url = "jdbc:sqlite:../db/casino.db";
-
+        
         try {
             connection = DriverManager.getConnection(url);
             statement = connection.createStatement();
@@ -99,11 +98,16 @@ public class Login {
      * @throws SQLException
      */
     public static void iniciarSesion() throws IOException, InterruptedException, SQLException {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet rs = null;
         boolean usuarioCorrecto = false;
         int numeroUsuarios = 0;
         String usuarioSQL = "",
                 passwdSQL = "";
-
+        
+        conexion(connection, statement);
+        
         numeroUsuarios = casino.CASINO.numeroUsuarios();
 
         for (int i = 0; i < 3; i++) {
@@ -123,11 +127,11 @@ public class Login {
             // bucle for que comprueba si el usuario y contrasena introducida son validos
             for (int j = 1; j <= numeroUsuarios; j++) {
                 sentencia = "SELECT usuario, passwd from usuarios where id = " + j;
-                rSet = statement.executeQuery(sentencia);
+                rs = statement.executeQuery(sentencia);
 
-                if (rSet.next()) {
-                    usuarioSQL = rSet.getString("usuario");
-                    passwdSQL = rSet.getString("passwd");
+                if (rs.next()) {
+                    usuarioSQL = rs.getString("usuario");
+                    passwdSQL = rs.getString("passwd");
                 }
 
                 // Si el usuario y contrasenas introducidos mediante escaner coinciden en la fila de la iteracion actual...
@@ -151,16 +155,19 @@ public class Login {
     public static void registro() throws IOException, InterruptedException, SQLException {
         boolean usuarioCorrecto = false;
         int numeroUsuarios = casino.CASINO.numeroUsuarios();
-        
-        conexion();
-        
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        conexion(connection, statement);
+
         for (int i = 0; i < 3; i++) {
             if (usuarioCorrecto) {
                 break;
             }
-            
+
             usuarioCorrecto = false;
-            
+
             // pedimos usuario, password y confirmacion de password
             pantallaDefault();
             System.out.print("\n\n\t\t\t\t   USUARIO: ");
@@ -171,19 +178,16 @@ public class Login {
             passwd_aux = sc.next();
 
             sentencia = "SELECT usuario from usuarios where usuario = '" + user + "';";
-            rSet = statement.executeQuery(sentencia);
-            
-            if(!rSet.next() && (passwd.equals(passwd_aux))) {
+            rs = statement.executeQuery(sentencia);
+
+            if (!rs.next() && (passwd.equals(passwd_aux))) {
                 sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ",'" + user + "','" + passwd + "');";
                 statement.executeUpdate(sentencia);
                 System.out.println("\n\t\t\tUSUARIO REGISTRADO\n");
                 Thread.sleep(1500);
                 usuarioCorrecto = true;
-            } else if (rSet.next()) {
-                System.out.println("\n\t\t\tEL USUARIO YA EXISTE\n");
-                Thread.sleep(1500);
             } else {
-                System.out.println("\n\t\t\tLA PASSWD ES INCORRECTA\n");
+                System.out.println("\n\t\t\tERROR EN LA CREACION DEL USUARIO\n");
                 Thread.sleep(1500);
             }
         }
