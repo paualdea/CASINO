@@ -29,9 +29,7 @@ public class Login {
      */
     public Login() throws IOException, InterruptedException, SQLException {
         String uBD = "root", pBD = "", opcion = "";
-        Connection connection = null;
-        Statement statement = null;
-        
+
         // metodo para mostrar la caberecera prederminada del CASINO
         pantallaDefault();
 
@@ -44,7 +42,8 @@ public class Login {
         opcion = sc.next();
 
         // funcion para realizar la conexion con la base de datos SQLite
-        conexion(connection, statement);
+        Connection connection = crearConexion();
+        Statement statement = crearStatement(connection);
 
         switch (opcion) {
             case "1":
@@ -74,11 +73,27 @@ public class Login {
         }
     }
 
-    public static synchronized void conexion(Connection connection, Statement statement) throws InterruptedException, IOException {
+    public static synchronized Connection crearConexion() throws InterruptedException, IOException {
+        Connection connection = null;
         String url = "jdbc:sqlite:../db/casino.db";
-        
+
         try {
             connection = DriverManager.getConnection(url);
+        } catch (Exception e) {
+            casino.CASINO.pantallaDefault();
+            System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
+            Thread.sleep(2500);
+            System.exit(0);
+        }
+
+        return connection;
+    }
+
+    public static synchronized Statement crearStatement(Connection connection) throws InterruptedException, IOException {
+        Statement statement = null;
+        String url = "jdbc:sqlite:../db/casino.db";
+
+        try {
             statement = connection.createStatement();
         } catch (Exception e) {
             casino.CASINO.pantallaDefault();
@@ -86,6 +101,8 @@ public class Login {
             Thread.sleep(2500);
             System.exit(0);
         }
+
+        return statement;
     }
 
     /**
@@ -98,16 +115,14 @@ public class Login {
      * @throws SQLException
      */
     public static void iniciarSesion() throws IOException, InterruptedException, SQLException {
-        Connection connection = null;
-        Statement statement = null;
+        Connection connection = crearConexion();
+        Statement statement = crearStatement(connection);
         ResultSet rs = null;
         boolean usuarioCorrecto = false;
         int numeroUsuarios = 0;
         String usuarioSQL = "",
                 passwdSQL = "";
-        
-        conexion(connection, statement);
-        
+
         numeroUsuarios = casino.CASINO.numeroUsuarios();
 
         for (int i = 0; i < 3; i++) {
@@ -155,11 +170,9 @@ public class Login {
     public static void registro() throws IOException, InterruptedException, SQLException {
         boolean usuarioCorrecto = false;
         int numeroUsuarios = casino.CASINO.numeroUsuarios();
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet rs = null;
-
-        conexion(connection, statement);
+        Connection connection = crearConexion();
+        Statement statement = crearStatement(connection);
+        ResultSet rs = null;22
 
         for (int i = 0; i < 3; i++) {
             if (usuarioCorrecto) {
