@@ -3,34 +3,38 @@ package juegos;
 import static casino.CASINO.borrarPantalla;
 import static casino.CASINO.pantallaDefault;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.Scanner;
 
 /**
  * Clase que contiene todos los metodos para ejecutar el juego de los dados
- * 
+ *
  * @author Pau Aldea Batista
  */
 public class Dados {
+
     // arraylist que contendra los puntos del jugador
-    private static ArrayList<Integer> puntos = new ArrayList<>();
-    
+    private static int puntos = 0;
+    static String user = casino.CASINO.getUser();
+
     /*
         Constructor de la clase Dados que recibe los puntos 
         del jugador como parametro a la hora de crear una instancia
-    */
-    public Dados (ArrayList<Integer> puntosPendientes) {
+     */
+    public Dados(int puntosPendientes) {
         this.puntos = puntosPendientes;
     }
-    
+
     /**
      * Metodo principal del juego de los Dados
      *
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void dados() throws IOException, InterruptedException {
+    public static void dados() throws IOException, InterruptedException, SQLException {
         // objetos y variables necesarias para la ejecucion del juego
         Scanner sc = new Scanner(System.in);
         boolean ganar = false;
@@ -52,13 +56,13 @@ public class Dados {
                 borrarPantalla();
 
                 // si te quedas sin puntos se sale del while
-                if (puntos.get(0) == 0) {
+                if (puntos == 0) {
                     ganar = true;
                 }
 
                 // ponemos el valor de n a cero por si volvemos a jugar, asi evitando errores de lectura de la variable
                 n = 0;
-                
+
                 System.out.println(casino.CASINO.titulo);
                 System.out.print(caraDado[4]);
                 System.out.println("\n\n\t\t\t\t\t   .:DADOS:.");
@@ -104,9 +108,9 @@ public class Dados {
             // bucle do while para obligar al usuario a hacer una apuesta inferior o igual al saldo total disponible
             do {
                 pantallaDefault();
-                System.out.println("\n\tPuntos: " + puntos.get(0));
+                System.out.println("\n\tPuntos: " + puntos);
                 System.out.print("\n\tApuesta: ");
-                
+
                 // estructura de control de errores
                 try {
                     apuesta = sc.nextInt();
@@ -117,28 +121,44 @@ public class Dados {
                     Thread.sleep(850);
                 }
 
-            } while (!(apuesta <= puntos.get(0) && apuesta > 0));
+            } while (!(apuesta <= puntos && apuesta > 0));
 
             // restamos a los puntos del usuario la cantidad apostada
-            puntos.set(0, puntos.get(0) - apuesta);
+            puntos -= apuesta;
+
+            try {
+                Connection connection = casino.CASINO.crearConexion();
+                Statement statement = casino.CASINO.crearStatement(connection);
+                
+                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                statement.executeUpdate(sentencia);
+                
+                connection.close();
+                statement.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+            }
+
             // se llama al metodo para obtener una puntuacion en relacion a la apuesta realizada
             int puntosAdicionales = tirarDados(caraDado, n, apuesta);
 
             // sumamos los puntos ganados
-            puntos.set(0, puntos.get(0) + puntosAdicionales);
+            puntos += puntosAdicionales;
 
             apuesta = 0;
 
             // si nos quedamos sin puntos salimos del bucle while
-            if (puntos.get(0) == 0) {
+            if (puntos == 0) {
                 ganar = true;
             }
         }
     }
 
     /**
-     * Este metodo sirve para generar la tirada de los Dados que da un valor resultante de entre 2 y 12.
-     * Recibe el array caraDado para mostrar el valor de los Dados graficamente
+     * Este metodo sirve para generar la tirada de los Dados que da un valor
+     * resultante de entre 2 y 12. Recibe el array caraDado para mostrar el
+     * valor de los Dados graficamente
      *
      * @param caraDado
      * @param n

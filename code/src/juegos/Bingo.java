@@ -18,7 +18,7 @@ import java.util.Scanner;
  */
 public class Bingo {
     // creamos el ArrayList que almacenara los puntos del jugador de la sesion actual
-    static private ArrayList<Integer> puntos = new ArrayList<>();
+    static private int puntos = 0;
     // creamos lo necesario para que el juego pueda funcionar correctamente (ArrayList y variable booleana)
     static private ArrayList<Integer> numerosBorrar = new ArrayList<>(), indexCol = new ArrayList<>(), bombo = new ArrayList<>(), numerosBingo = new ArrayList<>(), numerosBingoCpu = new ArrayList<>(), numerosBingoUsados = new ArrayList<>();
     static boolean finBingo = false;
@@ -29,7 +29,7 @@ public class Bingo {
         En este, asignamos al arraylist puntosel valor del arraylist que recibimos
         como parametro a la hora de crear una instancia de este objeto.
     */
-    public Bingo(ArrayList<Integer> puntos) {
+    public Bingo(int puntos) {
         this.puntos = puntos;
     }
     
@@ -87,7 +87,7 @@ public class Bingo {
             // bucle while para obligar al usuario a hacer una apuesta por debajo o igual de su saldo maximo disponible
             while (!puntos_c) {
                 pantallaDefault();
-                System.out.println("\n\tPuntos: " + puntos.get(0));
+                System.out.println("\n\tPuntos: " + puntos);
                 System.out.println("\n\t\t\t\t\t.:APUESTA PUNTOS:.");
                 System.out.println("\t\t\t\t\t__________________");
 
@@ -103,8 +103,8 @@ public class Bingo {
                     Thread.sleep(1250);
                 }
 
-                if (apuesta <= puntos.get(0) && apuesta > 0) {
-                    puntos.set(0, puntos.get(0) - apuesta);
+                if (apuesta <= puntos && apuesta > 0) {
+                    puntos -= apuesta;
                     puntos_c = true;
                 }
             }
@@ -426,13 +426,13 @@ public class Bingo {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void resultadoBingo(boolean ganar, boolean ganar_cpu, int apuesta, ArrayList<Integer> puntos) throws IOException, InterruptedException {
+    public static void resultadoBingo(boolean ganar, boolean ganar_cpu, int apuesta, int puntos) throws IOException, InterruptedException {
         // si ganan el ordenador y el jugador hay un empate
         if (ganar_cpu && ganar) {
             // se devuelve al usuario el 80 por ciento del valor apostado
             apuesta *= 0.8;
             // actualizamos los puntos
-            puntos.set(0, puntos.get(0) + apuesta);
+            puntos += apuesta;
 
             pantallaDefault();
             System.out.println("\n\n\t\t\t    EMPATE, AHORA TIENES " + puntos + " PUNTOS");
@@ -443,7 +443,7 @@ public class Bingo {
             // multiplicamos lo apostado por 2
             apuesta *= 2;
             // actualizamos los puntos
-            puntos.set(0, puntos.get(0) + apuesta);
+            puntos += apuesta;
 
             pantallaDefault();
             System.out.println("\n\n\t\t\t    HAS GANADO, AHORA TIENES " + puntos + " PUNTOS");

@@ -18,11 +18,11 @@ import java.util.Scanner;
  */
 public class Blackjack {
     // se crea un arraylist que recibira los puntos de la clase principal CASINO
-    private static ArrayList<Integer> puntos = new ArrayList<>();
+    private static int puntos = 0;
     private static Scanner sc = new Scanner(System.in);
     
     // Constructor clase Blackjack que recibe el arraylist de puntos del jugador
-    public Blackjack(ArrayList<Integer> puntos){
+    public Blackjack(int puntos){
         this.puntos = puntos;
     }
     
@@ -51,8 +51,8 @@ public class Blackjack {
                 System.out.print("\n\tCuantos puntos quieres apostar: ");
                 apuesta = sc.nextInt();
 
-                if (apuesta <= puntos.get(0) && apuesta > 0) {
-                    puntos.set(0, puntos.get(0) - apuesta);
+                if (apuesta <= puntos && apuesta > 0) {
+                    puntos -= apuesta;
                     puntos_c = true;
                 }
             } catch (Exception e) {
@@ -69,13 +69,12 @@ public class Blackjack {
         // dependiendo del numero podemos ver lo que ha ocurrido (ganar, perder o empatar)
         switch (resultado) {
             case 0:
-                puntos.set(0, puntos.get(0) + (apuesta * 0));
                 break;
             case 1:
-                puntos.set(0, puntos.get(0) + (apuesta * 2));
+                puntos += (apuesta * 2);
                 break;
             case 2:
-                puntos.set(0, puntos.get(0) + (apuesta));
+                puntos += (apuesta);
                 break;
         }
 
@@ -86,7 +85,7 @@ public class Blackjack {
         String jug_s;
         
         // si nos quedamos a 0 puntos, salir del juego
-        if (puntos.get(0) == 0) {
+        if (puntos == 0) {
             jug_s = "n";
         } else {
             jug_s = sc.next();

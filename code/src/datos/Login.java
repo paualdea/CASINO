@@ -42,8 +42,8 @@ public class Login {
         opcion = sc.next();
 
         // funcion para realizar la conexion con la base de datos SQLite
-        Connection connection = crearConexion();
-        Statement statement = crearStatement(connection);
+        Connection connection = casino.CASINO.crearConexion();
+        Statement statement = casino.CASINO.crearStatement(connection);
 
         switch (opcion) {
             case "1":
@@ -73,38 +73,6 @@ public class Login {
         }
     }
 
-    public static synchronized Connection crearConexion() throws InterruptedException, IOException {
-        Connection connection = null;
-        String url = "jdbc:sqlite:../db/casino.db";
-
-        try {
-            connection = DriverManager.getConnection(url);
-        } catch (Exception e) {
-            casino.CASINO.pantallaDefault();
-            System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
-            Thread.sleep(2500);
-            System.exit(0);
-        }
-
-        return connection;
-    }
-
-    public static synchronized Statement crearStatement(Connection connection) throws InterruptedException, IOException {
-        Statement statement = null;
-        String url = "jdbc:sqlite:../db/casino.db";
-
-        try {
-            statement = connection.createStatement();
-        } catch (Exception e) {
-            casino.CASINO.pantallaDefault();
-            System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
-            Thread.sleep(2500);
-            System.exit(0);
-        }
-
-        return statement;
-    }
-
     /**
      * Funcion para iniciar sesion en el juego del casino. Se comunica con la
      * base de datos para comprobar que el usuario y contrasenas introducidas
@@ -115,8 +83,8 @@ public class Login {
      * @throws SQLException
      */
     public static void iniciarSesion() throws IOException, InterruptedException, SQLException {
-        Connection connection = crearConexion();
-        Statement statement = crearStatement(connection);
+        Connection connection = casino.CASINO.crearConexion();
+        Statement statement = casino.CASINO.crearStatement(connection);
         ResultSet rs = null;
         boolean usuarioCorrecto = false;
         int numeroUsuarios = 0;
@@ -153,9 +121,11 @@ public class Login {
                 if (user.equals(usuarioSQL) && passwd.equals(passwdSQL)) {
                     casino.CASINO.setUser(user);
 
+                    statement.close();
+                    connection.close();
+                    usuarioCorrecto = true;
                     // acceso al metodo menujuegos() para seleccionar el juego al que queremos jugar
                     MenuJuegos menujuegos = new MenuJuegos();
-                    usuarioCorrecto = true;
                 }
             }
         }
@@ -170,9 +140,9 @@ public class Login {
     public static void registro() throws IOException, InterruptedException, SQLException {
         boolean usuarioCorrecto = false;
         int numeroUsuarios = casino.CASINO.numeroUsuarios();
-        Connection connection = crearConexion();
-        Statement statement = crearStatement(connection);
-        ResultSet rs = null;22
+        Connection connection = casino.CASINO.crearConexion();
+        Statement statement = casino.CASINO.crearStatement(connection);
+        ResultSet rs = null;
 
         for (int i = 0; i < 3; i++) {
             if (usuarioCorrecto) {
@@ -181,22 +151,27 @@ public class Login {
 
             usuarioCorrecto = false;
 
-            // pedimos usuario, password y confirmacion de password
+            // pedimos usuario y password
             pantallaDefault();
             System.out.print("\n\n\t\t\t\t   USUARIO: ");
             user = sc.next();
             System.out.print("\n\t\t\t\t   CONTRASENA: ");
             passwd = sc.next();
-            System.out.print("\n\t\t\t\t   CONTRASENA: ");
-            passwd_aux = sc.next();
 
             sentencia = "SELECT usuario from usuarios where usuario = '" + user + "';";
             rs = statement.executeQuery(sentencia);
 
-            if (!rs.next() && (passwd.equals(passwd_aux))) {
+            if (!rs.next()) {
                 sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ",'" + user + "','" + passwd + "');";
                 statement.executeUpdate(sentencia);
-                System.out.println("\n\t\t\tUSUARIO REGISTRADO\n");
+                sentencia = "INSERT INTO puntos VALUES (" + (numeroUsuarios + 1) + ", 3000);";
+                statement.executeUpdate(sentencia);
+                casino.CASINO.setUser(user);
+
+                statement.close();
+                connection.close();
+
+                System.out.println("\n\t\t\t\t USUARIO REGISTRADO\n");
                 Thread.sleep(1500);
                 usuarioCorrecto = true;
             } else {
@@ -204,5 +179,6 @@ public class Login {
                 Thread.sleep(1500);
             }
         }
+
     }
 }

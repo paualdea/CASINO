@@ -27,7 +27,7 @@ public class Sistema_ficheros {
     private Statement statement = null;
     private ResultSet rSet = null;
     private CASINO casino = new CASINO();
-            
+
     /**
      * Metodo constructor de este clase. Sirve para crear o/y inicializar el
      * sistema de base de datos que se ha implementado a partir de la version
@@ -39,19 +39,19 @@ public class Sistema_ficheros {
         String db_route = "../db/casino.db";
         File db = new File(db_route);
         url = "jdbc:sqlite:" + db_route;
-        
+
         // cargamos el driver SQLite JDBC
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        
+
         // condificional que nos asegura que el fichero casino.db esta creado
-        if (!db.exists()){
+        if (!db.exists()) {
             db.createNewFile();
         }
-        
+
         // iniciamos la conexion con la base de datos
         try {
             connection = DriverManager.getConnection(url);
@@ -61,7 +61,7 @@ public class Sistema_ficheros {
             System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
             Thread.sleep(2500);
         }
-        
+
         // ejecutamos el script de creacion de la base de datos
         try {
             // Creamos un array con las sentencias SQL para crear la base de datos 'casino'
@@ -81,8 +81,11 @@ public class Sistema_ficheros {
             System.out.println("ERROR EN LA EJECUCION DE LA BASE DE DATOS");
             Thread.sleep(2500);
         }
+
+        statement.close();
+        connection.close();
     }
-    
+
     // Setter y getter
     public CASINO getCasino() {
         return casino;
@@ -91,5 +94,5 @@ public class Sistema_ficheros {
     public void setCasino(CASINO casino) {
         this.casino = casino;
     }
-    
+
 }

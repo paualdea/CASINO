@@ -12,11 +12,11 @@ import java.util.Scanner;
  */
 public class Ruleta {
     // Creamos el arraylist que guardara los puntos del usuario
-    private static ArrayList<Integer> puntos = new ArrayList<>();
+    private static int puntos = 0;
     private static Scanner sc = new Scanner(System.in);
     
     // Constructor que recibe los puntos del jugador
-    public Ruleta(ArrayList<Integer> puntosPendientes){
+    public Ruleta(int puntosPendientes){
         this.puntos = puntosPendientes;
     }
     
@@ -33,7 +33,7 @@ public class Ruleta {
         boolean apuesta_c = false, tipo = false, ganar = false;
         // variables para seleccionar las opciones de apuestas en el juego
         int opcion = 0, num = 0, ron = 0, poi = 0, mit = 0, doc = 0, fila = 0, apuesta_n = 0, opcion_r = 0;
-        int apuesta_ron = 0, apuesta_poi = 0, apuesta_mit = 0, apuesta_doc = 0, apuesta_fila = 0, rr_ron = 0, rr_fila = 0, lastnum = 0, puntos_aux = puntos.get(0);
+        int apuesta_ron = 0, apuesta_poi = 0, apuesta_mit = 0, apuesta_doc = 0, apuesta_fila = 0, rr_ron = 0, rr_fila = 0, lastnum = 0, puntos_aux = puntos;
         // arrays para poder diferenciar cada numero y sus caracteristicas (par o impar, rojo o negro, fila1, fila2 o fila3, etc.)
         int[] rojo = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36}, fila1 = {3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36}, fila2 = {2, 5, 8, 11, 14, 17, 20, 23, 26, 29, 32, 35}, fila3 = {1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34};
         // string que contiene el dibujo de la tabla de la ruleta
@@ -48,7 +48,7 @@ public class Ruleta {
             apuestas_b.clear();
 
             // si los puntos del jugador actual son iguales a 0 sale del programa poniendo ganar en true
-            if (puntos.get(0) == 0) {
+            if (puntos == 0) {
                 pantallaDefault();
                 System.out.println("\n\n\tTe has quedado sin puntos, adios.\n");
                 Thread.sleep(2500);
@@ -56,10 +56,10 @@ public class Ruleta {
             }
 
             // si la variable de puntos_aux es mejor a nuestros puntos actuales, significa que hemos ganado, por lo que queremos mostrar cuanto hemos ganado
-            if (puntos_aux < puntos.get(0)) {
+            if (puntos_aux < puntos) {
                 pantallaDefault();
                 System.out.println("\n\t\t\t\t_________________________________");
-                System.out.println("\n\t\t\t\t     HAS GANADO " + (puntos.get(0) - puntos_aux) + " PUNTOS");
+                System.out.println("\n\t\t\t\t     HAS GANADO " + (puntos - puntos_aux) + " PUNTOS");
                 Thread.sleep(2500);
             }
             
@@ -76,7 +76,7 @@ public class Ruleta {
                 pantallaRuleta(tabla, lastnum, numeros, listaApuestas, puntos);
 
                 // si se tienen 0 puntos confirmar la apuesta y salir, en caso contrario, seguir con el programa
-                if (puntos.get(0) == 0) {
+                if (puntos == 0) {
                     opcion = 7;
                 } else {
                     System.out.println("\n\t1. Numero especifico\n\t2. Rojo o negro\n\t3. Par o impar\n\t4. Mitad de tablero\n\t5. Docenas\n\t6. Filas\n\t7. Confirmar\n\t8. Salir");
@@ -380,10 +380,10 @@ public class Ruleta {
             }
 
             // asignar a puntos_aux los puntos actuales del usuario antes de sumarle las apuestas y sus resultados
-            puntos_aux = puntos.get(0);
+            puntos_aux = puntos;
 
             // aÃ±adir los puntos resultantes al arraylist de puntos
-            puntos.set(0, puntos.get(0) + apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila);
+            puntos += apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila;
             // establecer a 0 las apuestas
             apuesta_n = 0; apuesta_ron = 0; apuesta_poi = 0; apuesta_mit = 0; apuesta_doc = 0; apuesta_fila = 0;
         }
@@ -405,7 +405,7 @@ public class Ruleta {
      * @param fila
      * @return
      */
-    public static boolean apuestaRuleta(String tipoApuesta, ArrayList<Integer> puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) throws IOException, InterruptedException {
+    public static boolean apuestaRuleta(String tipoApuesta, int puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) throws IOException, InterruptedException {
         int apuesta = 0;
         String r_ron = "";
         String r_poi = "";
@@ -422,7 +422,7 @@ public class Ruleta {
                 System.out.println("\n\n\tINTRODUCE UN VALOR CORRECTO\n");
                 Thread.sleep(850);
                 pantallaDefault();
-                System.out.println("\n\tPUNTOS: " + puntos.get(0));
+                System.out.println("\n\tPUNTOS: " + puntos);
             }
         }
 
@@ -514,10 +514,10 @@ public class Ruleta {
      * @param apuesta
      * @return
      */
-    public static boolean comprobacionPuntos(ArrayList<Integer> puntos, int apuesta) {
+    public static boolean comprobacionPuntos(int puntos, int apuesta) {
         // si la acpuesta es menor o igual a nuestro saldo maximo y es mayor a 0...
-        if (apuesta <= puntos.get(0) && apuesta > 0) {
-            puntos.set(0, puntos.get(0) - apuesta);
+        if (apuesta <= puntos && apuesta > 0) {
+            puntos -= apuesta;
             return true;
         }
         return false;
@@ -560,7 +560,7 @@ public class Ruleta {
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void pantallaRuleta(String tabla, int lastnum, ArrayList<Integer> numeros, ArrayList<String> listaApuestas, ArrayList<Integer> puntos) throws IOException, InterruptedException {
+    public static void pantallaRuleta(String tabla, int lastnum, ArrayList<Integer> numeros, ArrayList<String> listaApuestas, int puntos) throws IOException, InterruptedException {
         borrarPantalla();
         System.out.println(tabla);
         System.out.println("\n\tNumeros anteriores: " + numeros);
