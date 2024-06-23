@@ -24,46 +24,35 @@ public class MenuJuegos {
             pantallaDefault();
             System.out.print("\n\n\tTE HAS QUEDADO SIN PUNTOS\n\tQUIERES ANADIR MAS PUNTOS (s/n): ");
 
-            try {
-                masPuntos = sc.next();
+            masPuntos = sc.next();
 
-                if (masPuntos.equals("s") || masPuntos.equals("n") || masPuntos.equals("S") || masPuntos.equals("N")) {
-                    while (true) {
-                        if (puntosCorrectos) {
-                            break;
-                        }
-                        
-                        puntosCorrectos = false;
-                        
-                        pantallaDefault();
-                        System.out.print("\n\n\tCUANTOS PUNTOS QUIERES (max. 3000): ");
+            if (masPuntos.equals("s") || masPuntos.equals("n") || masPuntos.equals("S") || masPuntos.equals("N")) {
+                while (true) {
+                    if (puntosCorrectos) {
+                        break;
+                    }
 
-                        try {
-                            puntos = sc.nextInt();
+                    puntosCorrectos = false;
 
-                            if (puntos <= 3000 && puntos > 0) {
-                                Connection connection = casino.CASINO.crearConexion();
-                                Statement statement = casino.CASINO.crearStatement(connection);
-                                
-                                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');";
-                                statement.executeQuery(sentencia);
-                                
-                                statement.close();
-                                connection.close();
-                                
-                                puntosCorrectos = true;
-                            } 
-                        } catch (Exception e) {
-                            System.out.println("\n\tINTRODUCE UNA OPCION VALIDA");
-                            Thread.sleep(2500);
-                        }
+                    pantallaDefault();
+                    System.out.print("\n\n\tCUANTOS PUNTOS QUIERES (max. 3000): ");
+
+                    puntos = sc.nextInt();
+
+                    if (puntos <= 3000 && puntos > 0) {
+                        Connection connection = casino.CASINO.crearConexion();
+                        Statement statement = casino.CASINO.crearStatement(connection);
+
+                        String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');";
+                        statement.executeQuery(sentencia);
+
+                        statement.close();
+                        connection.close();
+
+                        puntosCorrectos = true;
                     }
                 }
-            } catch (Exception e) {
-                System.out.println("\n\tINTRODUCE UNA OPCION VALIDA\n\n\tVOLVIENDO AL INICIO");
-                Thread.sleep(2500);
             }
-
         }
 
         // Mientras que la opcion del meno de juegos no sea 5 (salir del programa), se repite infinitamente el codigo contenido dentro
