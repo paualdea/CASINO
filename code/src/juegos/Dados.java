@@ -93,7 +93,6 @@ public class Dados {
                     }
                     ganar = true;
                     break;
-
                 }
 
             } while (!(n >= 2 && n <= 12));
@@ -129,10 +128,10 @@ public class Dados {
             try {
                 Connection connection = casino.CASINO.crearConexion();
                 Statement statement = casino.CASINO.crearStatement(connection);
-                
+
                 String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
                 statement.executeUpdate(sentencia);
-                
+
                 connection.close();
                 statement.close();
             } catch (Exception e) {
@@ -150,7 +149,21 @@ public class Dados {
 
             // si nos quedamos sin puntos salimos del bucle while
             if (puntos == 0) {
+                pantallaDefault();
+
+                System.out.println("\n\t\t\t\t\tTE HAS QUEDADO SIN PUNTOS");
+                Thread.sleep(1250);
+
+                // animacion de salida del juego
+                String punto = ".";
+                for (int i = 0; i < 3; i++) {
+                    pantallaDefault();
+                    System.out.println("\n\n\t\t\t\t\tSALIENDO" + punto);
+                    punto += ".";
+                    Thread.sleep(450);
+                }
                 ganar = true;
+                break;
             }
         }
     }

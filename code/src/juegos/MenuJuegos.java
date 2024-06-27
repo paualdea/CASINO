@@ -42,9 +42,9 @@ public class MenuJuegos {
                     if (puntos <= 3000 && puntos > 0) {
                         Connection connection = casino.CASINO.crearConexion();
                         Statement statement = casino.CASINO.crearStatement(connection);
-
+                        
                         String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');";
-                        statement.executeQuery(sentencia);
+                        statement.executeUpdate(sentencia);
 
                         statement.close();
                         connection.close();
