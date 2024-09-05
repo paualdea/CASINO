@@ -107,6 +107,8 @@ public class Login {
             System.out.print("\n\t\t\t\t   CONTRASENA: ");
             passwd = sc.next();
 
+            // PENDIENTE DE HACER NOTIFIACION SI LA CONTRASEÑA ES INCORRECTA
+
             // bucle for que comprueba si el usuario y contrasena introducida son validos
             for (int j = 1; j <= numeroUsuarios; j++) {
                 sentencia = "SELECT usuario, passwd from usuarios where id = " + j;
@@ -159,7 +161,7 @@ public class Login {
             passwd = sc.next();
 
             sentencia = "SELECT usuario from usuarios where usuario = '" + user + "';";
-            rs = statement.executeQuery(sentencia);
+                rs = statement.executeQuery(sentencia);
 
             if (!rs.next()) {
                 sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ",'" + user + "','" + passwd + "');";
@@ -175,8 +177,9 @@ public class Login {
                 Thread.sleep(1500);
                 usuarioCorrecto = true;
             } else {
-                System.out.println("\n\t\t\tERROR EN LA CREACION DEL USUARIO\n");
+                System.out.println("\n\t\t\t\tEL USUARIO YA EXISTE\n");
                 Thread.sleep(1500);
+                break;
             }
         }
 
