@@ -3,43 +3,48 @@ package juegos;
 import static casino.CASINO.borrarPantalla;
 import static casino.CASINO.pantallaDefault;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import static juegos.Dados.user;
 
 /**
  * Clase que contiene los metodos para jugar al juego del bingo
- * 
- * Tiene un constructor, el metodo principal del juego, el metodo que crea los cartones, el metodo
- * para hacer la jugada y el metodo que calcula el resultado.
- * 
+ *
+ * Tiene un constructor, el metodo principal del juego, el metodo que crea los
+ * cartones, el metodo para hacer la jugada y el metodo que calcula el
+ * resultado.
+ *
  * @author Pau Aldea Batista
  */
 public class Bingo {
+
     // creamos el ArrayList que almacenara los puntos del jugador de la sesion actual
     static private int puntos = 0;
     // creamos lo necesario para que el juego pueda funcionar correctamente (ArrayList y variable booleana)
     static private ArrayList<Integer> numerosBorrar = new ArrayList<>(), indexCol = new ArrayList<>(), bombo = new ArrayList<>(), numerosBingo = new ArrayList<>(), numerosBingoCpu = new ArrayList<>(), numerosBingoUsados = new ArrayList<>();
     static boolean finBingo = false;
-    
+
     /*
         Constructor bingo
     
         En este, asignamos al arraylist puntosel valor del arraylist que recibimos
         como parametro a la hora de crear una instancia de este objeto.
-    */
+     */
     public Bingo(int puntos) {
         this.puntos = puntos;
     }
-    
+
     /**
      * Metodo principal para el juego del bingo.
      *
      * @throws IOException
      * @throws InterruptedException
      */
-    public static void bingo() throws IOException, InterruptedException {   
+    public static void bingo() throws IOException, InterruptedException {
         finBingo = false;
 
         // vaciamos todos los arraylist estaticos para poder jugar al bingo mas de una vez
@@ -49,7 +54,7 @@ public class Bingo {
         numerosBingo.clear();
         numerosBingoCpu.clear();
         numerosBingoUsados.clear();
-        
+
         Random rd = new Random();
         Scanner sc = new Scanner(System.in);
 
@@ -75,7 +80,7 @@ public class Bingo {
 
             System.out.print("\n\tQuieres jugar un carton? (s/n) ");
             String jugar = sc.next();
-            
+
             // si no recibimos una 's' o 'S' por el escaner salimos del bingo
             if (!(jugar.equals("s") || jugar.equals("S"))) {
                 salir = true;
@@ -106,6 +111,21 @@ public class Bingo {
                 if (apuesta <= puntos && apuesta > 0) {
                     puntos -= apuesta;
                     puntos_c = true;
+
+                    // actualizar los datos en la BD
+                    try {
+                        Connection connection = casino.CASINO.crearConexion();
+                        Statement statement = casino.CASINO.crearStatement(connection);
+
+                        String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                        statement.executeUpdate(sentencia);
+
+                        connection.close();
+                        statement.close();
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+                    }
                 }
             }
 
@@ -118,7 +138,7 @@ public class Bingo {
                     bingocpu[j][i] = bingo[j][i];
                 }
             }
-            
+
             // lo mismo con el arraylist de numeros usados en el carton
             for (int i = 0; i < numerosBingo.size(); i++) {
                 numerosBingoCpu.add(numerosBingo.get(i));
@@ -143,8 +163,7 @@ public class Bingo {
                 // si en el array de resultados esta ganar, ponemos ganar en true
                 if (resultado[i].equals("ganar")) {
                     ganar = true;
-                } 
-                // si en el array de resultados esta ganarcpu, ponemos ganar_cpu en true
+                } // si en el array de resultados esta ganarcpu, ponemos ganar_cpu en true
                 else if (resultado[i].equals("ganarcpu")) {
                     ganar_cpu = true;
                 }
@@ -181,7 +200,7 @@ public class Bingo {
 
             // vaciar arraylist que almacena los numeros que se usan
             numerosBingo.clear();
-            
+
             casillasCreadas = 0;
             fila1 = 0;
             fila2 = 4;
@@ -189,13 +208,13 @@ public class Bingo {
 
             // bucle for para recorrer las filas del carton de bingo
             for (int i = 0; i < bingo.length; i++) {
-                
+
                 // vaciar el indice de columnas y le agregamos el valor 0, 1 y 2
                 indexCol.clear();
                 indexCol.add(0);
                 indexCol.add(1);
                 indexCol.add(2);
-                
+
                 // hacemos una variable aleatorio entre el 0 y el 2
                 numeroFila = rd.nextInt(3);
 
@@ -218,8 +237,7 @@ public class Bingo {
                             if (rd.nextInt(4) + fila1 == 0) {
                                 bingo[i][0] = 1;
                                 numerosBingo.add(bingo[i][0]);
-                            } 
-                            // crear un numero del 0 al 3 y sumarle el valor de fila1 (0, 10, 20, etc)
+                            } // crear un numero del 0 al 3 y sumarle el valor de fila1 (0, 10, 20, etc)
                             else {
                                 bingo[i][0] = rd.nextInt(4) + fila1;
                                 numerosBingo.add(bingo[i][0]);
@@ -239,7 +257,7 @@ public class Bingo {
                             break;
                     }
                 }
-                
+
                 // Sumar 10 a todas las filas (cambio de columna en el carton)
                 fila1 += 10;
                 fila2 += 10;
@@ -254,12 +272,14 @@ public class Bingo {
     }
 
     /**
-     * Juega con los dos cartones verificando sus valores.
-     * Gana el primero que vacie el carton antes de que se termine el bombo
-     * 
-     * En caso de que los dos ganen al mismo tiempo o que se vacie el bombo se queda en empate
-     * 
+     * Juega con los dos cartones verificando sus valores. Gana el primero que
+     * vacie el carton antes de que se termine el bombo
+     *
+     * En caso de que los dos ganen al mismo tiempo o que se vacie el bombo se
+     * queda en empate
+     *
      * Recibe como argumentos los dos arrays (carton bingo y carton bingocpu)
+     *
      * @param bingo
      * @param bingocpu
      * @return
@@ -272,7 +292,7 @@ public class Bingo {
         int numero = 0;
         boolean ganar_cpu = false, perdido = false, ganar = false, finalBingo = false, finalBingocpu = false;
         ArrayList<String> resultado = new ArrayList<>();
-        
+
         // bucle infinito que se rompe cuando acaba el juego actual
         while (true) {
             finalBingo = false;
@@ -312,16 +332,23 @@ public class Bingo {
                 return resultadoArray;
             }
 
+            // Mostrar el numero que sale del bombo
+            try {
+                System.out.println("\n\n\tNUMERO --> [ " + numerosBingoUsados.get(numerosBingoUsados.size() - 1) + " ]");
+            } catch (Exception e) {
+            }
+
             /* 
                 Bucle for para mostrar los ultimos 10 numeros.
                 Contiene una estructura de control de errores por si aun no se han generado 10 numeros del bombo
              */
-            System.out.print("\n\n\tULTIMOS 10 NUMEROS --> ");
+            System.out.print("\n\tULTIMOS 10 NUMEROS --> ");
             try {
                 for (int i = 1; i <= 10; i++) {
-                    System.out.print(" " + numerosBingoUsados.get(numerosBingoUsados.size() - i) + " ");
+                    System.out.print(" " + numerosBingoUsados.get(numerosBingoUsados.size() - (i + 1)) + " ");
                 }
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
 
             // imprimimos la cantidad de bolas restantes en el bingo
             System.out.println("\n\n\tBOMBO --> " + bombo.size());
@@ -408,7 +435,7 @@ public class Bingo {
                 break;
             }
         }
-        
+
         String[] resultadoArray = resultado.toArray(new String[resultado.size()]);
         // devolvemos el array que contiene los resultados de la jugada
         return resultadoArray;
@@ -417,8 +444,10 @@ public class Bingo {
     /**
      * Aqui se calcula el beneficio obtenido por el resultado de la jugada del
      * bingo
-     * 
-     * Recibe como parametros los puntos del usuario, la apuesta que ha realizado y si ha ganado alguien
+     *
+     * Recibe como parametros los puntos del usuario, la apuesta que ha
+     * realizado y si ha ganado alguien
+     *
      * @param ganar
      * @param ganar_cpu
      * @param apuesta
@@ -437,8 +466,7 @@ public class Bingo {
             pantallaDefault();
             System.out.println("\n\n\t\t\t    EMPATE, AHORA TIENES " + puntos + " PUNTOS");
             Thread.sleep(2500);
-        } 
-        // si gana el jugador...
+        } // si gana el jugador...
         else if (ganar && !ganar_cpu) {
             // multiplicamos lo apostado por 2
             apuesta *= 2;
@@ -448,13 +476,28 @@ public class Bingo {
             pantallaDefault();
             System.out.println("\n\n\t\t\t    HAS GANADO, AHORA TIENES " + puntos + " PUNTOS");
             Thread.sleep(2500);
-        } 
-        // si gana el ordenador...
+        } // si gana el ordenador...
         else {
             pantallaDefault();
             System.out.println("\n\n\t\t\t    HAS PERDIDO, TE QUEDAN " + puntos + " PUNTOS");
             Thread.sleep(2500);
         }
+
+        // estructura de control para actualizar los puntos despues de la partida en la BD
+        try {
+            Connection connection = casino.CASINO.crearConexion();
+            Statement statement = casino.CASINO.crearStatement(connection);
+
+            String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+            statement.executeUpdate(sentencia);
+
+            connection.close();
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+        }
+
         // establecemos la variable para salir del juego en true
         finBingo = true;
     }

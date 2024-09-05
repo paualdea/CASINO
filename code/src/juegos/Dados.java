@@ -125,6 +125,7 @@ public class Dados {
             // restamos a los puntos del usuario la cantidad apostada
             puntos -= apuesta;
 
+            // Estructura de control para actualizar los puntos en la BD
             try {
                 Connection connection = casino.CASINO.crearConexion();
                 Statement statement = casino.CASINO.crearStatement(connection);
