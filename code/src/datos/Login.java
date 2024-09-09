@@ -106,9 +106,7 @@ public class Login {
             user = sc.next();
             System.out.print("\n\t\t\t\t   CONTRASENA: ");
             passwd = sc.next();
-
-            // PENDIENTE DE HACER NOTIFIACION SI LA CONTRASEÑA ES INCORRECTA
-
+            
             // bucle for que comprueba si el usuario y contrasena introducida son validos
             for (int j = 1; j <= numeroUsuarios; j++) {
                 sentencia = "SELECT usuario, passwd from usuarios where id = " + j;
@@ -128,6 +126,18 @@ public class Login {
                     usuarioCorrecto = true;
                     // acceso al metodo menujuegos() para seleccionar el juego al que queremos jugar
                     MenuJuegos menujuegos = new MenuJuegos();
+                }
+                // Si el usuario es correcto pero la contrasena no, enseña un error
+                else if (user.equals(usuarioSQL) && !passwd.equals(passwdSQL)) {
+                    System.out.println("\n\t\t\t\t   PASSWORD INCORRECTO");
+                    Thread.sleep(1750);
+                    break;
+                }
+                // Si no existe ni el usuario ni la contrasena, notificar que el usuario no existe
+                else {
+                    System.out.println("\n\t\t\t\t   EL USUARIO NO EXISTE");
+                    Thread.sleep(1750);
+                    break;
                 }
             }
         }
