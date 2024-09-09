@@ -54,7 +54,7 @@ public class Login {
                 registro();
                 break;
             case "3":
-
+                reset();
                 break;
             case "4":
                 // enviamos un mensaje final por pantalla
@@ -193,5 +193,25 @@ public class Login {
             }
         }
 
+    }
+    
+    // ACABAR FUNCION RESETEO BASE DE DATOS
+    
+    /**
+     * Funcion para restablecer los datos predeterminados de la base de datos
+     * 
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException
+     */
+    public static void reset() throws IOException, InterruptedException {
+        String inputReset = "";
+        
+        pantallaDefault();
+        System.out.print("\n\t\tSE VAN A BORRAR TODOS LOS DATOS.\n¿ESTAS SEGURO? (s/n): ");
+        inputReset = sc.next();
+        
+        if (inputReset.equals("s") || inputReset.equals("S")) {
+            
+        }
     }
 }

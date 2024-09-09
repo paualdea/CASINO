@@ -21,11 +21,12 @@ import java.sql.SQLException;
  * @author Pau Aldea Batista
  */
 public class Sistema_ficheros {
-
+    // Creacion de las variables para interactuar con la BD
     private String url = null;
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;
+    
     private CASINO casino = new CASINO();
 
     /**
