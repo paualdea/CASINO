@@ -195,8 +195,6 @@ public class Login {
 
     }
     
-    // ACABAR FUNCION RESETEO BASE DE DATOS
-    
     /**
      * Funcion para restablecer los datos predeterminados de la base de datos
      * 
@@ -211,7 +209,11 @@ public class Login {
         inputReset = sc.next();
         
         if (inputReset.equals("s") || inputReset.equals("S")) {
+            Connection connection = casino.CASINO.crearConexion();
+            Statement statement = casino.CASINO.crearStatement(connection);
+            ResultSet rs = null;
             
+            // CONTINUAR AQUI
         }
     }
 }
