@@ -145,7 +145,22 @@ public class Dados {
 
             // sumamos los puntos ganados
             puntos += puntosAdicionales;
+            
+            // Estructura de control para actualizar los puntos en la BD
+            try {
+                Connection connection = casino.CASINO.crearConexion();
+                Statement statement = casino.CASINO.crearStatement(connection);
 
+                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                statement.executeUpdate(sentencia);
+
+                connection.close();
+                statement.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+            }
+            
             apuesta = 0;
 
             // si nos quedamos sin puntos salimos del bucle while

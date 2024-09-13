@@ -21,12 +21,13 @@ import java.sql.SQLException;
  * @author Pau Aldea Batista
  */
 public class Sistema_ficheros {
+
     // Creacion de las variables para interactuar con la BD
     private String url = null;
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;
-    
+
     private CASINO casino = new CASINO();
 
     /**
@@ -37,31 +38,9 @@ public class Sistema_ficheros {
      * @throws java.sql.SQLException
      */
     public Sistema_ficheros() throws SQLException, IOException, InterruptedException {
-        String db_route = "../db/casino.db";
-        File db = new File(db_route);
-        url = "jdbc:sqlite:" + db_route;
-
-        // cargamos el driver SQLite JDBC
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // condificional que nos asegura que el fichero casino.db esta creado
-        if (!db.exists()) {
-            db.createNewFile();
-        }
-
-        // iniciamos la conexion con la base de datos
-        try {
-            connection = DriverManager.getConnection(url);
-            statement = connection.createStatement();
-        } catch (SQLException e) {
-            casino.pantallaDefault();
-            System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
-            Thread.sleep(2500);
-        }
+        // creamos una conexion y un statement
+        Connection connection = casino.crearConexion();
+        Statement statement = casino.crearStatement(connection);
 
         // ejecutamos el script de creacion de la base de datos
         try {
