@@ -4,6 +4,9 @@ import static casino.CASINO.borrarPantalla;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Clase que contiene los atributos y metodos para ejecutar el juego de la ruleta
