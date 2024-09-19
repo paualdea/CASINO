@@ -307,7 +307,22 @@ public class Ruleta {
                 }
             }
 
-            // a partir de aqui, se genera el numero de la ruleta, y se comprueban las apuesta, devolviendo los respectivos puntos por ellas
+            // una vez confirmada la apuesta, restamos los puntos apostados de la base de datos del usuario
+            try {
+                Connection connection = casino.CASINO.crearConexion();
+                Statement statement = casino.CASINO.crearStatement(connection);
+
+                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                statement.executeUpdate(sentencia);
+
+                connection.close();
+                statement.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+            }
+			
+			// a partir de aqui, se genera el numero de la ruleta, y se comprueban las apuesta, devolviendo los respectivos puntos por ellas
             numero = (int) (Math.random() * 37);
             numeros.add(numero);
             lastnum = numero;
@@ -382,8 +397,24 @@ public class Ruleta {
             // asignar a puntos_aux los puntos actuales del usuario antes de sumarle las apuestas y sus resultados
             puntos_aux = puntos;
 
-            // aÃ±adir los puntos resultantes al arraylist de puntos
+            // anadir los puntos resultantes al arraylist de puntos
             puntos += apuesta_n + apuesta_ron + apuesta_poi + apuesta_mit + apuesta_doc + apuesta_fila;
+			
+			// actualizamos de nuevo los puntos en la BD
+			try {
+                Connection connection = casino.CASINO.crearConexion();
+                Statement statement = casino.CASINO.crearStatement(connection);
+
+                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                statement.executeUpdate(sentencia);
+
+                connection.close();
+                statement.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+            }
+			
             // establecer a 0 las apuestas
             apuesta_n = 0; apuesta_ron = 0; apuesta_poi = 0; apuesta_mit = 0; apuesta_doc = 0; apuesta_fila = 0;
         }
@@ -517,7 +548,7 @@ public class Ruleta {
     public static boolean comprobacionPuntos(int puntos, int apuesta) {
         // si la acpuesta es menor o igual a nuestro saldo maximo y es mayor a 0...
         if (apuesta <= puntos && apuesta > 0) {
-            puntos -= apuesta;
+            puntos -= apuesta;			
             return true;
         }
         return false;
