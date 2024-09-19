@@ -14,6 +14,9 @@ public class Ruleta {
     // Creamos el arraylist que guardara los puntos del usuario
     private static int puntos = 0;
     private static Scanner sc = new Scanner(System.in);
+	
+	// importamos el nombre del usuario de la sesion actual
+	static String user = casino.CASINO.getUser();
     
     // Constructor que recibe los puntos del jugador
     public Ruleta(int puntosPendientes){
