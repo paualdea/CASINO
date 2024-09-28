@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -32,7 +31,7 @@ public class Ruleta {
      * @throws InterruptedException
      * @throws IOException
      */
-    public static void ruleta() throws InterruptedException, IOException {
+    public void ruleta() throws InterruptedException, IOException {
         // Todos los objetos y variables que usamos para la correcta ejecucion del juego de la ruleta
         ArrayList<Integer> numeros = new ArrayList<>(), apuestas_a = new ArrayList<>(), apuestas_b = new ArrayList<>();
         ArrayList<String> listaApuestas = new ArrayList<>();
@@ -328,7 +327,7 @@ public class Ruleta {
                 System.out.println("\n\t ERROR CON LA BASE DE DATOS");
             }
 			
-			// a partir de aqui, se genera el numero de la ruleta, y se comprueban las apuesta, devolviendo los respectivos puntos por ellas
+            // a partir de aqui, se genera el numero de la ruleta, y se comprueban las apuesta, devolviendo los respectivos puntos por ellas
             numero = (int) (Math.random() * 37);
             numeros.add(numero);
             lastnum = numero;
@@ -442,7 +441,7 @@ public class Ruleta {
      * @param fila
      * @return
      */
-    public static boolean apuestaRuleta(String tipoApuesta, int puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) throws IOException, InterruptedException {
+    public boolean apuestaRuleta(String tipoApuesta, int puntos, ArrayList<String> listaApuestas, int num, int ron, int poi, int mit, int doc, int fila, ArrayList<Integer> apuestas_a, ArrayList<Integer> apuestas_b) throws IOException, InterruptedException {
         int apuesta = 0;
         String r_ron = "";
         String r_poi = "";
@@ -472,6 +471,7 @@ public class Ruleta {
                     listaApuestas.add("Numero " + num + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(1);
+                    this.puntos -= apuesta;
                     return true;
                 }
 
@@ -489,6 +489,7 @@ public class Ruleta {
                     listaApuestas.add("Color " + r_ron + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(2);
+                    this.puntos -= apuesta;
                     return true;
                 }
                 return false;
@@ -505,6 +506,7 @@ public class Ruleta {
                     listaApuestas.add("Apuesta a " + r_poi + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(3);
+                    this.puntos -= apuesta;
                     return true;
                 }
                 return false;
@@ -515,6 +517,7 @@ public class Ruleta {
                     listaApuestas.add("Mitad " + mit + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(4);
+                    this.puntos -= apuesta;
                     return true;
                 }
                 return false;
@@ -525,6 +528,7 @@ public class Ruleta {
                     listaApuestas.add("Docena " + doc + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(5);
+                    this.puntos -= apuesta;
                     return true;
                 }
                 return false;
@@ -535,6 +539,7 @@ public class Ruleta {
                     listaApuestas.add("Fila " + fila + " --> Apuesta de " + apuesta + " puntos");
                     apuestas_a.add(apuesta);
                     apuestas_b.add(6);
+                    this.puntos -= apuesta;
                     return true;
                 }
                 return false;
