@@ -124,16 +124,28 @@ public class Login {
             // Si el usuario es correcto pero la contrasena no, enseña un error
             else if (user.equals(usuarioSQL) && !passwd.equals(passwdSQL)) {
                 System.out.println("\n\t\t\t\t   PASSWORD INCORRECTO");
+                usuarioCorrecto = true;
+                statement.close();
+                connection.close();
                 Thread.sleep(1750);
                 break;
             }
             // Si no existe ni el usuario ni la contrasena, notificar que el usuario no existe
             else {
-                System.out.println("\n\t\t\t\t   EL USUARIO NO EXISTE");
-                Thread.sleep(1750);
-                break;
+                usuarioCorrecto = false;
             }
         }
+        
+        // despues de acabar el bucle for cerrar la conexion con la BD
+        statement.close();
+        connection.close();
+        
+        // si despues del for no ha habido ninguna coincidencia enseñar que el usuario no existe
+        if (!usuarioCorrecto) {
+            System.out.println("\n\t\t\t\t   EL USUARIO NO EXISTE");
+            Thread.sleep(1750);
+        }
+        
     }
 
     /**
@@ -157,7 +169,7 @@ public class Login {
         passwd = sc.next();
 
         sentencia = "SELECT usuario from usuarios where usuario = '" + user + "';";
-            rs = statement.executeQuery(sentencia);
+        rs = statement.executeQuery(sentencia);
 
         if (!rs.next()) {
             sentencia = "INSERT INTO usuarios VALUES (" + (numeroUsuarios + 1) + ",'" + user + "','" + passwd + "');";
@@ -174,6 +186,8 @@ public class Login {
             usuarioCorrecto = true;
         } else {
             System.out.println("\n\t\t\t\tEL USUARIO YA EXISTE\n");
+            statement.close();
+            connection.close();
             Thread.sleep(1500);
         }
     }
