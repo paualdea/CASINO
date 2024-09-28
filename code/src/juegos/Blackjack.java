@@ -3,9 +3,12 @@ package juegos;
 import static casino.CASINO.borrarPantalla;
 import static casino.CASINO.pantallaDefault;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import static juegos.Dados.user;
 
 /**
  * Clase para el juego del Blackjack.
@@ -61,6 +64,21 @@ public class Blackjack {
                 System.out.println("\n\n\tINTRODUCE UN VALOR VALIDO");
                 Thread.sleep(850);
             }
+            
+            // actualizando los puntos en la BD
+            try {
+                Connection connection = casino.CASINO.crearConexion();
+                Statement statement = casino.CASINO.crearStatement(connection);
+
+                String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+                statement.executeUpdate(sentencia);
+
+                connection.close();
+                statement.close();
+            } catch (Exception e) {
+                System.out.println(e);
+                System.out.println("\n\t ERROR CON LA BASE DE DATOS");
+            }
         }
 
         // se juega la partida de blackjack esperando un numero por respuesta
@@ -76,6 +94,21 @@ public class Blackjack {
             case 2:
                 puntos += (apuesta);
                 break;
+        }
+        
+        // actualizamos los puntos en la BD
+        try {
+            Connection connection = casino.CASINO.crearConexion();
+            Statement statement = casino.CASINO.crearStatement(connection);
+
+            String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');;";
+            statement.executeUpdate(sentencia);
+
+            connection.close();
+            statement.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("\n\t ERROR CON LA BASE DE DATOS");
         }
 
         // preguntamos si queremos jugar otra partida o no
@@ -340,7 +373,7 @@ public class Blackjack {
         System.out.println("\n\n\t\t\t\t  .:PUNTUACION PLAYER:.\n\t\t\t\t\t   " + puntuacionJugador);
         System.out.println("\n\n\t\t\t\t  .:PUNTUACION DEALER:.\n\t\t\t\t\t   " + puntuacionCasa);
 
-        Thread.sleep(4500);
+        Thread.sleep(3500);
 
         // devolver el resultado de la jugada al metodo principal de apuestas del blackjack
         return resultado;
