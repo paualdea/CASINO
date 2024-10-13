@@ -28,10 +28,9 @@ Actualmente, el proyecto dispone de los siguientes juegos:
 
 A partir de la v4.0.0, se han implementado paquetes descargables para diferentes sistemas operativos.
 
-<img src="img/descarga1.png" alt="descarga">
+<img src="img/descarga.png" alt="descarga">
 
 Seleccionamos la version para nuestro sistema operativo y la descomprimimos.
-
 
 ### Descargar _source code_:
 
