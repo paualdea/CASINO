@@ -13,7 +13,7 @@ CASINO programado en Java
 
 ## Descripción
 
-Casino programado en Java. A partir de la version `6.0.0` el juego del Casino se abre en una GUI usando JavaFX.
+Juego de Casino programado en Java. A partir de la version `6.0.0` el juego del Casino se abre en una GUI usando JavaFX.
 
 Actualmente, el proyecto dispone de los siguientes juegos:
 
