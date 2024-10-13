@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="gui.SinpuntosController">
+   <children>
+      <Text fill="WHITE" layoutX="275.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Te has quedado sin puntos">
+         <font>
+            <Font name="Pixellari" size="44.0" />
+         </font>
+      </Text>
+      <Line endX="23.0" endY="260.0" layoutX="511.0" layoutY="246.0" startX="23.0" startY="-91.0" stroke="WHITE" strokeWidth="4.0" />
+      <Text fill="WHITE" layoutX="143.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Añadir mas?">
+         <font>
+            <Font name="Pixellari" size="44.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nuevosPuntos" layoutX="95.0" layoutY="307.0">
+         <font>
+            <Font name="Pixellari" size="22.0" />
+         </font>
+      </TextField>
+      <Text fill="WHITE" layoutX="345.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="puntos">
+         <font>
+            <Font name="Pixellari" size="38.0" />
+         </font>
+      </Text>
+      <Button fx:id="anadir" layoutX="217.0" layoutY="405.0" mnemonicParsing="false" onAction="#anadirPuntos" style="-fx-font-size: 25px;" stylesheets="@css/boton.css" text="Añadir" />
+      <Text fill="WHITE" layoutX="723.0" layoutY="243.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Salir?">
+         <font>
+            <Font name="Pixellari" size="44.0" />
+         </font>
+      </Text>
+      <Button fx:id="salir" layoutX="736.0" layoutY="315.0" mnemonicParsing="false" onAction="#exit" style="-fx-font-size: 30px;" stylesheets="@css/boton.css" text="Salir" />
+      <Text fx:id="error" fill="RED" layoutX="116.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduce una cantidad válida (menos de 10000)">
+         <font>
+            <Font name="Pixellari" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

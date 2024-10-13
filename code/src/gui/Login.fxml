@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+   <children>
+      <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@css/boton.css" text="Main menu" />
+      <Button fx:id="login" layoutX="791.0" layoutY="378.0" mnemonicParsing="false" onAction="#comprobacionLogin" style="-fx-font-size: 20px;" stylesheets="@css/boton.css" text="Log in" />
+      <Button fx:id="register" layoutX="784.0" layoutY="514.0" mnemonicParsing="false" onAction="#registrarse" prefHeight="31.0" prefWidth="101.0" style="-fx-font-size: 17;" stylesheets="@css/boton.css" text="Sign up" />
+      <TextField fx:id="username" layoutX="740.0" layoutY="192.0" prefHeight="27.0" prefWidth="190.0" />
+      <Text layoutX="740.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="158.341796875">
+         <font>
+            <Font name="Pixellari" size="22.0" />
+         </font>
+      </Text>
+      <Text layoutX="740.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="158.341796875">
+         <font>
+            <Font name="Pixellari" size="22.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="password" layoutX="740.0" layoutY="306.0" prefHeight="27.0" prefWidth="190.0" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="126.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/deck/joker_rojo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="314.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/deck/picasreina.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="493.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/deck/picasas.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="mensaje" fill="#b60000" layoutX="710.0" layoutY="494.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No estas registrado. Registrate">
+         <font>
+            <Font name="Pixellari" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorPasswd" fill="#b60000" layoutX="740.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contraseña incorrecta">
+         <font>
+            <Font name="Pixellari" size="13.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -1,0 +1,18 @@
+.button {
+    -fx-background-color: #7a0027;
+    -fx-border-color: #b60000;
+    -fx-border-width: 4;
+    -fx-text-fill: #feda4e;
+    -fx-font-family: "Pixellari";
+}
+
+.button:hover {
+    -fx-background-color: #590121;
+    -fx-text-fill: #caae3d;
+}
+
+.borde-rojo {
+    -fx-border-color: red;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+}
