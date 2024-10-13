@@ -11,7 +11,7 @@ CASINO programado en Java
  <a href=""><img src="https://img.shields.io/badge/contributors-1-green"></a>
 </p>
 
-## Casino
+## Descripción
 
 Casino programado en Java. A partir de la version `6.0.0` el juego del Casino se abre en una GUI usando JavaFX.
 
@@ -31,6 +31,7 @@ A partir de la v4.0.0, se han implementado paquetes descargables para diferentes
 <img src="img/descarga1.png" alt="descarga">
 
 Seleccionamos la version para nuestro sistema operativo y la descomprimimos.
+
 
 ### Descargar _source code_:
 
