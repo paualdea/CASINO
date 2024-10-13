@@ -1,5 +1,5 @@
 <p align="center">
-<img src="code/src/img/cartel.gif" alt="CASINO POSTER">
+<img src="img/home_screen.png" alt="CASINO POSTER">
 </p>
 
 <p align="center">
@@ -43,10 +43,8 @@ git clone https://github.com/paualdea/CASINO.git
 
 #### Descargar directamente:
 
-<img src="img/descarga.png" alt="descarga">
+Entramos a la [página]([url](https://github.com/paualdea/CASINO)) del repositorio.
 
-Seleccionaremos la versión que queramos descargar (apartado _Releases_).
+<img src="img/sourcecode_git.png" alt="git sourcecode">
 
-<img src="img/paquetes.png" alt="paquetes">
-
-Escogemos el paquete que queramos (_zip_ o _tar.gz_) y los descomprimimos en nuestro sistema.
+Pulsamos sobre el botón **Code** y luego "_Download ZIP_".
