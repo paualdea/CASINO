@@ -103,7 +103,7 @@ public class LoginController implements Initializable {
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException, SQLException {
         // Variables funcion
         boolean usuarioCorrecto = false, contrasenaCorrecto = false;
-        int numeroUsuarios = 0;
+        int numUsuarios = 0;
         String sentencia = "", userBD = "", passwdBD = "";
         
         // Escondemos los errores
@@ -115,45 +115,25 @@ public class LoginController implements Initializable {
         // Almacenamos los valores que hemos introducido
         String user = username.getText();
         String passwd = password.getText();
-
-        // Estructura de control para obtener el numero de usuarios de la base de datos
-        try {
-            connection = casino.crearConexion();
-            statement = casino.crearStatement(connection);
-            
-            // Sentencia SQL para contar el numero de registros de la tabla usuarios
-            sentencia = "SELECT COUNT(*) FROM usuarios;";
-            
-            // Ejecutamos la sentencia
-            rSet = statement.executeQuery(sentencia);
-
-            // Si la sentencia ha dado resultados, almacenarlos en la variable numeroUsuarios
-            if (rSet.next()) {
-                numeroUsuarios = rSet.getInt(1);
-            }
-            
-            // Cerramos el statement y la conexion
-            statement.close();
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        
+        // Obtenemos el numero de usuarios de la BD
+        numUsuarios = casino.numeroUsuarios();
+        
         // Creamos la conexion y statement
         connection = casino.crearConexion();
         statement = casino.crearStatement(connection);
 
         // Bucle for que itera tantas veces como usuarios haya
-        for (int i = 1; i <= numeroUsuarios; i++) {
+        for (int i = 1; i <= numUsuarios; i++) {
 
             // Sentencia SQL que selecciona el usuario y la contraseña en la iteracion del FOR
-            sentencia = "SELECT username, passwd from usuarios where id = " + i;
+            sentencia = "SELECT usuario, passwd from usuarios where id = " + i;
             // Ejecutamos la sentencia
             rSet = statement.executeQuery(sentencia);
 
             // Si la sentencia devuelve valores, almacenarlos
             if (rSet.next()) {
-                userBD = rSet.getString("username");
+                userBD = rSet.getString("usuario");
                 passwdBD = rSet.getString("passwd");
             }
 

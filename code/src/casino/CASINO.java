@@ -3,6 +3,7 @@ package casino;
 import datos.Sistema_ficheros;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -27,6 +28,12 @@ public class CASINO {
     // Creamos las variables privadas de puntos y datos
     private int puntos;
     private Sistema_ficheros datos;
+    
+    // Variables DB
+    private String url = null;
+    private Connection connection = null;
+    private Statement statement = null;
+    private ResultSet rSet = null;
 
     /**
      * Metodo constructor que crea e inicializa el sistema de datos
@@ -73,6 +80,35 @@ public class CASINO {
         return statement;
     }
     
+    public int numeroUsuarios () {
+        int numeroUsuarios = 0;
+
+        // Estructura de control para obtener el numero de usuarios de la base de datos
+        try {
+            connection = crearConexion();
+            statement = crearStatement(connection);
+            
+            // Sentencia SQL para contar el numero de registros de la tabla usuarios
+            String sentencia = "SELECT COUNT(*) FROM usuarios;";
+            
+            // Ejecutamos la sentencia
+            rSet = statement.executeQuery(sentencia);
+
+            // Si la sentencia ha dado resultados, almacenarlos en la variable numeroUsuarios
+            if (rSet.next()) {
+                numeroUsuarios = rSet.getInt(1);
+            }
+            
+            // Cerramos el statement y la conexion
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return numeroUsuarios;
+    }
+    
     // Getters y Setters
     
     public String getUser() {
@@ -88,7 +124,30 @@ public class CASINO {
     }
     
     public int getPuntos(String user) {
-        // hacer esto
-        return 0;
+        // Estructura de control para obtener los puntos del usuario logueado
+        try {
+            // Creamos la conexion y el statement
+            connection = crearConexion();
+            statement = crearStatement(connection);
+
+            // Sentencia SQL para obtener el numero de puntos del usuario logueado
+            String sentencia = "SELECT puntos FROM puntos WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');";
+
+            // Ejecutamos la sentencia
+            rSet = statement.executeQuery(sentencia);
+            
+            // Si la sentencia tiene resultados, guardarlos en la variable puntos
+            if (rSet.next()) {
+                puntos = rSet.getInt(1);
+            }
+            
+            // Cerrar conexion y statment
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return puntos;
     } 
 }

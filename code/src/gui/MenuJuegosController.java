@@ -154,11 +154,5 @@ public class MenuJuegosController implements Initializable {
                 }
             } catch (Exception e) {}
         }
-        
-        try {
-            connection.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(MenuJuegosController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }
