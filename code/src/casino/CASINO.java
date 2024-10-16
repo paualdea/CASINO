@@ -54,6 +54,7 @@ public class CASINO {
         try {
             connection = DriverManager.getConnection(url);
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ERROR EN LA CONEXION A LA BASE DE DATOS");
             System.exit(0);
         }
@@ -80,6 +81,11 @@ public class CASINO {
         return statement;
     }
     
+    /**
+     * Metodo para obetener el numero de usuarios de la BD
+     * 
+     * @return 
+     */
     public int numeroUsuarios () {
         int numeroUsuarios = 0;
 
@@ -120,7 +126,24 @@ public class CASINO {
     }
 
     public void setPuntos(int puntos, String user) {
-        // hacer esto
+        // Estructura de control para actualizar los puntos del user en la BD
+        try {
+            // Creamos la conexion y el statement
+            connection = crearConexion();
+            statement = crearStatement(connection);
+            
+            // Sentencia SQL para actualizar puntos en el registro del usuario indicado
+            String sentencia = "UPDATE puntos SET puntos = " + puntos + " WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "');";
+            
+            // Ejecutamos la sentencia
+            statement.execute(sentencia);
+            
+            // Cerrar conexion y statment
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
     public int getPuntos(String user) {

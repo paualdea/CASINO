@@ -151,7 +151,11 @@ public class LoginController implements Initializable {
                 
                 // Establecemos los puntos en la instancia casino
                 casino.setPuntos(puntos, user);
-
+                
+                // Cerrar conexion y statment
+                statement.close();
+                connection.close();
+                
                 // Cambiamos la pantalla al MenuJuegos
                 Stage stage;
                 Parent root;
@@ -188,7 +192,10 @@ public class LoginController implements Initializable {
             register.setVisible(true);
             mensaje.setVisible(true);
         }
-
+        
+        // Cerrar conexion y statment
+        statement.close();
+        connection.close();
     }
     
     // Esta funcion se ejecuta al pulsar boton Sign up
