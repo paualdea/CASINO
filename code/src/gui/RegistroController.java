@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -88,6 +89,29 @@ public class RegistroController implements Initializable {
                 register.setDisable(true);
             } else {
                 register.setDisable(false);
+            }
+        });
+        
+        // Detectar si se pulso enter para registar el usuario
+        password.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!username.isDisabled() && !password.isDisabled() && !password1.isDisabled()) {
+                    register.fire();
+                }
+            }
+        });
+        username.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!username.isDisabled() && !password.isDisabled() && !password1.isDisabled()) {
+                    register.fire();
+                }
+            }
+        });
+        password1.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!username.isDisabled() && !password.isDisabled() && !password1.isDisabled()) {
+                    register.fire();
+                }
             }
         });
     }

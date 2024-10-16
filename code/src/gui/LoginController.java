@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javafx.scene.input.KeyCode;
 
 public class LoginController implements Initializable {
 
@@ -85,6 +86,22 @@ public class LoginController implements Initializable {
                 login.setDisable(true);
             } else {
                 login.setDisable(false);
+            }
+        });
+        
+        // Detectar si se pulso enter para hacer login
+        password.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!username.isDisabled() && !password.isDisabled()) {
+                    login.fire();
+                }
+            }
+        });
+        username.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!username.isDisabled() && !password.isDisabled()) {
+                    login.fire();
+                }
             }
         });
     }
