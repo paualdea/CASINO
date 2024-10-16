@@ -45,11 +45,16 @@ public class LoginController implements Initializable {
     private int puntos;
     
     // Variables DB
-    private String url = null;
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;
     
+    /**
+     * Funcion inicializacion pagina
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Borramos el error (en caso que haya aparecido anteriormente)
@@ -84,7 +89,12 @@ public class LoginController implements Initializable {
         });
     }
     
-    // Funcion que se ejecuta al pulsar boton Main menu
+    /**
+     * Funcion que se ejecuta al pulsar boton Main menu
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void volverAtras(ActionEvent event) throws IOException {
         Stage stage;
@@ -98,7 +108,14 @@ public class LoginController implements Initializable {
         stage.show();
     }
     
-    // Funcion que se ejecuta al pulsar boton Log in
+    /**
+     * Funcion que se ejecuta al pulsar boton Log in
+     * 
+     * @param event
+     * @throws InterruptedException
+     * @throws IOException
+     * @throws SQLException 
+     */
     @FXML
     void comprobacionLogin(ActionEvent event) throws InterruptedException, IOException, SQLException {
         // Variables funcion
@@ -198,7 +215,12 @@ public class LoginController implements Initializable {
         connection.close();
     }
     
-    // Esta funcion se ejecuta al pulsar boton Sign up
+    /**
+     * Esta funcion se ejecuta al pulsar boton Sign up
+     * 
+     * @param event
+     * @throws IOException 
+     */
     @FXML
     void registrarse(ActionEvent event) throws IOException {
         // Cambiamos a la pantalla de registro
