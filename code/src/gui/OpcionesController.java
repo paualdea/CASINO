@@ -1,5 +1,6 @@
 package gui;
 
+import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +24,9 @@ public class OpcionesController implements Initializable {
     @FXML
     private CheckBox fcheck;
     
+    // Importamos clase CASINO
+    private CASINO casino = Main.getCasino();
+    
     // Variables size base de la ventana
     private final double baseWidth = 1066;
     private final double baseHeight = 600;
@@ -34,6 +38,11 @@ public class OpcionesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
+        // Cambiamos el valor del checkbox en funcion de la variable fullscreen
+        fcheck.setSelected(fullscreen);
     }
     
     /**
@@ -43,14 +52,22 @@ public class OpcionesController implements Initializable {
      */
     @FXML
     void volverAtras(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
-
+        
         stage = (Stage) atras.getScene().getWindow();
         root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
     
@@ -68,12 +85,16 @@ public class OpcionesController implements Initializable {
         // Activa o desactiva la pantalla completa
         if (!stage.isFullScreen()) {
             stage.setFullScreen(true);
+            casino.setFullscreen(true);
+            
+            // Desactiva el mensaje "Pulse ESC para salir del modo pantalla completa"
+            stage.setFullScreenExitHint("");
         } else {
             stage.setFullScreen(false);
+            casino.setFullscreen(false);
         }
         
         if (stage.isFullScreen()) {
-            System.out.println("ha funcionado !!!");
             // Dimensiones actuales de la pantalla en fullscreen
             double screenWidth = stage.getWidth();
             double screenHeight = stage.getHeight();

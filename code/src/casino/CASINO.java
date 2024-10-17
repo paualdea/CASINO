@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javafx.scene.transform.Scale;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
 
 /**
  * CASINO - v6.0.0
@@ -28,6 +31,7 @@ public class CASINO {
     // Creamos las variables privadas de puntos y datos
     private int puntos;
     private Sistema_ficheros datos;
+    private boolean fullscreen = false;
     
     // Variables DB
     private String url = null;
@@ -115,6 +119,28 @@ public class CASINO {
         return numeroUsuarios;
     }
     
+    public void proporcionFullscreen (Stage stage, Parent root, boolean fullscreen) {
+        if (stage.isFullScreen()) {
+            // Dimensiones actuales de la pantalla en fullscreen
+            double screenWidth = stage.getWidth();
+            double screenHeight = stage.getHeight();
+
+            // Calcula la escala basándose en la proporción original
+            double scaleX = screenWidth / 1066;
+            double scaleY = screenHeight / 600;
+
+            // Selecciona el menor de los dos para mantener la proporción
+            double scale = Math.min(scaleX, scaleY);
+
+            // Aplicamos la escala a todo el contenido
+            Scale scaling = new Scale(scale, scale);
+            root.getTransforms().setAll(scaling);
+        } else {
+            // Restablecemos la escala cuando salimos de fullscreen
+            root.getTransforms().clear();
+        }
+    }
+    
     // Getters y Setters
     
     public String getUser() {
@@ -172,5 +198,13 @@ public class CASINO {
         }
         
         return puntos;
-    } 
+    }
+    
+    public void setFullscreen (boolean fullscreen) {
+        this.fullscreen = fullscreen;
+    }
+    
+    public boolean getFullscreen () {
+        return fullscreen;
+    }
 }

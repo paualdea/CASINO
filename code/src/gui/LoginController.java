@@ -114,6 +114,9 @@ public class LoginController implements Initializable {
      */
     @FXML
     void volverAtras(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
 
@@ -122,6 +125,11 @@ public class LoginController implements Initializable {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
     
@@ -191,6 +199,10 @@ public class LoginController implements Initializable {
                 connection.close();
                 
                 // Cambiamos la pantalla al MenuJuegos
+                
+                // Obtenemos variable fullscreen
+                boolean fullscreen = casino.getFullscreen();
+                
                 Stage stage;
                 Parent root;
 
@@ -199,6 +211,11 @@ public class LoginController implements Initializable {
 
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
+                
+                // Si fullscreen esta en true redimensionar todo
+                stage.setFullScreen(fullscreen);
+                casino.proporcionFullscreen(stage, root, fullscreen);
+                
                 stage.show();
                 break;
             // Si el usuario es correcto pero la passw no...
@@ -240,6 +257,9 @@ public class LoginController implements Initializable {
      */
     @FXML
     void registrarse(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+
         // Cambiamos a la pantalla de registro
         Stage stage;
         Parent root;
@@ -247,6 +267,11 @@ public class LoginController implements Initializable {
         root = FXMLLoader.load(getClass().getResource("Registro.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
 }

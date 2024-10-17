@@ -124,6 +124,9 @@ public class RegistroController implements Initializable {
      */
     @FXML
     void volverAtras(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
 
@@ -132,6 +135,11 @@ public class RegistroController implements Initializable {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
     
@@ -220,6 +228,9 @@ public class RegistroController implements Initializable {
             // se vacia la variable user para evitar errores posteriores
             user = "";
             
+            // Obtenemos variable fullscreen
+            boolean fullscreen = casino.getFullscreen();
+
             // Hacemos el cambio de pagina a MenuJuegos
             Stage stage;
             Parent root;
@@ -229,6 +240,11 @@ public class RegistroController implements Initializable {
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
+            
+            // Si fullscreen esta en true redimensionar todo
+            stage.setFullScreen(fullscreen);
+            casino.proporcionFullscreen(stage, root, fullscreen);
+            
             stage.show();
         } 
         // Si la passwd es diferente a la passwd confirmacion, mostrar errores

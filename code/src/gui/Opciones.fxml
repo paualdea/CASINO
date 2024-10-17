@@ -14,7 +14,7 @@
             <Font name="Pixellari" size="54.0" />
          </font>
       </Text>
-      <CheckBox fx:id="fcheck" layoutX="600.0" layoutY="244.0" mnemonicParsing="false" onAction="#fullscreen" />
+      <CheckBox fx:id="fcheck" layoutX="600.0" layoutY="244.0" mnemonicParsing="false" onAction="#fullscreen" stylesheets="@css/checkbox.css" />
       <Text layoutX="450.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullscreen" wrappingWidth="135.7418212890625">
          <font>
             <Font name="Pixellari" size="27.0" />

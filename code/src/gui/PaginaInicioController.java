@@ -35,6 +35,9 @@ public class PaginaInicioController {
     // Funcion que se ejecuta al pulsar sobre boton LOGIN
     @FXML
     private void iniciarSesion() throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
 
@@ -43,12 +46,20 @@ public class PaginaInicioController {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
     
     // Funcion que se ejecuta al pulsar sobre boton SIGN UP
     @FXML
     private void registrarse(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
 
@@ -57,12 +68,20 @@ public class PaginaInicioController {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
     
     // Funcion que se ejecuta al pulsar boton OPTIONS
     @FXML
     void entrarMenu(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
+        
         Stage stage;
         Parent root;
 
@@ -71,6 +90,11 @@ public class PaginaInicioController {
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
         stage.show();
     }
 }
