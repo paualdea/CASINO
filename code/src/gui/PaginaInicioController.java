@@ -62,7 +62,15 @@ public class PaginaInicioController {
     
     // Funcion que se ejecuta al pulsar boton OPTIONS
     @FXML
-    void entrarMenu(ActionEvent event) {
-        // aqui se hace la pantalla de opciones PENDIENTE
+    void entrarMenu(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) signup.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("Opciones.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
