@@ -1,33 +1,14 @@
-/* Estilo del CheckBox cuando está desactivado */
-.check-box {
-    -fx-background-color: #8B0000; /* Fondo del CheckBox desactivado */
-    -fx-border-color: #8B0000;     /* Borde del CheckBox */
-    -fx-border-width: 2px;
-    -fx-border-radius: 0;          /* Elimina el radio para hacer el CheckBox cuadrado */
-    -fx-text-fill: yellow;         /* Color del texto */
-    -fx-font-size: 16px;           /* Tamaño de la fuente */
-    -fx-padding: 5px 10px;
-}
-
-/* Estilo del CheckBox cuando está activado */
-.check-box:selected {
-    -fx-background-color: #8B0000; /* Fondo del CheckBox activado */
-    -fx-border-color: #8B0000;     /* Borde del CheckBox */
-    -fx-border-width: 2px;
-    -fx-border-radius: 0;          /* Elimina el radio para hacer el CheckBox cuadrado */
-    -fx-text-fill: yellow;         /* Color del texto */
-    -fx-font-size: 16px;           /* Tamaño de la fuente */
-    -fx-padding: 5px 10px;
-}
-
-/* Cambiar el estilo del Check "✓" en el CheckBox */
-.check-box:selected .mark {
-    -fx-background-color: yellow;  /* Color del Check dentro del CheckBox */
-    -fx-shape: "M 0 0 L 1 0 L 1 1 L 0 1 Z"; /* Forma cuadrada del CheckBox */
-}
-
-/* Cambiar el estilo del CheckBox cuando no está seleccionado (sin check) */
 .check-box .box {
-    -fx-background-color: transparent;  /* Fondo sin check */
-    -fx-border-color: yellow;           /* Color del borde cuando no está seleccionado */
+    -fx-background-color: #7a0027;
+    -fx-border-color: #b60000;
+    -fx-border-width: 3;  
+}
+
+.check-box:selected .box {
+    -fx-background-color: #7a0027;
+    -fx-border-color: #b60000;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: yellow;
 }
