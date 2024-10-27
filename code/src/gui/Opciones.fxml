@@ -9,15 +9,26 @@
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OpcionesController">
     <children>
       <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@css/boton.css" text="Main menu" />
-      <Text layoutX="350.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="365.341796875">
+      <Text layoutX="366.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="365.341796875">
          <font>
             <Font name="Pixellari" size="54.0" />
          </font>
       </Text>
-      <CheckBox fx:id="fcheck" layoutX="601.0" layoutY="241.0" mnemonicParsing="false" onAction="#fullscreen" stylesheets="@css/checkbox.css" />
-      <Text layoutX="450.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullscreen" wrappingWidth="135.7418212890625">
+      <CheckBox fx:id="fcheck" layoutX="592.0" layoutY="216.0" mnemonicParsing="false" onAction="#fullscreen" stylesheets="@css/checkbox.css" />
+      <Text layoutX="441.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fullscreen" wrappingWidth="135.7418212890625">
          <font>
             <Font name="Pixellari" size="27.0" />
+         </font>
+      </Text>
+      <Text layoutX="441.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reset data" wrappingWidth="135.7418212890625">
+         <font>
+            <Font name="Pixellari" size="27.0" />
+         </font>
+      </Text>
+      <Button fx:id="reset" layoutX="592.0" layoutY="259.0" mnemonicParsing="false" onAction="#resetData" stylesheets="@css/boton.css" text="Reset" />
+      <Text fx:id="warning" fill="RED" layoutX="391.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Click another time to reset database">
+         <font>
+            <Font name="Pixellari" size="20.0" />
          </font>
       </Text>
    </children>
