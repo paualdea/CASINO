@@ -133,16 +133,21 @@ public class MenuJuegosController implements Initializable {
     void juegoDados(ActionEvent event) throws IOException {
         // Si no tenemos puntos, mandar a la pagina Sinpuntos
         if (puntos == 0) {
+            // Obtenemos variable fullscreen
+            boolean fullscreen = casino.getFullscreen();
+
+            // Cambiamos a la pantalla de sinPuntos
             Stage stage;
-            Parent root = null;
-
+            Parent root;
             stage = (Stage) atras.getScene().getWindow();
-            try {
-                root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
-            } catch (Exception e) {}
-
+            root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
+
+            // Si fullscreen esta en true redimensionar todo
+            stage.setFullScreen(fullscreen);
+            casino.proporcionFullscreen(stage, root, fullscreen);
+
             stage.show();
         } 
         // Si tenemos puntos entrar a la pantalla DADOS
