@@ -34,7 +34,6 @@ public class CASINO {
     private boolean fullscreen = false;
     
     // Variables DB
-    private String url = null;
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;

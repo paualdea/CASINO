@@ -191,9 +191,6 @@ public class LoginController implements Initializable {
                 // Establecemos el usuario recibido como el actual de la sesion
                 casino.setUser(user);
                 
-                // Establecemos los puntos en la instancia casino
-                casino.setPuntos(puntos, user);
-                
                 // Cerrar conexion y statment
                 statement.close();
                 connection.close();

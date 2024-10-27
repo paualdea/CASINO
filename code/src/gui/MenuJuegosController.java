@@ -22,137 +22,147 @@ import javafx.stage.Stage;
 
 public class MenuJuegosController implements Initializable {
 
+    // Importar clase CASINO
     private CASINO casino = Main.getCasino();
+    // Obtenemos el usuario actual de la sesion
     private String user = casino.getUser();
-    private int puntos;
+    
+    // Variables BD
     private Connection connection = null;
     private Statement statement = null;
-    private ResultSet resultSet = null;
-    private String sentencia = "";
-    private final String urlBD = "jdbc:mysql://localhost:3306/casino";
-    private final String userBD = "root";
-    private final String passwdBD = "";
+    private ResultSet rSet = null;
 
+    // Elementos graficos con ID
     @FXML
     private Button atras;
-
     @FXML
     private Button dados;
-    
     @FXML
     private Button borrar;
     
-    @FXML
-    void borrarCuenta(ActionEvent event) throws IOException, SQLException {
-        try {
-            connection = DriverManager.getConnection(urlBD, userBD, passwdBD);
-            statement = connection.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        String sentencia = "DELETE FROM puntos WHERE id_usuario = (SELECT id FROM usuarios WHERE username = '" + user + "')";
-        statement.executeUpdate(sentencia);
-        
-        sentencia = "DELETE FROM usuarios WHERE username = '" + user + "'";
-        statement.executeUpdate(sentencia);
-        
-        Stage stage;
-        Parent root;
-
-        stage = (Stage) atras.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    void juegoDados(ActionEvent event) throws IOException {
-
-        if (puntos == 0) {
-            Stage stage;
-            Parent root;
-
-            stage = (Stage) atras.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } else {
-            Stage stage;
-            Parent root;
-
-            stage = (Stage) atras.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("Dados.fxml"));
-
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        }
-    }
-
-    @FXML
-    void volverAtras(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-
-        stage = (Stage) atras.getScene().getWindow();
-        root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
-
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
+    private int puntos = 0;
+    
+    // Funcion inicializadora
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Creamos la conexion y statement
+        connection = casino.crearConexion();
+        statement = casino.crearStatement(connection);
+ 
+        // Obtenemos los puntos del usuario de la sesion actual
+        puntos = casino.getPuntos(user);
+    }
+    
+    /**
+     * Funcion para volver a la pagina de inicio
+     * 
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
+    void volverAtras(ActionEvent event) throws IOException {
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
         
-        try {
-            connection = DriverManager.getConnection(urlBD, userBD, passwdBD);
-            statement = connection.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistroController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Stage stage;
+        Parent root;
+
+        stage = (Stage) atras.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         
-        int numeroUsuarios = 0;
-        String usuarioBD = "";
-        int puntosBD = 0;
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
+        
+        stage.show();
+    }
+    
+    /**
+     * Funcion para borrar la cuenta del usuario actual de la sesion
+     * 
+     * @param event
+     * @throws IOException
+     * @throws SQLException 
+     */
+    @FXML
+    void borrarCuenta(ActionEvent event) throws IOException, SQLException {
+        // Creamos la conexion y statement
+        connection = casino.crearConexion();
+        statement = casino.crearStatement(connection);
+        
+        // Borramos primero el registro de puntos, luego el registro de usuario de la BD
+        String sentencia = "DELETE FROM puntos WHERE id = (SELECT id FROM usuarios WHERE usuario = '" + user + "')";
+        statement.executeUpdate(sentencia);
+        sentencia = "DELETE FROM usuarios WHERE usuario = '" + user + "'";
+        statement.executeUpdate(sentencia);
+        
+        // Cerrar conexion y statment
+        statement.close();
+        connection.close();
+        
+        // Obtenemos variable fullscreen
+        boolean fullscreen = casino.getFullscreen();
 
-        try {
-            statement = connection.createStatement();
+        // Hacemos el cambio de pagina a PaginaInicio
+        Stage stage;
+        Parent root;
 
-            sentencia = "SELECT COUNT(*) FROM usuarios;";
-            resultSet = statement.executeQuery(sentencia);
+        stage = (Stage) atras.getScene().getWindow();
+        root = FXMLLoader.load(getClass().getResource("PaginaInicio.fxml"));
 
-            if (resultSet.next()) {
-                numeroUsuarios = resultSet.getInt(1);
-            }
-            
-            System.out.println(numeroUsuarios);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Si fullscreen esta en true redimensionar todo
+        stage.setFullScreen(fullscreen);
+        casino.proporcionFullscreen(stage, root, fullscreen);
 
-        for (int i = 1; i <= numeroUsuarios; i++) {
+        stage.show();
+    }
+    
+    /**
+     * Funcion que se ejecuta al entrar al juego DADOS
+     * 
+     * @param event
+     * @throws IOException 
+     */
+    @FXML
+    void juegoDados(ActionEvent event) throws IOException {
+        // Si no tenemos puntos, mandar a la pagina Sinpuntos
+        if (puntos == 0) {
+            Stage stage;
+            Parent root = null;
 
+            stage = (Stage) atras.getScene().getWindow();
             try {
-                sentencia = "SELECT username, puntos from usuarios u inner join puntos p on p.id_usuario = u.id where id = " + i;
-                resultSet = statement.executeQuery(sentencia);
-
-                if (resultSet.next()) {
-                    usuarioBD = resultSet.getString("username");
-                    puntosBD = resultSet.getInt("puntos");
-                }
-
-                if (usuarioBD.equals(user)) {
-                    puntos = puntosBD;
-                    casino.setPuntos(puntos, user);
-                }
+                root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
             } catch (Exception e) {}
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } 
+        // Si tenemos puntos entrar a la pantalla DADOS
+        else {
+            // Obtenemos variable fullscreen
+            boolean fullscreen = casino.getFullscreen();
+
+            // Cambiamos a la pantalla de DADOS
+            Stage stage;
+            Parent root;
+            stage = (Stage) atras.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("Dados.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Si fullscreen esta en true redimensionar todo
+            stage.setFullScreen(fullscreen);
+            casino.proporcionFullscreen(stage, root, fullscreen);
+
+            stage.show();
         }
     }
 }
