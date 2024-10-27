@@ -88,7 +88,7 @@ public class MenuJuegosController implements Initializable {
      * @throws SQLException 
      */
     @FXML
-    void borrarCuenta(ActionEvent event) throws IOException, SQLException {
+    void borrarCuenta(ActionEvent event) throws IOException, SQLException, InterruptedException {
         // Creamos la conexion y statement
         connection = casino.crearConexion();
         statement = casino.crearStatement(connection);
@@ -102,6 +102,9 @@ public class MenuJuegosController implements Initializable {
         // Cerrar conexion y statment
         statement.close();
         connection.close();
+        
+        // Ponemos una pausa
+        Thread.sleep(1250);
         
         // Obtenemos variable fullscreen
         boolean fullscreen = casino.getFullscreen();
