@@ -162,7 +162,7 @@ public class MenuJuegosController implements Initializable {
             Stage stage;
             Parent root;
             stage = (Stage) atras.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("Dados.fxml"));
+            root = FXMLLoader.load(getClass().getResource("../juegos/Dados.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
