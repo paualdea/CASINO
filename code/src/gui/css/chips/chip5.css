@@ -1,0 +1,9 @@
+.button {
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../../../img/chips/5.png");
+}
+
+.button:hover {
+    -fx-background-image: url("../../../img/chips/5hover.png");
+}

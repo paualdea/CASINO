@@ -15,7 +15,13 @@
             <Font name="Pixellari" size="56.0" />
          </font>
       </Text>
-      <TextField fx:id="cuadroPuntos1" alignment="CENTER_RIGHT" editable="false" layoutX="22.0" layoutY="476.0" prefHeight="106.0" prefWidth="815.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 20; -fx-text-fill: #feda4e;" />
-      <Button fx:id="one" layoutX="55.0" layoutY="491.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="75.0" style="-fx-background-image: url(@../img/1.png);" />
+      <TextField alignment="CENTER_RIGHT" editable="false" layoutX="22.0" layoutY="476.0" prefHeight="106.0" prefWidth="815.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 20; -fx-text-fill: #feda4e;" />
+      <Button fx:id="one" layoutX="47.0" layoutY="492.0" mnemonicParsing="false" onAction="#oneFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1.css" />
+      <Button fx:id="five" layoutX="161.0" layoutY="492.0" mnemonicParsing="false" onAction="#fiveFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip5.css" />
+      <Button fx:id="ten" layoutX="275.0" layoutY="492.0" mnemonicParsing="false" onAction="#tenFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip10.css" />
+      <Button fx:id="fifty" layoutX="389.0" layoutY="492.0" mnemonicParsing="false" onAction="#fiftyFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip50.css" />
+      <Button fx:id="hundred" layoutX="503.0" layoutY="492.0" mnemonicParsing="false" onAction="#hundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip100.css" />
+      <Button fx:id="fivehundred" layoutX="617.0" layoutY="492.0" mnemonicParsing="false" onAction="#fivehundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip500.css" />
+      <Button fx:id="thousand" layoutX="731.0" layoutY="492.0" mnemonicParsing="false" onAction="#thousandFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1000.css" />
    </children>
 </AnchorPane>

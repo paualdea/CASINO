@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class DadosController implements Initializable {
@@ -22,6 +24,20 @@ public class DadosController implements Initializable {
     private Button atras;
     @FXML
     private TextField cuadroPuntos;
+    @FXML
+    private Button fifty;
+    @FXML
+    private Button five;
+    @FXML
+    private Button fivehundred;
+    @FXML
+    private Button hundred;
+    @FXML
+    private Button one;
+    @FXML
+    private Button ten;
+    @FXML
+    private Button thousand;
     
     // Importamos una instancia de la clase CASINO
     private CASINO casino = Main.getCasino();
@@ -34,7 +50,7 @@ public class DadosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Establecemos los puntos en el marcador
-        cuadroPuntos.setText(puntos + " puntos");
+        cuadroPuntos.setText(puntos + " puntos");    
     }
 
     /**
@@ -60,5 +76,40 @@ public class DadosController implements Initializable {
         casino.proporcionFullscreen(stage, root, fullscreen);
         
         stage.show();
+    }
+    
+    @FXML
+    void oneFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void fiveFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void tenFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void fiftyFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void hundredFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void fivehundredFicha(ActionEvent event) {
+
+    }
+    
+    @FXML
+    void thousandFicha(ActionEvent event) {
+
     }
 }
