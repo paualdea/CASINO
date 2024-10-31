@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -23,5 +24,44 @@
       <Button fx:id="hundred" layoutX="503.0" layoutY="492.0" mnemonicParsing="false" onAction="#hundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip100.css" />
       <Button fx:id="fivehundred" layoutX="617.0" layoutY="492.0" mnemonicParsing="false" onAction="#fivehundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip500.css" />
       <Button fx:id="thousand" layoutX="731.0" layoutY="492.0" mnemonicParsing="false" onAction="#thousandFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1000.css" />
+      <Text fx:id="errorPuntos" fill="RED" layoutX="732.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No tienes suficientes puntos" textAlignment="RIGHT" wrappingWidth="314.0">
+         <font>
+            <Font name="Pixellari" size="20.0" />
+         </font>
+      </Text>
+      <Button fx:id="botonApuesta" layoutX="893.0" layoutY="541.0" mnemonicParsing="false" onAction="#eliminarApuesta" style="-fx-font-size: 13;" stylesheets="@../gui/css/boton.css" text="Eliminar Apuesta">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <TextField fx:id="cuadroApuesta" alignment="CENTER_RIGHT" editable="false" layoutX="881.0" layoutY="481.0" prefHeight="20.0" prefWidth="146.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 17; -fx-text-fill: #feda4e;">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </TextField>
+      <Text layoutX="919.0" layoutY="466.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apuesta">
+         <font>
+            <Font name="Pixellari" size="20.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="dado1" fitHeight="120.0" fitWidth="120.0" layoutX="473.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="dado2" fitHeight="120.0" fitWidth="120.0" layoutX="473.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="tirar" layoutX="697.0" layoutY="264.0" mnemonicParsing="false" onAction="#tirarDados" style="-fx-font-size: 28;" stylesheets="@../gui/css/boton.css" text="TIRAR DADOS" />
+      <TextField fx:id="apuestaNumero" alignment="CENTER" layoutX="171.0" layoutY="271.0" prefHeight="46.0" prefWidth="122.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 25; -fx-text-fill: #feda4e;" />
+      <Text layoutX="82.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¿Qué número va a salir?">
+         <font>
+            <Font name="Pixellari" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="mensajeNumero" layoutX="194.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 - 12" textAlignment="RIGHT">
+         <font>
+            <Font name="Pixellari" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorNumero" fill="RED" layoutX="72.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pon un numero entre 2 y 12" textAlignment="RIGHT">
+         <font>
+            <Font name="Pixellari" size="28.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
