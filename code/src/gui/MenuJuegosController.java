@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class MenuJuegosController implements Initializable {
@@ -31,14 +33,23 @@ public class MenuJuegosController implements Initializable {
     private Connection connection = null;
     private Statement statement = null;
     private ResultSet rSet = null;
+    
+    // Variable posicion
+    private int pos = 0;
 
     // Elementos graficos con ID
     @FXML
     private Button atras;
     @FXML
-    private Button dados;
-    @FXML
     private Button borrar;
+    @FXML
+    private Button boton;
+    @FXML
+    private Button derecha;
+    @FXML
+    private ImageView foto;
+    @FXML
+    private Button izquierda;
     
     private int puntos = 0;
     
@@ -51,6 +62,12 @@ public class MenuJuegosController implements Initializable {
  
         // Obtenemos los puntos del usuario de la sesion actual
         puntos = casino.getPuntos(user);
+        
+        // Establecer foto inicial
+        Image juegoFoto = new Image(getClass().getResourceAsStream("../img/dado.png"));
+        foto.setImage(juegoFoto);
+        // Establecer boton inicial
+        boton.setText("DADOS");
     }
     
     /**
@@ -126,14 +143,24 @@ public class MenuJuegosController implements Initializable {
         stage.show();
     }
     
+    // Funcion que cambian el juego
+    @FXML
+    void derechaJuego(ActionEvent event) {
+        
+    }
+    @FXML
+    void izquierdaJuego(ActionEvent event) {
+        
+    }
+    
     /**
-     * Funcion que se ejecuta al entrar al juego DADOS
+     * Funcion que se ejecuta el juego seleccionado
      * 
      * @param event
      * @throws IOException 
      */
     @FXML
-    void juegoDados(ActionEvent event) throws IOException {
+    void juego(ActionEvent event) throws IOException {
         // Si no tenemos puntos, mandar a la pagina Sinpuntos
         if (puntos == 0) {
             // Obtenemos variable fullscreen
