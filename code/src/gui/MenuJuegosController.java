@@ -56,6 +56,12 @@ public class MenuJuegosController implements Initializable {
     // Funcion inicializadora
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Reiniciamos el contador de posicion
+        pos = 1;
+        
+        //Desactivamos el boton posicion izquierda
+        izquierda.setDisable(true);
+
         // Creamos la conexion y statement
         connection = casino.crearConexion();
         statement = casino.crearStatement(connection);
@@ -146,10 +152,83 @@ public class MenuJuegosController implements Initializable {
     // Funcion que cambian el juego
     @FXML
     void derechaJuego(ActionEvent event) {
+        // Al pulsar boton derecha sumar 1 a posicion
+        pos += 1;
         
+        // Si la posicion es superior a 1 activar el boton izquierda
+        if (pos > 1) {
+            izquierda.setDisable(false);
+        }
+        
+        // Si la posicion es 4 desactivar el boton derecha
+        if (pos == 4) {
+            derecha.setDisable(true);
+        }
+        
+        // Llamamos a la funcion que cambia el juego
+        cambioJuego(pos);
     }
     @FXML
     void izquierdaJuego(ActionEvent event) {
+        // Al pulsar el boton izquierda, restar 1 a la posicion
+        pos -= 1;
+        
+        // Si la posicion es 1 desactivar el boton izquierda
+        if (pos == 1){
+            izquierda.setDisable(true);
+        }
+        
+        // Si la posicion es mas pequeña de 4, activar el boton derecha
+        if (pos < 4) {
+            derecha.setDisable(false);
+        }
+        
+        // Llamamos a la funcion que cambia el juego
+        cambioJuego(pos);
+    }
+    
+    /**
+     * Funcion para cambiar el juego actual del menu de juegos
+     * 
+     * @param pos 
+     */
+    private void cambioJuego(int pos) {
+        // Creamos la imagen
+        Image juegoFoto = null;
+        
+        switch (pos) {
+            case 1:
+                // Establecer foto
+                juegoFoto = new Image(getClass().getResourceAsStream("../img/dado.png"));
+                foto.setImage(juegoFoto);
+                // Cambiamos texto boton
+                boton.setText("DADOS");
+                break;
+            case 2:
+                // Establecer foto
+                juegoFoto = new Image(getClass().getResourceAsStream("../img/carta.png"));
+                foto.setImage(juegoFoto);
+                // Cambiamos texto boton
+                boton.setText("BLACKJACK");
+                break;
+            case 3:
+                // Establecer foto
+                juegoFoto = new Image(getClass().getResourceAsStream("../img/ruleta.png"));
+                foto.setImage(juegoFoto);
+                // Cambiamos texto boton
+                boton.setText("ROULETTE");
+                break;
+            case 4:
+                // Establecer foto
+                juegoFoto = new Image(getClass().getResourceAsStream("../img/bingo.png"));
+                foto.setImage(juegoFoto);
+                // Cambiamos texto boton
+                boton.setText("BINGO");
+                break;
+        }
+
+
+        
         
     }
     
@@ -161,43 +240,56 @@ public class MenuJuegosController implements Initializable {
      */
     @FXML
     void juego(ActionEvent event) throws IOException {
-        // Si no tenemos puntos, mandar a la pagina Sinpuntos
-        if (puntos == 0) {
-            // Obtenemos variable fullscreen
-            boolean fullscreen = casino.getFullscreen();
+        switch (pos) {
+            case 1:
+                // Si no tenemos puntos, mandar a la pagina Sinpuntos
+                if (puntos == 0) {
+                    // Obtenemos variable fullscreen
+                    boolean fullscreen = casino.getFullscreen();
 
-            // Cambiamos a la pantalla de sinPuntos
-            Stage stage;
-            Parent root;
-            stage = (Stage) atras.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+                    // Cambiamos a la pantalla de sinPuntos
+                    Stage stage;
+                    Parent root;
+                    stage = (Stage) atras.getScene().getWindow();
+                    root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
 
-            // Si fullscreen esta en true redimensionar todo
-            stage.setFullScreen(fullscreen);
-            casino.proporcionFullscreen(stage, root, fullscreen);
+                    // Si fullscreen esta en true redimensionar todo
+                    stage.setFullScreen(fullscreen);
+                    casino.proporcionFullscreen(stage, root, fullscreen);
 
-            stage.show();
-        } 
-        // Si tenemos puntos entrar a la pantalla DADOS
-        else {
-            // Obtenemos variable fullscreen
-            boolean fullscreen = casino.getFullscreen();
+                    stage.show();
+                } 
+                // Si tenemos puntos entrar a la pantalla DADOS
+                else {
+                    // Obtenemos variable fullscreen
+                    boolean fullscreen = casino.getFullscreen();
 
-            // Cambiamos a la pantalla de DADOS
-            Stage stage;
-            Parent root;
-            stage = (Stage) atras.getScene().getWindow();
-            root = FXMLLoader.load(getClass().getResource("../juegos/Dados.fxml"));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+                    // Cambiamos a la pantalla de DADOS
+                    Stage stage;
+                    Parent root;
+                    stage = (Stage) atras.getScene().getWindow();
+                    root = FXMLLoader.load(getClass().getResource("../juegos/Dados.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.setScene(scene);
 
-            // Si fullscreen esta en true redimensionar todo
-            stage.setFullScreen(fullscreen);
-            casino.proporcionFullscreen(stage, root, fullscreen);
+                    // Si fullscreen esta en true redimensionar todo
+                    stage.setFullScreen(fullscreen);
+                    casino.proporcionFullscreen(stage, root, fullscreen);
 
-            stage.show();
+                    stage.show();
+                }
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                
+                break;
         }
     }
 }

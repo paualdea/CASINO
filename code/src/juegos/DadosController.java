@@ -137,38 +137,58 @@ public class DadosController implements Initializable {
     
     // Funciones para apostar puntos con los botones de las fichas
     @FXML
-    void oneFicha(ActionEvent event) {
+    void oneFicha(ActionEvent event) throws IOException {
         actualizarPuntos(1);
     }
     @FXML
-    void fiveFicha(ActionEvent event) {
+    void fiveFicha(ActionEvent event) throws IOException {
         actualizarPuntos(5);
     }
     @FXML
-    void tenFicha(ActionEvent event) {
+    void tenFicha(ActionEvent event) throws IOException {
         actualizarPuntos(10);
     }
     @FXML
-    void fiftyFicha(ActionEvent event) {
+    void fiftyFicha(ActionEvent event) throws IOException {
         actualizarPuntos(50);
     }
     @FXML
-    void hundredFicha(ActionEvent event) {
+    void hundredFicha(ActionEvent event) throws IOException {
         actualizarPuntos(100);
     }
     @FXML
-    void fivehundredFicha(ActionEvent event) {
+    void fivehundredFicha(ActionEvent event) throws IOException {
         actualizarPuntos(500);
     }
     @FXML
-    void thousandFicha(ActionEvent event) {
+    void thousandFicha(ActionEvent event) throws IOException {
         actualizarPuntos(1000);
     }
     
     /**
      * Funcion para actualizar los puntos del marcador de la pantalla
      */
-    private void actualizarPuntos (int restarPuntos) {
+    private void actualizarPuntos (int restarPuntos) throws IOException {
+        // Si no tenemos puntos, mandar al menuJuegos
+        if (puntos == 0) {
+            // Obtenemos variable fullscreen
+                boolean fullscreen = casino.getFullscreen();
+
+                // Cambiamos a la pantalla de DADOS
+                Stage stage;
+                Parent root;
+                stage = (Stage) atras.getScene().getWindow();
+                root = FXMLLoader.load(getClass().getResource("../gui/MenuJuegos.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+
+                // Si fullscreen esta en true redimensionar todo
+                stage.setFullScreen(fullscreen);
+                casino.proporcionFullscreen(stage, root, fullscreen);
+
+                stage.show();
+        }
+
         // Escondemos los posibles errores
         errorPuntos.setVisible(false);
         mensajeNumero.setVisible(true);

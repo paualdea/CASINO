@@ -4,23 +4,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="1066.0" style="-fx-background-image: url(&quot;@../../img/tapete.png&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MenuJuegosController">
    <children>
       <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@css/boton.css" text="Main menu" />
-      <ImageView fx:id="foto" fitHeight="169.0" fitWidth="270.0" layoutX="429.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/dado.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="boton" layoutX="461.0" layoutY="419.0" mnemonicParsing="false" onAction="#juego" style="-fx-font-size: 32px;" stylesheets="@css/boton.css" text="DADOS">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+      <StackPane layoutX="342.0" layoutY="148.0" prefHeight="305.0" prefWidth="384.0">
+         <children>
+            <ImageView fx:id="foto" fitHeight="169.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/dado.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
       <Button fx:id="borrar" layoutX="953.0" layoutY="14.0" mnemonicParsing="false" onAction="#borrarCuenta" stylesheets="@css/boton.css" text="Borrar cuenta" />
       <Button fx:id="izquierda" layoutX="82.0" layoutY="275.0" mnemonicParsing="false" onAction="#izquierdaJuego" style="-fx-font-size: 25;" stylesheets="@css/boton.css" text="&lt;" />
       <Button fx:id="derecha" layoutX="926.0" layoutY="276.0" mnemonicParsing="false" onAction="#derechaJuego" style="-fx-font-size: 25;" stylesheets="@css/boton.css" text="&gt;" />
+      <StackPane layoutX="350.0" layoutY="433.0" prefHeight="68.0" prefWidth="367.0">
+         <children>
+            <Button fx:id="boton" mnemonicParsing="false" onAction="#juego" style="-fx-font-size: 32px;" stylesheets="@css/boton.css" text="DADOS">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
