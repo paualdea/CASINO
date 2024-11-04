@@ -4,13 +4,10 @@ import casino.CASINO;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -240,38 +237,42 @@ public class MenuJuegosController implements Initializable {
      */
     @FXML
     void juego(ActionEvent event) throws IOException {
-        switch (pos) {
-            case 1:
-                // Si no tenemos puntos, mandar a la pagina Sinpuntos
-                if (puntos == 0) {
+        // Si no tenemos puntos, mandar a la pagina Sinpuntos
+        if (puntos == 0) {
+            // Obtenemos variable fullscreen
+            boolean fullscreen = casino.getFullscreen();
+
+            // Cambiamos a la pantalla de sinPuntos
+            Stage stage;
+            Parent root;
+            stage = (Stage) atras.getScene().getWindow();
+            root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Si fullscreen esta en true redimensionar todo
+            stage.setFullScreen(fullscreen);
+            casino.proporcionFullscreen(stage, root, fullscreen);
+
+            stage.show();
+        } 
+        
+        // Si hay puntos entrar al juego...
+        else {
+            boolean fullscreen;
+            Stage stage;
+            Parent root;
+            Scene scene;
+            
+            switch (pos) {
+                case 1:
                     // Obtenemos variable fullscreen
-                    boolean fullscreen = casino.getFullscreen();
-
-                    // Cambiamos a la pantalla de sinPuntos
-                    Stage stage;
-                    Parent root;
-                    stage = (Stage) atras.getScene().getWindow();
-                    root = FXMLLoader.load(getClass().getResource("Sinpuntos.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.setScene(scene);
-
-                    // Si fullscreen esta en true redimensionar todo
-                    stage.setFullScreen(fullscreen);
-                    casino.proporcionFullscreen(stage, root, fullscreen);
-
-                    stage.show();
-                } 
-                // Si tenemos puntos entrar a la pantalla DADOS
-                else {
-                    // Obtenemos variable fullscreen
-                    boolean fullscreen = casino.getFullscreen();
+                    fullscreen = casino.getFullscreen();
 
                     // Cambiamos a la pantalla de DADOS
-                    Stage stage;
-                    Parent root;
                     stage = (Stage) atras.getScene().getWindow();
                     root = FXMLLoader.load(getClass().getResource("../juegos/Dados.fxml"));
-                    Scene scene = new Scene(root);
+                    scene = new Scene(root);
                     stage.setScene(scene);
 
                     // Si fullscreen esta en true redimensionar todo
@@ -279,17 +280,30 @@ public class MenuJuegosController implements Initializable {
                     casino.proporcionFullscreen(stage, root, fullscreen);
 
                     stage.show();
-                }
-                break;
-            case 2:
-                
-                break;
-            case 3:
-                
-                break;
-            case 4:
-                
-                break;
+                    break;
+                case 2:
+                    // Obtenemos variable fullscreen
+                    fullscreen = casino.getFullscreen();
+
+                    // Cambiamos a la pantalla de DADOS
+                    stage = (Stage) atras.getScene().getWindow();
+                    root = FXMLLoader.load(getClass().getResource("../juegos/BlackJack.fxml"));
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+
+                    // Si fullscreen esta en true redimensionar todo
+                    stage.setFullScreen(fullscreen);
+                    casino.proporcionFullscreen(stage, root, fullscreen);
+
+                    stage.show();
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
         }
     }
 }

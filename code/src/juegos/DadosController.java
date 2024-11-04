@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -169,26 +171,6 @@ public class DadosController implements Initializable {
      * Funcion para actualizar los puntos del marcador de la pantalla
      */
     private void actualizarPuntos (int restarPuntos) throws IOException {
-        // Si no tenemos puntos, mandar al menuJuegos
-        if (puntos == 0) {
-            // Obtenemos variable fullscreen
-                boolean fullscreen = casino.getFullscreen();
-
-                // Cambiamos a la pantalla de DADOS
-                Stage stage;
-                Parent root;
-                stage = (Stage) atras.getScene().getWindow();
-                root = FXMLLoader.load(getClass().getResource("../gui/MenuJuegos.fxml"));
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-
-                // Si fullscreen esta en true redimensionar todo
-                stage.setFullScreen(fullscreen);
-                casino.proporcionFullscreen(stage, root, fullscreen);
-
-                stage.show();
-        }
-
         // Escondemos los posibles errores
         errorPuntos.setVisible(false);
         mensajeNumero.setVisible(true);
@@ -364,6 +346,34 @@ public class DadosController implements Initializable {
             cuadroPuntos.setText(puntos + " puntos");
             cuadroApuesta.setText(apuesta + "");
             apuestaNumero.setText("");
+            
+            if (puntos == 0) {
+                try {
+                    Thread.sleep(1250);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                // Obtenemos variable fullscreen
+                boolean fullscreen = casino.getFullscreen();
+
+                // Cambiamos a la pantalla de DADOS
+                Stage stage;
+                Parent root = null;
+                stage = (Stage) atras.getScene().getWindow();
+                try {
+                    root = FXMLLoader.load(getClass().getResource("../gui/Sinpuntos.fxml"));
+                } catch (IOException ex) {
+                    Logger.getLogger(DadosController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+
+                // Si fullscreen esta en true redimensionar todo
+                stage.setFullScreen(fullscreen);
+                casino.proporcionFullscreen(stage, root, fullscreen);
+
+                stage.show();
+            }        
         });
 
         timeline.play();
