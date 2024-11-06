@@ -10,20 +10,20 @@
    <children>
       <TextField fx:id="cuadroPuntos" alignment="CENTER_RIGHT" editable="false" layoutX="861.0" layoutY="19.0" prefHeight="36.0" prefWidth="186.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 20; -fx-text-fill: #feda4e;" />
       <Button fx:id="atras" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#volverAtras" stylesheets="@../gui/css/boton.css" text="Main menu" />
-      <TextField alignment="CENTER_RIGHT" editable="false" layoutX="115.0" layoutY="470.0" prefHeight="106.0" prefWidth="838.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 20; -fx-text-fill: #feda4e;" />
-      <Button fx:id="one" layoutX="152.0" layoutY="486.0" mnemonicParsing="false" onAction="#oneFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1.css" />
-      <Button fx:id="five" layoutX="266.0" layoutY="486.0" mnemonicParsing="false" onAction="#fiveFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip5.css" />
-      <Button fx:id="ten" layoutX="380.0" layoutY="486.0" mnemonicParsing="false" onAction="#tenFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip10.css" />
-      <Button fx:id="fifty" layoutX="494.0" layoutY="486.0" mnemonicParsing="false" onAction="#fiftyFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip50.css" />
-      <Button fx:id="hundred" layoutX="608.0" layoutY="486.0" mnemonicParsing="false" onAction="#hundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip100.css" />
-      <Button fx:id="fivehundred" layoutX="722.0" layoutY="486.0" mnemonicParsing="false" onAction="#fivehundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip500.css" />
-      <Button fx:id="thousand" layoutX="836.0" layoutY="486.0" mnemonicParsing="false" onAction="#thousandFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1000.css" />
+      <TextField alignment="CENTER_RIGHT" editable="false" layoutX="29.0" layoutY="469.0" prefHeight="106.0" prefWidth="838.0" style="-fx-background-color: #7a0027; -fx-border-color: #b60000; -fx-border-width: 4; -fx-font-family: Pixellari; -fx-font-size: 20; -fx-text-fill: #feda4e;" />
+      <Button fx:id="one" layoutX="66.0" layoutY="485.0" mnemonicParsing="false" onAction="#oneFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1.css" />
+      <Button fx:id="five" layoutX="180.0" layoutY="485.0" mnemonicParsing="false" onAction="#fiveFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip5.css" />
+      <Button fx:id="ten" layoutX="294.0" layoutY="485.0" mnemonicParsing="false" onAction="#tenFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip10.css" />
+      <Button fx:id="fifty" layoutX="408.0" layoutY="485.0" mnemonicParsing="false" onAction="#fiftyFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip50.css" />
+      <Button fx:id="hundred" layoutX="522.0" layoutY="485.0" mnemonicParsing="false" onAction="#hundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip100.css" />
+      <Button fx:id="fivehundred" layoutX="636.0" layoutY="485.0" mnemonicParsing="false" onAction="#fivehundredFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip500.css" />
+      <Button fx:id="thousand" layoutX="750.0" layoutY="485.0" mnemonicParsing="false" onAction="#thousandFicha" prefHeight="75.0" prefWidth="80.0" style="-fx-background-color: transparent;" stylesheets="@../gui/css/chips/chip1000.css" />
       <Text fx:id="errorPuntos" fill="RED" layoutX="732.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No tienes suficientes puntos" textAlignment="RIGHT" wrappingWidth="314.0">
          <font>
             <Font name="Pixellari" size="20.0" />
          </font>
       </Text>
-      <Button fx:id="botonApuesta" layoutX="451.0" layoutY="300.0" mnemonicParsing="false" onAction="#eliminarApuesta" style="-fx-font-size: 18;" stylesheets="@../gui/css/boton.css" text="Eliminar Apuesta">
+      <Button fx:id="botonApuesta" layoutX="897.0" layoutY="502.0" mnemonicParsing="false" onAction="#eliminarApuesta" style="-fx-font-size: 15;" stylesheets="@../gui/css/boton.css" text="Eliminar Apuesta">
          <font>
             <Font size="14.0" />
          </font>
@@ -38,5 +38,6 @@
             <Font name="Pixellari" size="57.0" />
          </font>
       </Text>
+      <Button fx:id="apostar" layoutX="453.0" layoutY="309.0" mnemonicParsing="false" onAction="#apostarPuntos" prefHeight="54.0" prefWidth="166.0" style="-fx-font-size: 24;" stylesheets="@../gui/css/boton.css" text="APOSTAR" />
    </children>
 </AnchorPane>

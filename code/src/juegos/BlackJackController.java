@@ -41,6 +41,8 @@ public class BlackJackController implements Initializable {
     private Button ten;
     @FXML
     private Button thousand;
+    @FXML
+    private Button apostar;
     
     // Importamos una instancia de la clase CASINO
     private CASINO casino = Main.getCasino();
@@ -170,5 +172,22 @@ public class BlackJackController implements Initializable {
         // Cambiamos el valor de los marcadores
         cuadroPuntos.setText(puntos + " puntos");
         cuadroApuesta.setText(apuesta + "");
+    }
+    
+    /**
+     * Apuesta para restar los puntos y pasar a la pagina de juego
+     * 
+     * @param event 
+     */
+    @FXML
+    void apostarPuntos(ActionEvent event) {
+        // Actualizamos la variable de puntos
+        puntos -= apuesta;
+        
+        // Actualizamos los puntos en la BD
+        casino.setPuntos(puntos, user);
+        
+        // Cambiamos a la pantalla de juego
+        
     }
 }
