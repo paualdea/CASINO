@@ -1,18 +1,14 @@
 package casino;
 
 import datos.Sistema_ficheros;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 
 /**
  * CASINO - v6.0.0
