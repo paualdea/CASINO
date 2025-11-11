@@ -25,7 +25,7 @@ Actualmente, el proyecto dispone de los siguientes juegos:
 
 ### Paquetes descargables
 
-A partir de la v4.0.0, se han implementado paquetes descargables para diferentes sistemas operativos.
+A partir de la `v4.0.0`, se han implementado paquetes descargables para diferentes sistemas operativos.
 
 <img src="img/descarga.png" alt="descarga">
 
